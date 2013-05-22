@@ -15,10 +15,11 @@ if (!defined('APPLICATION_PATH')) {
 /* Каталог библиотек ZEND */
 if (!defined('LIBRARY_PATH')) {
 	if (file_exists(realpath(ROOT_PATH . '/../..') . '/phpLibs')) {
-		define('LIBRARY_PATH', realpath(ROOT_PATH . '/../..' . '/phpLibs'));
-	} else {
-		define('LIBRARY_PATH', realpath(ROOT_PATH . '/library'));
-	}
+            $libraryPath[] = realpath(ROOT_PATH . '/../..' . '/phpLibs');
+        }
+        $libraryPath[] = ROOT_PATH . '/library';
+	define('LIBRARY_PATH', implode(PATH_SEPARATOR, $libraryPath));
+	unset($libraryPath);
 }
 
 

@@ -48,23 +48,25 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	/**
      * 
      */
-	public function setView()
-	{
-	    $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
+    public function setView()
+    {
+        $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
         $viewRenderer->setViewSuffix('php3');
-				
-		$layout = Zend_Layout::getMvcInstance();
-		$url = parse_url($_SERVER['REQUEST_URI']);
-		$url = $url['path'];
-		$url = trim($url, '/');
-		$url = explode('/', $url);
-		
-		if($url[0] == 'admin'){
-			$layout->setLayout('admin');
-		} else {
-			$layout->setLayout('layout');
-		}
-	}    
+        $view = $this->getResource('view');
+        
+        $layout = Zend_Layout::getMvcInstance();
+        $url = parse_url($_SERVER['REQUEST_URI']);
+        $url = $url['path'];
+        $url = trim($url, '/');
+        $url = explode('/', $url);
+
+        if($url[0] == 'admin'){
+                $layout->setLayout('admin');
+        } else {
+                $layout->setLayout('layout');
+        }
+        $view->addHelperPath('Core/View/Helper', 'Core_View_Helper');
+    }    
 
 	public function setDbAdapter()
 	{
@@ -78,36 +80,52 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	{
 	    $router = new Zend_Controller_Router_Rewrite();
 	    //$router->removeDefaultRoutes();
+            
+            $model = new Core_Model_Abstract();
+            
+            $lang = Zend_Registry::get('lang');
+            $l_alias = $lang['alias'];
+            $currencie = Zend_Registry::get('currencie');
+            $c_alias = strtolower($currencie['alias']);
+            
+            
 	    
-	    $path = parse_url($_SERVER['REQUEST_URI']);
-	    $path = $path['path'];
-	    $path = explode('/', trim($path, '/'));
-	    if(empty($path[0])){
-	    	$lang = 'de';
-	    } else {
-	    	$lang = $path[0];
-	    }
-	    Zend_Registry::set('lang', $lang);
-	    include('classes/interface_lang/' . $lang . '.php');
+//	    include('classes/interface_lang/' . $lang . '.php');
 	    
-	    $cache = parse_ini_file('cache.ini');
-	    Zend_Registry::set('cache', $cache['cache']);
-	    
+//	    $cache = parse_ini_file('cache.ini');
+//	    Zend_Registry::set('cache', $cache['cache']);
+//	    
 	  	//session_start();
 	   
-	    
-        
-	    /*  Многоязычность на главной  */
-	    $route = new Zend_Controller_Router_Route_Regex(
-	    	'[a-z]{2}',
+            $rLang = Zend_Registry::get('lang');
+            $rCurrencie = Zend_Registry::get('currencie');
+            
+	    $route = new Zend_Controller_Router_Route(
+	    	':lang/:currencie',
 	    	array(
-	    		'module' => 'default',
+	    	    'module' => 'default',
 	    	    'controller' => 'index',
 	    	    'action'     => 'index',
-	    		'lang' => $lang
+	    	    'lang' => $l_alias,
+	            'currencie' => $c_alias
 	    	)
 	    );
 	    $router->addRoute('index', $route);
+            
+            
+            
+        
+	    /*  Многоязычность на главной  */
+//	    $route = new Zend_Controller_Router_Route_Regex(
+//	    	'[a-z]{2}',
+//	    	array(
+//	    		'module' => 'default',
+//	    	    'controller' => 'index',
+//	    	    'action'     => 'index',
+//	    		'lang' => $lang
+//	    	)
+//	    );
+//	    $router->addRoute('index', $route);
 	    /*-----------------------------*/
 	    
 	    /*  Контактная информация  */

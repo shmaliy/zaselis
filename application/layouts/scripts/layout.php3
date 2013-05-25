@@ -45,29 +45,19 @@ $(function() {
 <body>
 <div class="header">
     <div class="header_resize">
-    	<a class="logo" href="/<?php echo Zend_Registry::get('lang'); ?>"></a>
-    	<?php // echo $this->action('langselector', 'index', 'default'); ?>
-    	<?php // echo $this->action('sitesselector', 'index', 'default'); ?>
-    	<div class="clear"></div>
-    	<?php // echo $this->action('top-menu', 'index', 'menu', array('rootAlias' => 'mainmenu')); ?>
+    	<?php echo $this->Common()->langSelector(); ?>
     </div>
 </div>
 <div class="body">
-	<div class="push1"></div>
-		<div class="wrapper">
-		<?php if (count(explode('/', trim($_SERVER['REQUEST_URI'], '/'))) > 1) : ?>
-			<div class="subpush"></div>
-		<?php endif;?>
-		<?php // echo $this->layout()->content;?>
-		</div>
+    <div class="push1"></div>
+        <div class="wrapper">
+            <?php  echo $this->layout()->content;?>
+        </div>
     <div class="push2"></div>    
 </div>
 <div class="footer">
 	<div class="footer_resize">
-		<?php // echo $this->action('footertext', 'index', 'default'); ?>
-		<?php // echo $this->action('bottom-menu', 'index', 'menu', array('rootAlias' => 'mainmenu')); ?>
-		<div class="clear"></div>
-		<?php // echo $this->action('footercounters', 'index', 'default'); ?>
+		
 	</div>
 </div>
 </body>

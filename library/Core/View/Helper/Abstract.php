@@ -10,7 +10,7 @@ class Core_View_Helper_Abstract extends Zend_View_Helper_Abstract
     public function __construct()
     {
     	$this->_lang = Zend_Registry::get('lang');
-    	$this->_resizer = new Sunny_ImageResizer();
+//    	$this->_resizer = new Sunny_ImageResizer();
         
         require_once 'Zend/Controller/Action/HelperBroker.php';
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');

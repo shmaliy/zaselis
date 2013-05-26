@@ -19,9 +19,6 @@ class IndexController extends Zend_Controller_Action
     {
     	$request = $this->getRequest();
     	$params = $request->getParams();
-        
-        $this->_model->getLanguagesList();
-        $this->_model->getCurrenciesList();
     }
     
     

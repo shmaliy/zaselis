@@ -68,54 +68,112 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $view->addHelperPath('Core/View/Helper', 'Core_View_Helper');
     }    
 
-	public function setDbAdapter()
-	{
-		$db = Zend_Db::factory(new Zend_Config($this->_options['resources']['db']));
-		Zend_Db_Table_Abstract::setDefaultAdapter($db);
-		Zend_Registry::set('db', $db);
-		$db->getConnection();
-	}
+    public function setDbAdapter()
+    {
+            $db = Zend_Db::factory(new Zend_Config($this->_options['resources']['db']));
+            Zend_Db_Table_Abstract::setDefaultAdapter($db);
+            Zend_Registry::set('db', $db);
+            $db->getConnection();
+    }
 	
-	public function setRouter()
-	{
-	    $router = new Zend_Controller_Router_Rewrite();
-	    //$router->removeDefaultRoutes();
-            
-            $model = new Core_Model_Abstract();
-            
-            $lang = Zend_Registry::get('lang');
-            $l_alias = $lang['alias'];
-            $currencie = Zend_Registry::get('currencie');
-            $c_alias = strtolower($currencie['alias']);
-            
-            
-	    
+    public function setRouter()
+    {
+        $router = new Zend_Controller_Router_Rewrite();
+        //$router->removeDefaultRoutes();
+
+        $model = new Core_Model_Abstract();
+
+        $lang = Zend_Registry::get('lang');
+        $l_alias = $lang['alias'];
+        $currencie = Zend_Registry::get('currencie');
+        $c_alias = strtolower($currencie['alias']);
+
+
+
 //	    include('classes/interface_lang/' . $lang . '.php');
-	    
-//	    $cache = parse_ini_file('cache.ini');
+
 //	    Zend_Registry::set('cache', $cache['cache']);
 //	    
-	  	//session_start();
-	   
-            $rLang = Zend_Registry::get('lang');
-            $rCurrencie = Zend_Registry::get('currencie');
-            
-	    $route = new Zend_Controller_Router_Route(
-	    	':lang/:currencie',
-	    	array(
-	    	    'module' => 'default',
-	    	    'controller' => 'index',
-	    	    'action'     => 'index',
-	    	    'lang' => $l_alias,
-	            'currencie' => $c_alias
-	    	)
-	    );
-	    $router->addRoute('index', $route);
-            
-            
-            
+        //session_start();
+
+
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie',
+            array(
+                'module' => 'default',
+                'controller' => 'index',
+                'action'     => 'index',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('index', $route);
+
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/simple-register',
+            array(
+                'module' => 'user',
+                'controller' => 'index',
+                'action'     => 'simple-register',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('simple-register', $route);
         
-	    /*  Многоязычность на главной  */
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/activate/:code',
+            array(
+                'module' => 'user',
+                'controller' => 'index',
+                'action'     => 'user-activate',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('user-activate', $route);
+        
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/auth',
+            array(
+                'module' => 'user',
+                'controller' => 'index',
+                'action'     => 'auth',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('auth', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/logout',
+            array(
+                'module' => 'user',
+                'controller' => 'index',
+                'action'     => 'logout',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('logout', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/restore-password',
+            array(
+                'module' => 'user',
+                'controller' => 'index',
+                'action'     => 'restore-password',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('restore-password', $route);
+
+
+
+        /*  Многоязычность на главной  */
 //	    $route = new Zend_Controller_Router_Route_Regex(
 //	    	'[a-z]{2}',
 //	    	array(
@@ -126,299 +184,299 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 //	    	)
 //	    );
 //	    $router->addRoute('index', $route);
-	    /*-----------------------------*/
-	    
-	    /*  Контактная информация  */
-	    $route = new Zend_Controller_Router_Route(
-	    	':lang/contacts',
-	    	array(
-	    	  	'module' => 'content',
-	    	    'controller' => 'new-index',
-	    	    'action'     => 'contacts',
-	    		'lang' => $lang,
-	        	'cat-alias' => 'contacts'
-	    	)
-	    );
-	    $router->addRoute('contacts', $route);
-	    
-	    
-	    /*  Поиск материалов  */
-	    $route = new Zend_Controller_Router_Route(
-	    	':lang/product-search',
-	    	array(
-	    	  	'module' => 'production',
-	    	    'controller' => 'index',
-	    	    'action'     => 'select-by-other-brand',
-	    		'lang' => $lang
-	    	)
-	    );
-	    $router->addRoute('product-search', $route);
-	    
-	    /*  Области применения главная  */
-	    $route = new Zend_Controller_Router_Route(
-	    	':lang/deliveryforms.html',
-	    	array(
-	        	'module' => 'content',
-	    	    'controller' => 'new-index',
-	    	    'action'     => 'static-content-item',
-	    		'lang' => $lang,
-        		'2' => 'deliveryforms'
-	    	)
-	    );
-	    $router->addRoute('deliveryforms', $route);
-        
-		/* Статический контент */
-		$route = new Zend_Controller_Router_Route_Regex(
-        	'([^.]+)+\/([^.]+).html',
-        	array(
-	            'module' => 'content',
-	    	   	'controller' => 'new-index',
-	    	   	'action'     => 'static-content-item',
-				'lang' => $lang
-            )
-        );
-        $router->addRoute('static', $route);
-        
-        
-        
-        
-        /*  Новости главная  */
-        $route = new Zend_Controller_Router_Route(
-        	':lang/news',
-        	array(
-            	'module' => 'content',
-                'controller' => 'new-index',
-                'action'     => 'news-index',
-        		'lang' => $lang,
-        		'alias' => 'news'
-       		)
-        );
-        $router->addRoute('news-index', $route);
-        
-        /*  Новости элемент  */
-        $route = new Zend_Controller_Router_Route(
-        	':lang/news/:id',
-        	array(
-            	'module' => 'content',
-                'controller' => 'new-index',
-                'action'     => 'news-item',
-                'lang' => $lang
-        	)
-        );
-        $router->addRoute('news-item', $route);
-        
-        /*  Ajax news  */
-        $route = new Zend_Controller_Router_Route(
-        	'content/new-index/last-news/*',
-        	array(
-               	'module' => 'content',
-                'controller' => 'new-index',
-                'action'     => 'last-news',
-            )
-        );
-        $router->addRoute('ajax-last-news', $route);
-        
-        /*  Ajax support  */
-        $route = new Zend_Controller_Router_Route(
-        	':lang/support',
-        	array(
-               	'module' => 'default',
-                'controller' => 'index',
-                'action'     => 'support',
-        		'lang' => $lang
-        	)
-        );
-        $router->addRoute('ajax-support', $route);
-        
-        /*  Ajax news  */
-        $route = new Zend_Controller_Router_Route(
-        	'content/new-index/last-reference/*',
-        	array(
-            	'module' => 'content',
-                'controller' => 'new-index',
-               	'action'     => 'last-reference',
-        	)
-        );
-        $router->addRoute('ajax-last-ref', $route);
-        
-        
-        /*  Области применения главная  */
-        $route = new Zend_Controller_Router_Route(
-        	':lang/areas_of_use',
-	        array(
-	        	'module' => 'content',
-	            'controller' => 'new-index',
-	            'action'     => 'areas-of-use-index',
-	            'lang' => $lang,
-	            'alias' => 'areas_of_use'
-	        )
-        );
-        $router->addRoute('areas-of-use-index', $route);
-        
-        /*  Области применения главная  */
-        $route = new Zend_Controller_Router_Route(
-        	':lang/areas_of_use/:id',
-        	array(
-        	   	'module' => 'content',
-        	    'controller' => 'new-index',
-        	    'action'     => 'areas-item',
-        	    'lang' => $lang,
-        	    'alias' => 'areas_of_use'
-        	)
-        );
-        $router->addRoute('areas-of-use-item', $route);
-        
+        /*-----------------------------*/
 
-        
-        
-        /*  Справка главная  */
-        $route = new Zend_Controller_Router_Route(
-        	':lang/reference',
-        	array(
-        		'module' => 'content',
-        	    'controller' => 'new-index',
-        	    'action'     => 'reference-category',
-        	    'lang' => $lang,
-        	    'alias' => 'reference'
-        	)
-        );
-        $router->addRoute('reference-category', $route);
-        
-        /*  Формы поставки главная  */
-        $route = new Zend_Controller_Router_Route(
-        	':lang/forms-of-supply',
-        	array(
-            	'module' => 'default',
-                'controller' => 'index',
-                'action'     => 'index',
-                'lang' => $lang,
-                'alias' => 'reference'
-        	)
-        );
-        $router->addRoute('forms-of-supply-category', $route);
-        
-        /*  Формы поставки просмотр  */
-        $route = new Zend_Controller_Router_Route(
-        	':lang/forms-of-supply/:id',
-        	array(
-              	'module' => 'default',
-                'controller' => 'index',
-                'action'     => 'index',
-                'lang' => $lang,
-                'alias' => 'reference'
-        	)
-        );
-        $router->addRoute('forms-of-supply-view', $route);
-        
-        /*  Справка главная  */
-        $route = new Zend_Controller_Router_Route(
-        	':lang/reference/:cat',
-        	array(
-            	'module' => 'content',
-                'controller' => 'new-index',
-                'action'     => 'reference-index',
-            	'lang' => $lang,
-                'alias' => 'reference'
-        	)
-        );
-        $router->addRoute('reference-index', $route);
-        
-        /*  Новости элемент  */
-        $route = new Zend_Controller_Router_Route(
-        	':lang/reference/:cat/:id',
-        	array(
-               	'module' => 'content',
-                'controller' => 'new-index',
-                'action'     => 'reference-item',
-                'lang' => $lang
-        	)
-        );
-        $router->addRoute('reference-item', $route);
-        
-        
-        /*  Продукция главная  */
-        $route = new Zend_Controller_Router_Route(
-        	':lang/production',
-       		array(
-            	'module' => 'production',
-                'controller' => 'index',
-                'action'     => 'index',
-                'lang' => $lang,
-                'alias' => 'production'
-        	)
-        );
-        $router->addRoute('production-index', $route);
-        
-        /*  Продукция подкатегория  */
-        $route = new Zend_Controller_Router_Route(
-        	':lang/production/:cat_alias/:subcat_alias',
-        	array(
-              	'module' => 'production',
-               	'controller' => 'index',
-                'action'     => 'category',
-                'lang' => $lang,
-                'alias' => 'production'
-        	)
-        );
-        $router->addRoute('production-index-subcat', $route);
-        
-        /*  Продукция категория  */
-        $route = new Zend_Controller_Router_Route(
-        	':lang/production/:cat_alias',
-        	array(
-               	'module' => 'production',
-            	'controller' => 'index',
-                'action'     => 'category',
-                'lang' => $lang,
-                'alias' => 'production',
-        		'cat-alias' => $cat_alias
-        	)
-        );
-        $router->addRoute('production-index-cat', $route);
-        
-        
-        
-        
-        /*  Управление кешированием*/
-        $route = new Zend_Controller_Router_Route(
-        	':lang/cachemanager/:mode',
-        array(
-        	'module' => 'default',
-        	'controller' => 'index',
-        	'action'     => 'cache-manager',
-				'lang' => $lang
-        	)
-        );
-        $router->addRoute('cache-manager-mode', $route);
-        
-        $route = new Zend_Controller_Router_Route(
-        	':lang/cachemanager',
-        	array(
-               	'module' => 'default',
-               	'controller' => 'index',
-               	'action'     => 'cache-manager',
-				'lang' => $lang
-        	)
-        );
-        $router->addRoute('cache-manager', $route);
-        
-        /*-------------------------*/
-        
-        /*  Аяксовое получение новостей */
-        
-        $route = new Zend_Controller_Router_Route(
-        	'ajax_news/:lang/:page',
-	        array(
-				'module' => 'default',
-	        	'controller' => 'index',
-	        	'action'     => 'indexnews',
-	    		'lang' => $lang
-	        )
-        );
-        $router->addRoute('ajax_news', $route);
-        
-	    return $router;
-	}
+        /*  Контактная информация  */
+//	    $route = new Zend_Controller_Router_Route(
+//	    	':lang/contacts',
+//	    	array(
+//	    	  	'module' => 'content',
+//	    	    'controller' => 'new-index',
+//	    	    'action'     => 'contacts',
+//	    		'lang' => $lang,
+//	        	'cat-alias' => 'contacts'
+//	    	)
+//	    );
+//	    $router->addRoute('contacts', $route);
+//	    
+//	    
+//	    /*  Поиск материалов  */
+//	    $route = new Zend_Controller_Router_Route(
+//	    	':lang/product-search',
+//	    	array(
+//	    	  	'module' => 'production',
+//	    	    'controller' => 'index',
+//	    	    'action'     => 'select-by-other-brand',
+//	    		'lang' => $lang
+//	    	)
+//	    );
+//	    $router->addRoute('product-search', $route);
+//	    
+//	    /*  Области применения главная  */
+//	    $route = new Zend_Controller_Router_Route(
+//	    	':lang/deliveryforms.html',
+//	    	array(
+//	        	'module' => 'content',
+//	    	    'controller' => 'new-index',
+//	    	    'action'     => 'static-content-item',
+//	    		'lang' => $lang,
+//        		'2' => 'deliveryforms'
+//	    	)
+//	    );
+//	    $router->addRoute('deliveryforms', $route);
+//        
+//		/* Статический контент */
+//		$route = new Zend_Controller_Router_Route_Regex(
+//        	'([^.]+)+\/([^.]+).html',
+//        	array(
+//	            'module' => 'content',
+//	    	   	'controller' => 'new-index',
+//	    	   	'action'     => 'static-content-item',
+//				'lang' => $lang
+//            )
+//        );
+//        $router->addRoute('static', $route);
+//        
+//        
+//        
+//        
+//        /*  Новости главная  */
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/news',
+//        	array(
+//            	'module' => 'content',
+//                'controller' => 'new-index',
+//                'action'     => 'news-index',
+//        		'lang' => $lang,
+//        		'alias' => 'news'
+//       		)
+//        );
+//        $router->addRoute('news-index', $route);
+//        
+//        /*  Новости элемент  */
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/news/:id',
+//        	array(
+//            	'module' => 'content',
+//                'controller' => 'new-index',
+//                'action'     => 'news-item',
+//                'lang' => $lang
+//        	)
+//        );
+//        $router->addRoute('news-item', $route);
+//        
+//        /*  Ajax news  */
+//        $route = new Zend_Controller_Router_Route(
+//        	'content/new-index/last-news/*',
+//        	array(
+//               	'module' => 'content',
+//                'controller' => 'new-index',
+//                'action'     => 'last-news',
+//            )
+//        );
+//        $router->addRoute('ajax-last-news', $route);
+//        
+//        /*  Ajax support  */
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/support',
+//        	array(
+//               	'module' => 'default',
+//                'controller' => 'index',
+//                'action'     => 'support',
+//        		'lang' => $lang
+//        	)
+//        );
+//        $router->addRoute('ajax-support', $route);
+//        
+//        /*  Ajax news  */
+//        $route = new Zend_Controller_Router_Route(
+//        	'content/new-index/last-reference/*',
+//        	array(
+//            	'module' => 'content',
+//                'controller' => 'new-index',
+//               	'action'     => 'last-reference',
+//        	)
+//        );
+//        $router->addRoute('ajax-last-ref', $route);
+//        
+//        
+//        /*  Области применения главная  */
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/areas_of_use',
+//	        array(
+//	        	'module' => 'content',
+//	            'controller' => 'new-index',
+//	            'action'     => 'areas-of-use-index',
+//	            'lang' => $lang,
+//	            'alias' => 'areas_of_use'
+//	        )
+//        );
+//        $router->addRoute('areas-of-use-index', $route);
+//        
+//        /*  Области применения главная  */
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/areas_of_use/:id',
+//        	array(
+//        	   	'module' => 'content',
+//        	    'controller' => 'new-index',
+//        	    'action'     => 'areas-item',
+//        	    'lang' => $lang,
+//        	    'alias' => 'areas_of_use'
+//        	)
+//        );
+//        $router->addRoute('areas-of-use-item', $route);
+//        
+//
+//        
+//        
+//        /*  Справка главная  */
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/reference',
+//        	array(
+//        		'module' => 'content',
+//        	    'controller' => 'new-index',
+//        	    'action'     => 'reference-category',
+//        	    'lang' => $lang,
+//        	    'alias' => 'reference'
+//        	)
+//        );
+//        $router->addRoute('reference-category', $route);
+//        
+//        /*  Формы поставки главная  */
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/forms-of-supply',
+//        	array(
+//            	'module' => 'default',
+//                'controller' => 'index',
+//                'action'     => 'index',
+//                'lang' => $lang,
+//                'alias' => 'reference'
+//        	)
+//        );
+//        $router->addRoute('forms-of-supply-category', $route);
+//        
+//        /*  Формы поставки просмотр  */
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/forms-of-supply/:id',
+//        	array(
+//              	'module' => 'default',
+//                'controller' => 'index',
+//                'action'     => 'index',
+//                'lang' => $lang,
+//                'alias' => 'reference'
+//        	)
+//        );
+//        $router->addRoute('forms-of-supply-view', $route);
+//        
+//        /*  Справка главная  */
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/reference/:cat',
+//        	array(
+//            	'module' => 'content',
+//                'controller' => 'new-index',
+//                'action'     => 'reference-index',
+//            	'lang' => $lang,
+//                'alias' => 'reference'
+//        	)
+//        );
+//        $router->addRoute('reference-index', $route);
+//        
+//        /*  Новости элемент  */
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/reference/:cat/:id',
+//        	array(
+//               	'module' => 'content',
+//                'controller' => 'new-index',
+//                'action'     => 'reference-item',
+//                'lang' => $lang
+//        	)
+//        );
+//        $router->addRoute('reference-item', $route);
+//        
+//        
+//        /*  Продукция главная  */
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/production',
+//       		array(
+//            	'module' => 'production',
+//                'controller' => 'index',
+//                'action'     => 'index',
+//                'lang' => $lang,
+//                'alias' => 'production'
+//        	)
+//        );
+//        $router->addRoute('production-index', $route);
+//        
+//        /*  Продукция подкатегория  */
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/production/:cat_alias/:subcat_alias',
+//        	array(
+//              	'module' => 'production',
+//               	'controller' => 'index',
+//                'action'     => 'category',
+//                'lang' => $lang,
+//                'alias' => 'production'
+//        	)
+//        );
+//        $router->addRoute('production-index-subcat', $route);
+//        
+//        /*  Продукция категория  */
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/production/:cat_alias',
+//        	array(
+//               	'module' => 'production',
+//            	'controller' => 'index',
+//                'action'     => 'category',
+//                'lang' => $lang,
+//                'alias' => 'production',
+//        		'cat-alias' => $cat_alias
+//        	)
+//        );
+//        $router->addRoute('production-index-cat', $route);
+//        
+//        
+//        
+//        
+//        /*  Управление кешированием*/
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/cachemanager/:mode',
+//        array(
+//        	'module' => 'default',
+//        	'controller' => 'index',
+//        	'action'     => 'cache-manager',
+//				'lang' => $lang
+//        	)
+//        );
+//        $router->addRoute('cache-manager-mode', $route);
+//        
+//        $route = new Zend_Controller_Router_Route(
+//        	':lang/cachemanager',
+//        	array(
+//               	'module' => 'default',
+//               	'controller' => 'index',
+//               	'action'     => 'cache-manager',
+//				'lang' => $lang
+//        	)
+//        );
+//        $router->addRoute('cache-manager', $route);
+//        
+//        /*-------------------------*/
+//        
+//        /*  Аяксовое получение новостей */
+//        
+//        $route = new Zend_Controller_Router_Route(
+//        	'ajax_news/:lang/:page',
+//	        array(
+//				'module' => 'default',
+//	        	'controller' => 'index',
+//	        	'action'     => 'indexnews',
+//	    		'lang' => $lang
+//	        )
+//        );
+//        $router->addRoute('ajax_news', $route);
+
+        return $router;
+    }
 	
 	public function setModules()
 	{

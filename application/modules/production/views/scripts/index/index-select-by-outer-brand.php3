@@ -1,1 +1,0 @@
-<h2><?php echo CONCURENTS_SELECT_TITLE; ?></h2>

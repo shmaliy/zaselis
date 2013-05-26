@@ -126,6 +126,7 @@ class Core_Model_Abstract
         'title' => 'z_users',
         'treeFields' => array(
             'name'              => 'multilanguage',
+            'firstname'         => 'multilanguage',
             'about'             => 'multilanguage',
             'phones'            => 'array',
             'z_languages_array' => 'array',
@@ -188,7 +189,15 @@ class Core_Model_Abstract
             header ('Location: ' . $location);
         }
         
-    }        
+    }   
+    
+    public function mailto($to, $subject, $msg) {
+        $headers  = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+        $headers .= 'To: ' . $to . "\r\n";
+        $headers .= 'From: Zaselis Notification Service <activation@zaselis.com>' . "\r\n";
+        mail($to, $subject, $msg, $headers);
+    }
     
     public function initLanguage($lang = null)
     {
@@ -249,13 +258,43 @@ class Core_Model_Abstract
         }
     }
     
-    protected function _crypt($str) {
+    protected function _crypt($str = null) 
+    {
         
+        if (is_null($str)) {
+            return false;
+        }        
+        
+        $td = mcrypt_module_open ('des', '', 'ecb', '');
+        $key = substr ($this->_cryptKey, 0, mcrypt_enc_get_key_size ($td));
+        $iv_size = mcrypt_enc_get_iv_size ($td);
+        $iv = mcrypt_create_iv ($iv_size, MCRYPT_RAND);
+
+        if (mcrypt_generic_init ($td, $key, $iv) != -1) {
+                $encrypted_data = base64_encode(mcrypt_generic($td, $str));
+                mcrypt_generic_deinit ($td);
+                mcrypt_module_close ($td);
+        }
+        return $encrypted_data;
     }
     
-    protected function _deCrypt($str) {
+    protected function _deCrypt($str) 
+    {
+        $td = mcrypt_module_open ('des', '', 'ecb', '');
+        $key = substr ($this->_cryptKey, 0, mcrypt_enc_get_key_size ($td));
+        $iv_size = mcrypt_enc_get_iv_size ($td);
+        $iv = mcrypt_create_iv ($iv_size, MCRYPT_RAND);
         
+        if (mcrypt_generic_init ($td, $key, $iv) != -1) {
+            $data = mdecrypt_generic($td, base64_decode($str));
+            mcrypt_generic_deinit ($td);   
+        } 
+        mcrypt_module_close ($td);
+        $data = trim ($data)."\n";
+        return $data;
     }
+    
+    
     
     /**
      * Transform returned row when it has an JSON fields
@@ -398,7 +437,7 @@ class Core_Model_Abstract
             }
         }
         
-        $this->_db->update($tbl, $array, 'id = ' . $id);
+        $this->_db->update($tbl, $array, $tbl . '_id = ' . $id);
     }
     
     /**
@@ -409,7 +448,7 @@ class Core_Model_Abstract
      */
     protected function _delete($id, $tbl)
     {
-    	$this->_db->delete($tbl, 'id = ' . $id);
+    	$this->_db->delete($tbl, $tbl . '_id = ' . $id);
     }
    
     

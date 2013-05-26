@@ -4,8 +4,11 @@
     $path = explode('/', trim($path, '/'));
 ?>
 <?php if (!empty($this->languages)) : ?>
-<ul>
-    <li class="current"><?php echo $this->current['title']; ?></li>
+<div class="current">
+    <?php echo $this->current['title']; ?>
+</div>
+<ul id="langControl">
+    <li class="l-current"><?php echo $this->current['title']; ?></li>
     <?php foreach ($this->languages as $lng) : ?>
         <?php if ($lng['alias'] != $this->current['alias']) : ?>
             <?php

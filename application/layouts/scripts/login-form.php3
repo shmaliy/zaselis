@@ -1,4 +1,3 @@
-<div class="login-button"><a href="#">Вход</a></div>
 <div class="form"><?php echo $this->form; ?></div>
 
 <script>

@@ -28,11 +28,16 @@ class User_IndexController extends Zend_Controller_Action
         
         if ($request->isXmlHttpRequest() || $request->isPost()) {
             if ($form->isValid($params)) {
-                $values = $form->getValues();
-                if ($this->_model->registerSimple($values)) {
-                    $this->view->formErrors = $form->getErrors();
+                if ($params['password'] == $params['password_p']) {
+                    $values = $form->getValues();
+                    unset($values['password_p']);
+                    if ($this->_model->registerSimple($values)) {
+                        $this->view->formErrors = $form->getErrors();
+                    } else {
+                        $this->view->formErrors = array('global' => 'error');
+                    }
                 } else {
-                    $this->view->formErrors = array('global' => 'error');
+                    $this->view->formErrors = array('password' => 'do_not_match');
                 }
             } else {
                 $this->view->formErrors        = $form->getErrors();
@@ -56,13 +61,11 @@ class User_IndexController extends Zend_Controller_Action
         if (Zend_Auth::getInstance()->hasIdentity()) {
             return;
         }
-        
         $form = new Application_Form_SimpleAuth();
         $request = $this->getRequest();
         $params = $request->getParams();
         if ($request->isXmlHttpRequest() || $request->isPost()) {
             if ($form->isValid($params)) {
-                $values = $form->getValues();
                 
                 $authAdapter = new Zend_Auth_Adapter_DbTable(Zend_Db_Table::getDefaultAdapter());
                 $authAdapter->setTableName('z_users')
@@ -92,7 +95,6 @@ class User_IndexController extends Zend_Controller_Action
                         )));
 
                         $this->view->redirect =  true;
-
                     } else {
                         $this->view->formErrors        = array('activation' => 'error');
                     }

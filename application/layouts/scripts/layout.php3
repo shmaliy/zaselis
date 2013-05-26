@@ -47,18 +47,18 @@
     <div class="header-resize cf">
         <a class="logo" href="#"></a>
         <div class="header-resize-controls">
-            <div class="menu cf">
-                <ul>
-                    <li><a href="#"><span>Как это работает</span></a></li>
-                    <li><a href="#"><span>Зарегистрироваться</span></a></li>
-                    <li><a href="#"><span>Войти</span></a></li>
-                </ul>
-            </div>
             <div class="menu cf right">
                 <ul>
+                    <li><a href="#"><span>Как это работает</span></a></li>
+                    <?php if (Zend_Auth::getInstance()->hasIdentity()) : ?>
+                        <li><a href="<?php echo $this->url(array(), 'logout'); ?>"><span>Выйти</span></a></li>
+                    <?php else: ?>
+                        <li><a onclick ="$('#register-dialog').dialog({'modal':true});"><span>Регистрация</span></a></li>
+                        <li><a onclick ="$('#login-dialog').dialog({'modal':true});"><span>Войти</span></a></li>
+                    <?php endif; ?>
                     <li><a href="#"><span class="simple-arrow">Контакты</span></a></li>
-                    <li><?php echo $this->Common()->langSelector(); ?></li>
-                    <li><?php echo $this->Common()->currSelector(); ?></li>
+                    <li onmouseover="$('#langControl').show();" onmouseout="$('#langControl').hide();" class="l-selector-container"><?php echo $this->Common()->langSelector(); ?></li>
+                    <li onmouseover="$('#currControl').show();" onmouseout="$('#currControl').hide();" class="c-selector-container"><?php echo $this->Common()->currSelector(); ?></li>
                     <li><a href="#" class="blue-button"><span>Сдайте свое жилье</span></a></li>
                 </ul>
             </div>
@@ -67,12 +67,8 @@
     	
         
         <?php if (Zend_Auth::getInstance()->hasIdentity()) : ?>
-	    	<a href="<?php echo $this->url(array(), 'logout'); ?>">Logout</a>
-                <pre><?php var_export(Zend_Auth::getInstance()->getIdentity()); ?></pre>
-        <?php else: ?>
-            <?php echo $this->Common()->loginForm(); ?>
-            <?php echo $this->Common()->regForm(); ?>    
-	<?php endif; ?>
+	        <?php $user = Zend_Auth::getInstance()->getIdentity(); ?>
+        <?php endif; ?>
     </div>
 </div>
 <div class="body">
@@ -87,5 +83,9 @@
 		
 	</div>
 </div>
+    <?php if (!Zend_Auth::getInstance()->hasIdentity()) : ?>
+        <div id="login-dialog" style="display: none;" title="Авторизация"><?php echo $this->Common()->loginForm(); ?></div>
+        <div id="register-dialog" style="display: none;" title="Регистрация"><?php echo $this->Common()->regForm(); ?> </div>
+    <?php endif; ?>
 </body>
 </html>

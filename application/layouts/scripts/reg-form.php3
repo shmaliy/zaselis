@@ -1,7 +1,12 @@
-<div class="login-button"><a href="#">Регистрация</a></div>
 <div class="form"><?php echo $this->form; ?></div>
 
 <script>
+
+$('#SimpleRegister #password_p-element').hide();
+$('#SimpleRegister #password').focus(function(){
+    $('#SimpleRegister #password_p-element').show();
+});
+
 function sRSendData() {
     $.ajax({
         url: '<?php echo $this->url(array(), 'simple-register'); ?>',

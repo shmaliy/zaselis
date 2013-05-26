@@ -8,19 +8,23 @@ class Application_Form_SimpleAuth extends Zend_Form
         $this->setMethod('post');
         $this->setAttrib('onsubmit', 'return sASendData();'); // Force send only with ajax
         $this->setAttrib('id', 'SimpleAuth');
+        $this->setAttrib('class', 'dialog-form');
         
         $this->addElement('text', 'email', array(
-            'label'    => 'Эл. почта',
+            'label'    => '',
             'required' => true    
         ));
         $this->getElement('email')->addValidator(new Zend_Validate_NotEmpty())
-                                  ->addValidator(new Zend_Validate_EmailAddress());
+                                  ->addValidator(new Zend_Validate_EmailAddress())
+                                  ->setAttrib('placeholder', 'Электронная почта');
         
         $this->addElement('password', 'password', array(
-            'label'    => 'Пароль',
+            'label'    => '',
             'required' => true    
         ));
-        $this->getElement('password')->addValidator(new Zend_Validate_NotEmpty());
+        $this->getElement('password')->addValidator(new Zend_Validate_NotEmpty())
+                                     ->setAttrib('placeholder', 'Пароль');
+        
         
         $this->addElement('submit', 'submit', array(
             'ignore' => true,

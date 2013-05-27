@@ -6,7 +6,7 @@
 <?php $this->headLink()
 //           ->appendStylesheet('/theme/css/style.css')
 //	   ->appendStylesheet('/theme/css/swf.css')
-	   ->appendStylesheet('/js/jquery/jquery-ui-1.9.0.custom/css/ui-lightness/jquery-ui-1.9.0.custom.css')
+	   ->appendStylesheet('/js/jquery/jquery-ui-1.9.0.custom/css/smoothness/jquery-ui-1.10.3.custom.css')
            ->appendStylesheet('/theme/css/bootstrap.css')
 	   ->headLink(array('rel' => 'favicon', 'href' => '/favicon.png'), 'PREPEND'); 
 
@@ -86,6 +86,7 @@
     <?php if (!Zend_Auth::getInstance()->hasIdentity()) : ?>
         <div id="login-dialog" style="display: none;" title="Авторизация"><?php echo $this->Common()->loginForm(); ?></div>
         <div id="register-dialog" style="display: none;" title="Регистрация"><?php echo $this->Common()->regForm(); ?> </div>
+        <div id="restore-dialog" style="display: none;" title="Напоминание пароля"><?php echo $this->Common()->restorePasswordForm(); ?> </div>
     <?php endif; ?>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <div class="form"><?php echo $this->form; ?></div>
-
+<a style="cursor:pointer;" onclick="$('#login-dialog').dialog('close'); $('#restore-dialog').dialog({'modal': true});">Забыли пароль?</a>
 <script>
 function sASendData() {
     $.ajax({

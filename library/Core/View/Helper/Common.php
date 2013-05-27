@@ -43,6 +43,9 @@ class Core_View_Helper_Common extends Core_View_Helper_Abstract
     
     public function restorePasswordForm()
     {
-        
+        $lang = Zend_Registry::get('lang');
+        $form = new Application_Form_ForgotPassword();
+        $this->view->form = $form;
+        return $this->view->render('forgot-password.php3');
     }
 }

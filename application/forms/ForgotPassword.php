@@ -16,6 +16,8 @@ class Application_Form_ForgotPassword extends Zend_Form
         ));
         $this->getElement('email')->addValidator(new Zend_Validate_NotEmpty())
                                   ->addValidator(new Zend_Validate_EmailAddress())
+                                  ->addValidator(new Core_Validate_EmailExist())
+                                  ->addValidator(new Core_Validate_EmailIsActive())
                                   ->setAttrib('placeholder', 'Электронная почта');
         
         $this->addElement('submit', 'submit', array(

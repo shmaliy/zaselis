@@ -117,9 +117,20 @@ class User_IndexController extends Zend_Controller_Action
 	$this->_helper->redirector('index', 'index', 'default');
     }
     
-    public function restorePassword()
+    public function restorePasswordAction()
     {
+        $form = new Application_Form_ForgotPassword();
+        $request = $this->getRequest();
+        $params = $request->getParams();
         
+        if ($request->isXmlHttpRequest() || $request->isPost()) {
+            if ($form->isValid($params)) {
+                $this->_model->restorePassword($params['email']);
+            } else {
+                $this->view->formErrors        = $form->getErrors();
+    		$this->view->formErrorMessages = $form->getErrorMessages();
+            }
+        }
     }
 	
 }

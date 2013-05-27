@@ -47,21 +47,72 @@
     <div class="header-resize cf">
         <a class="logo" href="#"></a>
         <div class="header-resize-controls">
+            <div class="main-menu cf right">
+                <ul class="main-menu-list">
+                    <li class="main-menu-list-item">
+                        <a href="#" class="menu-item main-menu-list-item-link"><span>Как это работает</span></a>
+                    </li>
+                    <?php if (!Zend_Auth::getInstance()->hasIdentity()) : ?>
+                        <li class="main-menu-list-item">
+                            <a onclick ="$('#register-dialog').dialog({'modal':true});" class="menu-item main-menu-list-item-link"><span>Регистрация</span></a>
+                        </li>
+                        <li class="main-menu-list-item">
+                            <a onclick ="$('#login-dialog').dialog({'modal':true});" class="menu-item main-menu-list-item-link"><span>Войти</span></a>
+                        </li>
+                    <?php else: ?>
+                        <li class="main-menu-list-item" id="userBlock" 
+                            onmouseover="$('#UserDrop').show(); $('.menu-item-user').addClass('menu-item-user-hover');" 
+                            onmouseout="$('#UserDrop').hide(); $('.menu-item-user').removeClass('menu-item-user-hover');">
+                            
+                            <a href="#" class="menu-item-user main-menu-list-item-link image">
+                                <span>
+                                    Имя пользователя
+                                </span>
+                            </a>
+                            <div class="main-menu-list-item-drop" id="UserDrop">
+                                <a href="<?php echo $this->url(array(), 'logout'); ?>">Выход</a>
+                                ffsdfdsfsdf<br />
+                                ffsdfdsfsdf<br />
+                                ffsdfdsfsdf<br />
+                                ffsdfdsfsdf<br />
+                            </div>
+                            <script>
+                                $('#userBlock').css({'width': $('#userBlock .menu-item-user').width()+38 + 'px'});
+                                $('#UserDrop').css({'min-width': $('#UserDrop').width()+20 + 'px'});
+                            </script>
+                        </li>
+                    <?php endif; ?>
+                    <li class="main-menu-list-item">
+                        <a href="#" class="menu-item main-menu-list-item-link"><span>Контакты</span></a>
+                    </li>
+                    <li class="main-menu-list-item">
+                        <a href="#" class="menu-item-drop main-menu-list-item-link"><span>Язык</span></a>
+                    </li>
+                    <li class="main-menu-list-item">
+                        <a href="#" class="menu-item-drop main-menu-list-item-link"><span>Валюта</span></a>
+                    </li>
+                     <li class="main-menu-list-item">
+                        <a href="#" class="menu-item-button main-menu-list-item-link"><span>Сдайте свое жилье</span></a>
+                    </li>
+                </ul>
+            </div>
+            <?php if (isset($huinya)) : ?>
             <div class="menu cf right">
                 <ul>
-                    <li><a href="#"><span>Как это работает</span></a></li>
+                    <li><a href="#" class="main"><span>Как это работает</span></a></li>
                     <?php if (Zend_Auth::getInstance()->hasIdentity()) : ?>
-                        <li><a href="<?php echo $this->url(array(), 'logout'); ?>"><span>Выйти</span></a></li>
+                        <li><a class="user-drop" href="<?php echo $this->url(array(), 'logout'); ?>"><span>Выйти</span></a></li>
                     <?php else: ?>
-                        <li><a onclick ="$('#register-dialog').dialog({'modal':true});"><span>Регистрация</span></a></li>
-                        <li><a onclick ="$('#login-dialog').dialog({'modal':true});"><span>Войти</span></a></li>
+                        <li><a class="main" onclick ="$('#register-dialog').dialog({'modal':true});"><span>Регистрация</span></a></li>
+                        <li><a class="main" onclick ="$('#login-dialog').dialog({'modal':true});"><span>Войти</span></a></li>
                     <?php endif; ?>
-                    <li><a href="#"><span class="simple-arrow">Контакты</span></a></li>
+                    <li><a class="main" href="#"><span class="simple-arrow">Контакты</span></a></li>
                     <li onmouseover="$('#langControl').show();" onmouseout="$('#langControl').hide();" class="l-selector-container"><?php echo $this->Common()->langSelector(); ?></li>
                     <li onmouseover="$('#currControl').show();" onmouseout="$('#currControl').hide();" class="c-selector-container"><?php echo $this->Common()->currSelector(); ?></li>
                     <li><a href="#" class="blue-button"><span>Сдайте свое жилье</span></a></li>
                 </ul>
             </div>
+            <?php endif; ?>
         </div>
         
     	

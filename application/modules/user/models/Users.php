@@ -71,4 +71,20 @@ class User_Model_Users extends Core_Model_Abstract
             $this->_update($return['z_users_id'], $this->_tZUsers['title'], $array);
         }
     }
+    
+    public function restorePassword($email) {
+        $select = $this->_db->select();
+        $select->from(array('user' => $this->_tZUsers['title']));
+        $select->where('user.email = ?', $email);
+        $return = $this->_db->fetchRow($select);
+        
+        $password = $this->_deCrypt($return['password']);
+        
+        $this->mailto($email, 'Password reminder', $password);
+    }
+    
+    public function getUser()
+    {
+        
+    }
 }

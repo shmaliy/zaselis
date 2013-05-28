@@ -83,8 +83,18 @@ class User_Model_Users extends Core_Model_Abstract
         $this->mailto($email, 'Password reminder', $password);
     }
     
-    public function getUser()
+    public function getActiveUser()
     {
+        if (Zend_Auth::getInstance()->hasIdentity()) {
+	    $user = Zend_Auth::getInstance()->getIdentity();
+        }
         
+        $select = $this->_db->select();
+        $select->from(array('user' => $this->_tZUsers['title']));
+        $select->where('user.z_users_id = ?', $user->z_users_id);
+        $return = $this->_db->fetchRow($select);
+        
+        $return = $this->_treeFieldsTransform($this->_tZUsers['title'], $return, true);
+        return $return;
     }
 }

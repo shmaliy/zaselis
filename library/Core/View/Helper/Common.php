@@ -48,4 +48,16 @@ class Core_View_Helper_Common extends Core_View_Helper_Abstract
         $this->view->form = $form;
         return $this->view->render('forgot-password.php3');
     }
+    
+    public function userDrop()
+    {
+        $model = new User_Model_Users();
+        $user = $model->getActiveUser();
+        $this->view->user = $user;
+        echo '<pre>';
+        var_export($user);
+        echo '</pre>';
+        
+        return $this->view->render('user-drop.php3');
+    }
 }

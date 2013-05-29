@@ -54,10 +54,6 @@ class Core_View_Helper_Common extends Core_View_Helper_Abstract
         $model = new User_Model_Users();
         $user = $model->getActiveUser();
         $this->view->user = $user;
-        echo '<pre>';
-        var_export($user);
-        echo '</pre>';
-        
         return $this->view->render('user-drop.php3');
     }
 }

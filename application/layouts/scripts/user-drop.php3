@@ -22,11 +22,26 @@
                 <div class="notifications"></div>
             </div>
         </div>
+        <div class="user-menu">
+            <div class="menu-row cf">
+                <a href="#">Почтовый ящик</a>
+                <a href="#">Ваши объявления</a>
+            </div>
+            <div class="menu-row cf">
+                <a href="#">Поездки</a>
+                <a href="#">Профиль</a>
+            </div>
+            <div class="menu-row cf">
+                <a href="#">Настройки аккаунта</a>
+            </div>
+            <?php if ($this->user['z_users_roles_id'] == 1) : ?>
+            <div class="menu-row cf">
+                <a href="#">Почтовый ящик</a>
+                <a href="#">Ваши объявления</a>
+            </div>
+            <?php endif; ?>
+        </div>
         <a href="<?php echo $this->url(array(), 'logout'); ?>">Выход</a>
-        ffsdfdsfsdf<br />
-        ffsdfdsfsdf<br />
-        ffsdfdsfsdf<br />
-        ffsdfdsfsdf<br />
     </div>
     <script>
         $('#userBlock').css({'width': $('#userBlock .menu-item-user').width()+38 + 'px'});

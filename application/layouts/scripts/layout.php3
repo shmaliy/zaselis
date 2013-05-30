@@ -4,7 +4,7 @@
 <?php $this->headTitle('Zaselis')->setSeparator(' | '); ?>
 
 <?php $this->headLink()
-//           ->appendStylesheet('/theme/css/style.css')
+           ->appendStylesheet('/theme/css/style.css')
 //	   ->appendStylesheet('/theme/css/swf.css')
 	   ->appendStylesheet('/js/jquery/jquery-ui-1.9.0.custom/css/smoothness/jquery-ui-1.10.3.custom.css')
            ->appendStylesheet('/theme/css/bootstrap.css')
@@ -19,12 +19,10 @@
 ?>
 <?php echo $this->headMeta();?>
 <?php echo $this->headTitle(); ?>
-<link rel="stylesheet/less" type="text/css" href="/theme/css/style.less">
 <link rel="stylesheet/css" type="text/css" href="/theme/css/style.css">
 <?php echo $this->headLink(); ?>
 
 <?php
-    $this->headScript()->appendFile('/js/less.min.js');
     $this->headScript()->appendFile('/js/jquery-1.8.1.min.js');
     $this->headScript()->appendFile('/js/bootstrap.min.js');
     $this->headScript()->appendFile('/js/adaptive.js');

@@ -14,7 +14,9 @@ function sASendData() {
                 var response = jQuery.parseJSON(jqXHR.responseText);
                 
                 if (response['redirect'] == true) {
-                    window.location = window.location.href;
+                    var redir = window.location.href;
+                    redir = redir.replace('http://', 'https://')
+                    window.location = redir;
                 }
         },
         complete: function(jqXHR, textStatus) {

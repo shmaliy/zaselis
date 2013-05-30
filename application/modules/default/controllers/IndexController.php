@@ -8,7 +8,6 @@ class IndexController extends Zend_Controller_Action
     public function init()
     {
         $this->_model = new Core_Model_Abstract();
-        
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext->addActionContext('support', 'json');
         $ajaxContext->initContext('json');

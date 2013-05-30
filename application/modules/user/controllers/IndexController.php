@@ -114,7 +114,7 @@ class User_IndexController extends Zend_Controller_Action
     public function logoutAction()
     {
         Zend_Auth::getInstance()->clearIdentity();
-	$this->_helper->redirector('index', 'index', 'default');
+	header('Location: ' . $this->view->url(array(), 'index'));
     }
     
     public function restorePasswordAction()

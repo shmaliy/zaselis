@@ -44,7 +44,7 @@
 <?php echo $this->Common()->header(); ?>
 <div class="body">
     <div class="push1"></div>
-        <div class="wrapper">
+        <div class="wrapper">sdfdsf
             <?php  echo $this->layout()->content;?>
         </div>
     <div class="push2"></div>    

@@ -108,6 +108,90 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             )
         );
         $router->addRoute('index', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'index',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('user-index', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/profile',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'profile',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('user-profile', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/mail',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'mail',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('user-mail', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'flats',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('user-flats', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/travels',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'travels',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('user-travels', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/settings',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'settings',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('user-settings', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/friends',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'friends',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('user-friends', $route);
 
         $route = new Zend_Controller_Router_Route(
             ':lang/:currencie/user/simple-register',

@@ -5,6 +5,7 @@
 
 <?php $this->headLink()
            ->appendStylesheet('/theme/css/style.css')
+           ->appendStylesheet('/theme/css/userpanel.css')
 //	   ->appendStylesheet('/theme/css/swf.css')
 	   ->appendStylesheet('/js/jquery/jquery-ui-1.9.0.custom/css/smoothness/jquery-ui-1.10.3.custom.css')
            ->appendStylesheet('/theme/css/bootstrap.css')
@@ -44,8 +45,13 @@
 <?php echo $this->Common()->header(); ?>
 <div class="body">
     <div class="push1"></div>
-        <div class="wrapper">sdfdsf
-            <?php  echo $this->layout()->content;?>
+        <div class="wrapper cf">
+            <div class="userpanel-header"></div>
+            <div class="userpanel-menu">
+                <?php echo $this->Common()->userMenu(); ?>
+            </div>
+            <div class="userpanel-content"><?php  echo $this->layout()->content;?></div>
+            
         </div>
     <div class="push2"></div>    
 </div>

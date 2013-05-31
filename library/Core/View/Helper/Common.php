@@ -57,6 +57,14 @@ class Core_View_Helper_Common extends Core_View_Helper_Abstract
         return $this->view->render('user-drop.php3');
     }
     
+    public function userMenu()
+    {
+        $model = new User_Model_Users();
+        $user = $model->getActiveUser();
+        $this->view->user = $user;
+        return $this->view->render('user-menu.php3');
+    }
+    
     public function header()
     {
         return $this->view->render('header.php3');

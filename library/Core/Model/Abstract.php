@@ -437,7 +437,7 @@ class Core_Model_Abstract
             }
         }
         
-        $this->_db->update($tbl, $array, $tbl . '_id = ' . $id);
+        return $this->_db->update($tbl, $array, $tbl . '_id = ' . $id);
     }
     
     /**

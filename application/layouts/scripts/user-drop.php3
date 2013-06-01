@@ -2,7 +2,7 @@
     onmouseover="$('#UserDrop').show(); $('.menu-item-user').addClass('menu-item-user-hover');" 
     onmouseout="$('#UserDrop').hide(); $('.menu-item-user').removeClass('menu-item-user-hover');">
 
-    <a href="#" class="menu-item-user main-menu-list-item-link image">
+    <a href="<?php echo $this->url(array(), 'user-index'); ?>" class="menu-item-user main-menu-list-item-link image">
         <span>
             <?php echo $this->user['name']; ?>
         </span>

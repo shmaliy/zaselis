@@ -120,6 +120,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute('user-index', $route);
         
         $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/avatar/upload',
+            array(
+                'module' => 'files',
+                'controller' => 'index',
+                'action'     => 'upload-avatar',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('upload-avatar', $route);
+        
+        $route = new Zend_Controller_Router_Route(
             ':lang/:currencie/user/profile',
             array(
                 'module' => 'user',

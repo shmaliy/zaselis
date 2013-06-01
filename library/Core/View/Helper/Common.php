@@ -69,4 +69,9 @@ class Core_View_Helper_Common extends Core_View_Helper_Abstract
     {
         return $this->view->render('header.php3');
     }
+    
+    public function avatarManger() 
+    {
+        return $this->view->render('manage-avatar.php3');
+    }
 }

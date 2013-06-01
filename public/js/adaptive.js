@@ -49,7 +49,7 @@ function smartColumns() { //функция, подсчитывающая шир�
 		
 		var slImgMargin = (slImgHeight/2 - sliderHeight/2) * -1;
 		
-		console.log(slImgHeight);
+//		console.log(slImgHeight);
 		$('#slider-image').css({ 'margin-top' : slImgMargin + 'px'});
 		
 		$(".arrows-wrapper").css({ 'margin-top' : sliderHeight/2 - 15 + 'px'});
@@ -71,7 +71,7 @@ function smartColumns() { //функция, подсчитывающая шир�
 			}
 		);
 		
-		console.log(uMenuWidth);
+//		console.log(uMenuWidth);
 		 $('.underslider-menu > ul').css({'width' : uMenuWidth + 'px'});
 	}
 }

@@ -29,12 +29,12 @@
             </div>
         </div>
     </div>
+    <?php if (Zend_Auth::getInstance()->hasIdentity()) : ?>
+        <div id="change-avatar-dialog" title="Смена аватара" style="display: none;"><?php // echo $this->Common()->avatarManger(); ?></div>
+    <?php else : ?>
+        <div id="login-dialog" style="display: none;" title="Авторизация"><?php echo $this->Common()->loginForm(); ?></div>
+        <div id="register-dialog" style="display: none;" title="Регистрация"><?php echo $this->Common()->regForm(); ?> </div>
+        <div id="restore-dialog" style="display: none;" title="Напоминание пароля"><?php echo $this->Common()->restorePasswordForm(); ?> </div>
+    <?php endif; ?>
 </div>
 
-<?php if (Zend_Auth::getInstance()->hasIdentity()) : ?>
-    <div id="change-avatar-dialog" title="Смена аватара" style="display: none;">fgdfg</div>
-<?php else : ?>
-    <div id="login-dialog" style="display: none;" title="Авторизация"><?php echo $this->Common()->loginForm(); ?></div>
-    <div id="register-dialog" style="display: none;" title="Регистрация"><?php echo $this->Common()->regForm(); ?> </div>
-    <div id="restore-dialog" style="display: none;" title="Напоминание пароля"><?php echo $this->Common()->restorePasswordForm(); ?> </div>
-<?php endif; ?>

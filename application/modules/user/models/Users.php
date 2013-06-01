@@ -97,4 +97,48 @@ class User_Model_Users extends Core_Model_Abstract
         $return = $this->_treeFieldsTransform($this->_tZUsers['title'], $return, true);
         return $return;
     }
+    
+    public function isActiveSession()
+    {
+        $user = $this->getActiveUser();
+        
+        $select = $this->_db->select();
+        $select->from(array('session' => $this->_tZUsersSessions['title']));
+        $select->where('session.z_users_id = ?', $user['z_users_id']);
+        $select->where(new Zend_Db_Expr('session.created_ts + session.ttl >' . time()));
+        $select->order('session.z_users_sessions_id desc');
+        
+        
+        
+        $return = $this->_db->fetchRow($select);
+        
+        return $return;
+        
+    }
+    
+    public function closeActiveSession()
+    {
+        
+        $user = $this->isActiveSession();
+        
+        if ($user) {
+            $update = array(
+                'ttl' => new Zend_Db_Expr(time() . ' - ' . $this->_db->quoteIdentifier('created_ts', true))
+            );
+
+            $this->_update($user['z_users_sessions_id'], $this->_tZUsersSessions['title'], $update);
+        }
+    }            
+
+
+    public function writeRegisterSession($id, $ttl = 86400) {
+        $insert = array(
+            'z_users_id' => $id,
+            'created_ts' => time(),
+            'ttl' => $ttl,
+            'ip'        =>  $_SERVER['REMOTE_ADDR']
+        );
+        
+        $this->_insert($this->_tZUsersSessions['title'], $insert);
+    }
 }

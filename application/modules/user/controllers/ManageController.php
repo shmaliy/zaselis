@@ -7,16 +7,21 @@ class User_ManageController extends Zend_Controller_Action
     
     public function init()
     {
+        $this->_model = new User_Model_Users();
+        if (!Zend_Auth::getInstance()->hasIdentity() || !$this->_model->isActiveSession()) {
+	    header ('Location: ' . $this->view->url(array(), 'logout'));
+        }
+        
         $this->_helper->_layout->setLayout('user-layout');
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
 //        $ajaxContext->addActionContext('restore-password', 'json');
         $ajaxContext->initContext('json');
-        $this->_model = new User_Model_Users();
+        
     }
     
     public function indexAction()
     {
-        
+        $this->_model->isActiveSession();
     } 
     
     public function profileAction()

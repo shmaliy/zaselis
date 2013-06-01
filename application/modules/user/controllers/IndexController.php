@@ -93,6 +93,10 @@ class User_IndexController extends Zend_Controller_Action
                             'email',
                             'z_users_roles_id',
                         )));
+                        
+                        $active = $this->_model->getActiveUser();
+                        
+                        $this->_model->writeRegisterSession($active['z_users_id']);
 
                         $this->view->redirect =  true;
                     } else {
@@ -113,6 +117,7 @@ class User_IndexController extends Zend_Controller_Action
     
     public function logoutAction()
     {
+        $this->_model->closeActiveSession();
         Zend_Auth::getInstance()->clearIdentity();
 	header('Location: ' . $this->view->url(array(), 'index'));
     }

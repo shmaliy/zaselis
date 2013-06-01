@@ -94,9 +94,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
 //	    Zend_Registry::set('cache', $cache['cache']);
 //	    
-
-
-
+        
         $route = new Zend_Controller_Router_Route(
             ':lang/:currencie',
             array(

@@ -53,4 +53,9 @@ class User_ManageController extends Zend_Controller_Action
     {
         
     } 
+    
+    public function changePasswordAction()
+    {
+        
+    } 
 }

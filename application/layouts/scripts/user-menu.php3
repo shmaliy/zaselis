@@ -68,6 +68,10 @@
         inceptos himenaeos.
         </p>
     </div>
+    <h3>Смена пароля</h3>
+    <div>
+        <?php echo $this->Common()->changePassword(); ?>
+    </div>
     <?php if ($this->user['z_users_roles_id'] == 1) : ?>
         <h3>Управление сайтом</h3>
         <div>
@@ -87,6 +91,8 @@
 </div>
  <script>
     $(function() {
-        $( "#userpanel-accordion" ).accordion();
+        $( "#userpanel-accordion" ).accordion({
+            heightStyle: "content"
+        });
     });
 </script>

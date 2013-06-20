@@ -6,8 +6,9 @@
 <?php $this->headLink()
            ->appendStylesheet('/theme/css/style.css')
            ->appendStylesheet('/theme/css/userpanel.css')
-//           ->appendStylesheet('/theme/css/swf.css')
+//         ->appendStylesheet('/theme/css/swf.css')
 	   ->appendStylesheet('/js/jquery/jquery-ui-1.9.0.custom/css/smoothness/jquery-ui-1.10.3.custom.css')
+           
            ->appendStylesheet('/theme/css/bootstrap.css')
 	   ->headLink(array('rel' => 'favicon', 'href' => '/favicon.png'), 'PREPEND'); 
 
@@ -26,6 +27,7 @@
     $this->headScript()->appendFile('/js/jquery-1.8.1.min.js');
     $this->headScript()->appendFile('/js/bootstrap.min.js');
     $this->headScript()->appendFile('/js/adaptive.js');
+    $this->headScript()->appendFile('/js/form-ajax.js');
     $this->headScript()->appendFile('/js/jquery/jquery-ui-1.9.0.custom/js/jquery-ui-1.9.0.custom.min.js');
     echo $this->headScript();
 ?>

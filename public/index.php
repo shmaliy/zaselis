@@ -1,6 +1,8 @@
 <?php
-error_reporting(0);
+error_reporting(1);
 //session_start();
+
+
 
 /* Корневой каталог */
 if (!defined('ROOT_PATH')) {
@@ -22,7 +24,7 @@ if (!defined('LIBRARY_PATH')) {
             }
             $libraryPath[] = ROOT_PATH . '/library';
             break;
-        case 'dev.zaselis.com':
+        case 'new.zaselis.com':
             if (file_exists(realpath(ROOT_PATH . '/../..') . '/phpLibs')) {
                 $libraryPath[] = realpath(ROOT_PATH . '/../..' . '/phpLibs');
             }
@@ -49,20 +51,21 @@ if (!defined('APPLICATION_ENV')) {
 // Подключение файла настроек
 require_once APPLICATION_PATH . '/configs/config.php';
 
-//Установка в include_path папки библиотек
+////Установка в include_path папки библиотек
 set_include_path(implode(PATH_SEPARATOR, array(
     LIBRARY_PATH,
     get_include_path(), 
     APPLICATION_PATH . '/../public/classes'
 )));
-
-
-include('my_helpers.php');
-include('renamer.php');
+//
+//
+//include('my_helpers.php');
+//include('renamer.php');
 
 
 /** Подключение Zend_Application */
 require_once 'Zend/Application.php';
+
 
 // Создание обьекта приложения и запуск
 $application = new Zend_Application(

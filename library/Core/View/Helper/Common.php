@@ -74,4 +74,10 @@ class Core_View_Helper_Common extends Core_View_Helper_Abstract
     {
         return $this->view->render('manage-avatar.php3');
     }
+    
+    public function changePassword()
+    {
+        $this->view->form = new Application_Form_ChangePassword();
+        return $this->view->render('change-password.php3');
+    }
 }

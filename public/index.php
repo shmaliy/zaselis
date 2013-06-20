@@ -14,10 +14,23 @@ if (!defined('APPLICATION_PATH')) {
 
 /* Каталог библиотек ZEND */
 if (!defined('LIBRARY_PATH')) {
-	if (file_exists(realpath(ROOT_PATH . '/../..') . '/phpLibs')) {
-            $libraryPath[] = realpath(ROOT_PATH . '/../..' . '/phpLibs');
-        }
-        $libraryPath[] = ROOT_PATH . '/library';
+
+    switch ($_SERVER['HTTP_HOST']) {
+        case 'public.zaselis_new':
+            if (file_exists(realpath(ROOT_PATH . '/../..') . '/phpLibs')) {
+                $libraryPath[] = realpath(ROOT_PATH . '/../..' . '/phpLibs');
+            }
+            $libraryPath[] = ROOT_PATH . '/library';
+            break;
+        case 'dev.zaselis.com':
+            if (file_exists(realpath(ROOT_PATH . '/../..') . '/phpLibs')) {
+                $libraryPath[] = realpath(ROOT_PATH . '/../..' . '/phpLibs');
+            }
+            $libraryPath[] = ROOT_PATH . '/library';
+            break;
+    }
+    
+    
 	define('LIBRARY_PATH', implode(PATH_SEPARATOR, $libraryPath));
 	unset($libraryPath);
 }

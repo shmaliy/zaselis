@@ -33,12 +33,12 @@ class User_IndexController extends Zend_Controller_Action
                     $values = $form->getValues();
                     unset($values['password_p']);
                     if ($this->_model->registerSimple($values)) {
-                        $this->view->formErrors = $form->getErrors();
+
                     } else {
-                        $this->view->formErrors = array('global' => 'error');
+                        $this->view->formErrors = array('global' => array('error'));
                     }
                 } else {
-                    $this->view->formErrors = array('password' => 'do_not_match');
+                    $this->view->formErrors = array('password' => array('do_not_match'));
                 }
             } else {
                 $this->view->formErrors        = $form->getErrors();
@@ -102,7 +102,7 @@ class User_IndexController extends Zend_Controller_Action
 
                     
 		} else {
-                    $this->view->formErrors        = array('global' => 'error');
+                    $this->view->formErrors        = array('global' => array('error'));
 		}
                 
             } else {

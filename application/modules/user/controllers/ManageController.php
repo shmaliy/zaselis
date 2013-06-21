@@ -63,7 +63,11 @@ class User_ManageController extends Zend_Controller_Action
         
         if ($request->isXmlHttpRequest() || $request->isPost()) {
             if ($form->isValid($params)) {
-                
+                if($params['new_psw'] == $params['new_psw_rep']) {
+                    $this->_model->changePassword($params['new_psw']);
+                } else {
+                    $this->view->formErrors    = array('new_psw_rep' => array('passwordsNotMatch'));
+                }
             } else {
                 $this->view->formErrors        = $form->getErrors();
     		$this->view->formErrorMessages = $form->getErrorMessages();

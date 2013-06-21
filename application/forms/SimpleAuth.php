@@ -6,7 +6,6 @@ class Application_Form_SimpleAuth extends Zend_Form
     {
     	
         $this->setMethod('post');
-        $this->setAttrib('onsubmit', 'return sASendData();'); // Force send only with ajax
         $this->setAttrib('id', 'SimpleAuth');
         $this->setAttrib('class', 'dialog-form');
         

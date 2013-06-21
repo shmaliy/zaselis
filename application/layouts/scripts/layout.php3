@@ -5,6 +5,7 @@
 
 <?php $this->headLink()
            ->appendStylesheet('/theme/css/style.css')
+            ->appendStylesheet('/theme/css/userpanel.css')
 //	   ->appendStylesheet('/theme/css/swf.css')
 	   ->appendStylesheet('/js/jquery/jquery-ui-1.9.0.custom/css/smoothness/jquery-ui-1.10.3.custom.css')
            ->appendStylesheet('/theme/css/bootstrap.css')
@@ -21,10 +22,20 @@
 <?php echo $this->headTitle(); ?>
 <link rel="stylesheet/css" type="text/css" href="/theme/css/style.css">
 <?php echo $this->headLink(); ?>
-
+<?php
+    $lang = Zend_Registry::get('lang');
+    $l_alias = $lang['alias'];
+    $currencie = Zend_Registry::get('currencie');
+    $c_alias = strtolower($currencie['alias']);
+?>
+    <script>
+        var globalLang = '<?php echo $l_alias; ?>';
+        var globalCurr = '<?php echo $c_alias; ?>';
+    </script>
 <?php
     $this->headScript()->appendFile('/js/jquery-1.8.1.min.js');
     $this->headScript()->appendFile('/js/bootstrap.min.js');
+    $this->headScript()->appendFile('/js/forms-ajax.js');
     $this->headScript()->appendFile('/js/adaptive.js');
     $this->headScript()->appendFile('/js/jquery/jquery-ui-1.9.0.custom/js/jquery-ui-1.9.0.custom.min.js');
     echo $this->headScript();

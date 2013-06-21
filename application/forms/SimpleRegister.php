@@ -6,7 +6,6 @@ class Application_Form_SimpleRegister extends Zend_Form
     {
     	$lang = Zend_Registry::get('lang');
         $this->setMethod('post');
-        $this->setAttrib('onsubmit', 'return sRSendData();'); // Force send only with ajax
         $this->setAttrib('id', 'SimpleRegister');
         $this->setAttrib('class', 'dialog-form');
         

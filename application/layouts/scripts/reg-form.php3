@@ -7,22 +7,13 @@ $('#SimpleRegister #password').focus(function(){
     $('#SimpleRegister #password_p-element').show();
 });
 
-function sRSendData() {
-    $.ajax({
-        url: '<?php echo $this->url(array(), 'simple-register'); ?>',
-        data: $('#SimpleRegister').serialize(),
-        type: 'POST',
-        error: function(jqXHR, textStatus, errorThrown) {
-
-        },
-        success: function(data, textStatus, jqXHR) {
-                //$(container).html(jqXHR.responseText);
-                //var response = jQuery.parseJSON(jqXHR.responseText);
-        },
-        complete: function(jqXHR, textStatus) {
-
-        }
-    });
+$('.ui-dialog #SimpleRegister').submit(function(){
+    processUserForm(
+        'simple-register', 
+        {'lang': globalLang, 'currencie': globalCurr},
+        '#SimpleRegister',
+        [['testCallback', '656465645'], ['testCallback', 'jdjhdfkhdfkf']]
+    );
     return false;
-}
+});
 </script>

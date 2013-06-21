@@ -11,6 +11,7 @@
 
 function processUserForm (routename, routeparams, form_id, success_callbacks)
 {
+    $('#errorsContainer').remove();
     $.ajax({
         url: '/' + globalLang + '/' + globalCurr + '/ajax-route',
         data: {'r_name': routename, 'r_params': routeparams},
@@ -27,10 +28,10 @@ function processUserForm (routename, routeparams, form_id, success_callbacks)
                        error: function(jqXHR, textStatus, errorThrown) {},
                        success: function(data, textStatus, jqXHR) {
                             var result = jQuery.parseJSON(jqXHR.responseText);
-                            if(result['formErrors']) {
+                            if(result['formErrors'] || errorsCount(result['formErrors']) > 0) {
                                 parseFormErrors(result['formErrors'], form_id);
                             } else {
-                                showFormSuccess(form_id, [['testCallback', '656465645'], ['testCallback', 'jdjhdfkhdfkf']]);
+                                showFormSuccess(form_id, success_callbacks);
                             }
                        },
                        complete: function(jqXHR, textStatus) {}
@@ -57,6 +58,21 @@ function showErrorTooltip(text)
         });
     });
 }
+
+function errorsCount(data)
+{
+    var errcount = 0;
+    for (var i in data) {
+        if (data[i].length > 0) {
+            for (var j = 0; j < data[i].length; j++) {
+                errcount++;
+            }
+        }
+    }
+    
+    return errcount;
+}
+
 
 function parseFormErrors(data, form_id)
 {
@@ -96,4 +112,11 @@ function showFormSuccess(form_id, callbacks)
 function testCallback(data)
 {
     alert(data[0]);
+}
+
+function loginSuccess()
+{
+    var redir = window.location.href;
+    redir = redir.replace('http://', 'https://')
+    window.location = redir;
 }

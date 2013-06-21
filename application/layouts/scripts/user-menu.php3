@@ -19,12 +19,13 @@
     </div>
     <h3>Профиль</h3>
     <div>
-        <p>
-        Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-        ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-        amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-        odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-        </p>
+        <ul class="vertical-menu">
+            <li class="vertical-menu-item"><a href="<?php echo $this->url(array(), 'user-profile'); ?>" class="vertical-menu-link"><span>Редактирование личной информации</span></a></li>            
+            <li class="vertical-menu-item"><a href="#" class="vertical-menu-link"><span>Настройка оповещений</span></a></li>            
+            <li class="vertical-menu-item"><a href="#" class="vertical-menu-link"><span>Методы выплаты</span></a></li>            
+            <li class="vertical-menu-item"><a href="#" class="vertical-menu-link"><span>История платежей</span></a></li>            
+            <li class="vertical-menu-item"><a href="#" class="vertical-menu-link"><span>Пригласить друзей</span></a></li>            
+        </ul>
     </div>
     <h3>Почтовый ящик</h3>
     <div>

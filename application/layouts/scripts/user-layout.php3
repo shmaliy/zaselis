@@ -1,6 +1,12 @@
 <?php echo $this->doctype('XHTML1_TRANSITIONAL'); ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <link href="/maps/documentation/javascript/examples/default.css" rel="stylesheet">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+
 <?php $this->headTitle('Zaselis')->setSeparator(' | '); ?>
 
 <?php $this->headLink()

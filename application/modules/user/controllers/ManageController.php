@@ -15,6 +15,7 @@ class User_ManageController extends Zend_Controller_Action
         $this->_helper->_layout->setLayout('user-layout');
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext->addActionContext('change-password', 'json');
+        $ajaxContext->addActionContext('profile', 'json');
         $ajaxContext->initContext('json');
         
     }
@@ -26,7 +27,13 @@ class User_ManageController extends Zend_Controller_Action
     
     public function profileAction()
     {
-        
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        if ($request->isXmlHttpRequest() || $request->isPost()) {
+            
+        } else {
+            $this->view->form = new User_Form_ProfileEdit();
+        }
     } 
     
     public function mailAction()

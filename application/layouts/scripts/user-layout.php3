@@ -22,12 +22,21 @@
 <?php echo $this->headMeta();?>
 <?php echo $this->headTitle(); ?>
 <?php echo $this->headLink(); ?>
-
+<?php
+    $lang = Zend_Registry::get('lang');
+    $l_alias = $lang['alias'];
+    $currencie = Zend_Registry::get('currencie');
+    $c_alias = strtolower($currencie['alias']);
+?>
+    <script>
+        var globalLang = '<?php echo $l_alias; ?>';
+        var globalCurr = '<?php echo $c_alias; ?>';
+    </script>
 <?php
     $this->headScript()->appendFile('/js/jquery-1.8.1.min.js');
     $this->headScript()->appendFile('/js/bootstrap.min.js');
     $this->headScript()->appendFile('/js/adaptive.js');
-    $this->headScript()->appendFile('/js/form-ajax.js');
+    $this->headScript()->appendFile('/js/forms-ajax.js');
     $this->headScript()->appendFile('/js/jquery/jquery-ui-1.9.0.custom/js/jquery-ui-1.9.0.custom.min.js');
     echo $this->headScript();
 ?>

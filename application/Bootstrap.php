@@ -108,6 +108,30 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute('index', $route);
         
         $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/ajax-route',
+            array(
+                'module' => 'user',
+                'controller' => 'index',
+                'action'     => 'ajax-route',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('ajax-route', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/change-password',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'change-password',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('change-password', $route);
+        
+        $route = new Zend_Controller_Router_Route(
             ':lang/:currencie/user',
             array(
                 'module' => 'user',

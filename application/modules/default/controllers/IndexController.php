@@ -9,7 +9,7 @@ class IndexController extends Zend_Controller_Action
     {
         $this->_model = new Core_Model_Abstract();
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
-        $ajaxContext->addActionContext('support', 'json');
+        
         $ajaxContext->initContext('json');
         $this->_image = new My_Image_Image();
     }
@@ -19,6 +19,8 @@ class IndexController extends Zend_Controller_Action
     	$request = $this->getRequest();
     	$params = $request->getParams();
     }
+    
+    
     
     
 }

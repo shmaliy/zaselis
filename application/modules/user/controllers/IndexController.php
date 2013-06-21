@@ -11,6 +11,7 @@ class User_IndexController extends Zend_Controller_Action
         $ajaxContext->addActionContext('simple-register', 'json');
         $ajaxContext->addActionContext('auth', 'json');
         $ajaxContext->addActionContext('restore-password', 'json');
+        $ajaxContext->addActionContext('ajax-route', 'json');
         $ajaxContext->initContext('json');
         $this->_model = new User_Model_Users();
     }
@@ -83,25 +84,22 @@ class User_IndexController extends Zend_Controller_Action
                 
                 if ($result->isValid()) {
                     
-                    if ($this->_model->isActive($username)) {
-                        $identity = $authAdapter->getResultRowObject();
+                    $identity = $authAdapter->getResultRowObject();
 
-                        $authStorage = $auth->getStorage();
+                    $authStorage = $auth->getStorage();
 
-                        $authStorage->write($authAdapter->getResultRowObject(array(
-                            'z_users_id',
-                            'email',
-                            'z_users_roles_id',
-                        )));
-                        
-                        $active = $this->_model->getActiveUser();
-                        
-                        $this->_model->writeRegisterSession($active['z_users_id']);
+                    $authStorage->write($authAdapter->getResultRowObject(array(
+                        'z_users_id',
+                        'email',
+                        'z_users_roles_id',
+                    )));
 
-                        $this->view->redirect =  true;
-                    } else {
-                        $this->view->formErrors        = array('activation' => 'error');
-                    }
+                    $active = $this->_model->getActiveUser();
+
+                    $this->_model->writeRegisterSession($active['z_users_id']);
+
+                    $this->view->redirect =  true;
+
                     
 		} else {
                     $this->view->formErrors        = array('global' => 'error');
@@ -120,6 +118,16 @@ class User_IndexController extends Zend_Controller_Action
         $this->_model->closeActiveSession();
         Zend_Auth::getInstance()->clearIdentity();
 	header('Location: ' . $this->view->url(array(), 'index'));
+    }
+    
+    public function ajaxRouteAction()
+    {
+    	$request = $this->getRequest();
+    	$params = $request->getParams();
+        
+        if ($request->isXmlHttpRequest() || $request->isPost()) {
+            $this->view->route = $this->view->url($params['r_params'], $params['r_name']);
+        }
     }
     
     public function restorePasswordAction()

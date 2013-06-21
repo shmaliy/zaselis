@@ -83,11 +83,38 @@ class User_Model_Users extends Core_Model_Abstract
         $this->mailto($email, 'Password reminder', $password);
     }
     
+    public function changePassword($new)
+    {
+        if (Zend_Auth::getInstance()->hasIdentity()) {
+	    $user = Zend_Auth::getInstance()->getIdentity();
+        } else return false;
+        
+        $select = $this->_db->select();
+        $select->from(array('user' => $this->_tZUsers['title']));
+        $select->where('user.z_users_id = ?', $user->z_users_id);
+        $return = $this->_db->fetchRow($select);
+        
+        $upd = array('password' => $this->_crypt($new));
+        
+        $this->_update($return['z_users_id'], $this->_tZUsers['title'], $upd);
+        return true;
+    }
+    
+    public function validateUserPassword($data)
+    {
+        $return = $this->getActiveUser();
+        
+        if ($return['password'] == $this->_crypt($data)) {
+            return true;
+        }
+        return false;
+    }        
+    
     public function getActiveUser()
     {
         if (Zend_Auth::getInstance()->hasIdentity()) {
 	    $user = Zend_Auth::getInstance()->getIdentity();
-        }
+        } else return false;
         
         $select = $this->_db->select();
         $select->from(array('user' => $this->_tZUsers['title']));

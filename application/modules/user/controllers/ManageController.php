@@ -14,7 +14,7 @@ class User_ManageController extends Zend_Controller_Action
         
         $this->_helper->_layout->setLayout('user-layout');
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
-//        $ajaxContext->addActionContext('restore-password', 'json');
+        $ajaxContext->addActionContext('change-password', 'json');
         $ajaxContext->initContext('json');
         
     }
@@ -56,6 +56,19 @@ class User_ManageController extends Zend_Controller_Action
     
     public function changePasswordAction()
     {
+        $request = $this->getRequest();
+        $params = $request->getParams();
         
+        $form = new Application_Form_ChangePassword();
+        
+        if ($request->isXmlHttpRequest() || $request->isPost()) {
+            if ($form->isValid($params)) {
+                
+            } else {
+                $this->view->formErrors        = $form->getErrors();
+    		$this->view->formErrorMessages = $form->getErrorMessages();
+            }
+        }
+       
     } 
 }

@@ -6,7 +6,6 @@ class Application_Form_ChangePassword extends Zend_Form
     {
     	$lang = Zend_Registry::get('lang');
         $this->setMethod('post');
-        $this->setAttrib('onsubmit', 'return sFSendData();'); // Force send only with ajax
         $this->setAttrib('id', 'ChangePassword');
         $this->setAttrib('class', 'dialog-form');
         
@@ -27,26 +26,19 @@ class Application_Form_ChangePassword extends Zend_Form
         
         
         $this->getElement('old_psw')->addValidator(new Zend_Validate_NotEmpty())
-//                                  ->addValidator(new Zend_Validate_EmailAddress())
-//                                  ->addValidator(new Core_Validate_EmailExist())
-//                                  ->addValidator(new Core_Validate_EmailIsActive())
+                                    ->addValidator(new Core_Validate_PasswValid())
                                     ->setAttrib('placeholder', 'Текущий пароль');
         
         $this->getElement('new_psw')->addValidator(new Zend_Validate_NotEmpty())
-//                                  ->addValidator(new Zend_Validate_EmailAddress())
-//                                  ->addValidator(new Core_Validate_EmailExist())
-//                                  ->addValidator(new Core_Validate_EmailIsActive())
                                     ->setAttrib('placeholder', 'Новый пароль');
                 
         $this->getElement('new_psw_rep')->addValidator(new Zend_Validate_NotEmpty())
-//                                  ->addValidator(new Zend_Validate_EmailAddress())
-//                                  ->addValidator(new Core_Validate_EmailExist())
-//                                  ->addValidator(new Core_Validate_EmailIsActive())
                                     ->setAttrib('placeholder', 'Новый пароль еще раз');
         
         $this->addElement('submit', 'submit', array(
             'ignore' => true,
-            'label' => 'Сменить'
+            'label' => 'Сменить',
+            'required' => false
         ));
     }
 

@@ -22,7 +22,16 @@
                     </li>
                     <?php echo $this->Common()->langSelector(); ?>
                     <?php echo $this->Common()->currSelector(); ?>
-                     <li class="main-menu-list-item">
+                    <li class="main-menu-list-item">
+                        <div id="google_translate_element"></div>
+                        <script type="text/javascript">
+                            function googleTranslateElementInit() {
+                              new google.translate.TranslateElement({pageLanguage: 'ru', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+                            }
+                        </script>
+                        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                    </li>
+                    <li class="main-menu-list-item">
                         <a href="#" class="menu-item-button main-menu-list-item-link"><span>Сдайте свое жилье</span></a>
                     </li>
                 </ul>

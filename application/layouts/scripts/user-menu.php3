@@ -99,10 +99,27 @@
         </div>
     <?php endif; ?>
 </div>
+<?php 
+    $url = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
+    $position = (!isset($url[3])) ? 'none' : $url[3];
+    
+    $tabs = array(
+        'none' => 0,
+        'friends' => 1,
+        'profile' => 2,
+        'mail'  => 3,
+        'flats' => 4,
+        'travels' => 5,
+        'settings' => 6
+    );
+    
+    $active = (isset($tabs[$position])) ? $tabs[$position] : 0; 
+?>
  <script>
     $(function() {
         $( "#userpanel-accordion" ).accordion({
-            heightStyle: "content"
+            heightStyle: "content",
+            active: <?php echo $active; ?>
         });
     });
 </script>

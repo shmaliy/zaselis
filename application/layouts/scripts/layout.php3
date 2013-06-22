@@ -5,6 +5,7 @@
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&language=en"></script>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+<meta name="google-translate-customization" content="4f5d1c2430126e0d-221a6bc2049dbb09-gefb7b869fc9c90a3-12"></meta>
 
 <?php $this->headLink()
            ->appendStylesheet('/theme/css/style.css')

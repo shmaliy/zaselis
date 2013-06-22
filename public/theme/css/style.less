@@ -18,7 +18,7 @@ img {border:none;}
 /*.outline {outline: 1px solid red;} */
 .outline {}
 .clear { clear:both;}
-.push1 { height:@header-height; }
+.push1 { height:54px; }
 .push2 { height:@footer-height; margin-top:25px;}
 
 /* clearfix class */
@@ -370,7 +370,7 @@ img {border:none;}
 }
  
 .header { 
-	position:absolute; 
+	position:fixed; 
 	width:100%; 
 	height:@header-height; 
 	z-index:10000;
@@ -386,7 +386,7 @@ img {border:none;}
         background: -ms-linear-gradient(top,  #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); /* IE10+ */
         background: linear-gradient(to bottom,  #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); /* W3C */
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-8 */
-
+        border: 1px solid #ccc;
 	
 	
 	&-resize {
@@ -642,121 +642,8 @@ img {border:none;}
 	min-height:100%;
 	margin:0 auto;
 	width:100%;
-	background:url(/theme/img/index-body-bg.png);
-	background-size:100% 100%;
 	
-	& .index-slider {
-		position: relative;
-		z-index: 100;
-		overflow: hidden;
-		
-		& .img-wrapper {
-			position:absolute;
-			z-index: 50;
-		}
-		
-		& .arrows-wrapper {
-			position: relative;
-			z-index: 200;
-			height: 33px;
-			
-			& .arrow {
-				display: block;
-				position: absolute;
-				width: 33px;
-				height: 33px;
-			}
-			
-			& .left {
-				left: 20px;
-				background:url(/theme/img/slider/left-arrow-33x33.png) top left no-repeat;
-				
-				&:hover {background:url(/theme/img/slider/left-arrow-hover-33x33.png) top left no-repeat;}
-			}
-			& .right {
-				right: 20px;
-				background:url(/theme/img/slider/right-arrow-33x33.png) top left no-repeat;
-				
-				&:hover {background:url(/theme/img/slider/right-arrow-hover-33x33.png) top left no-repeat;}
-			}
-		}
-		
-		& .search-form-wrapper {
-			position:absolute;
-			z-index: 250;
-			top: 0;
-			width: 852px;
-			
-			& .title-big {
-				color: #fff;
-				font-size: 44px;
-				line-height:1;
-			}
-			& .description {
-				color: #fff;
-				font-size: 24px;
-				line-height:1;
-			}
-			
-			& ul {
-				margin: 15px 0 0 0;
-				padding: 0;
-				list-style: none;
-				background: #757170;
-				height:40px;
-				
-				& .margin {
-					margin-right: 5px;
-				}
-				
-				& li {
-					float:left;
-					
-					& input {
-						height:30px;
-					}
-					
-					& .geo {
-						width:340px !important;
-					}
-					
-					& .sfbtn {
-						width: 124px;
-						height:40px;
-						border:none;
-						background:url(/theme/img/index-search-button.png) top left no-repeat;
-					}
-				}
-			}
-		}
-		
-		& .description-wrapper {
-			position:absolute;
-			z-index: 300;
-			bottom: 15px;
-			right:15px;
-			width: 350px;
-			
-			& .text {
-				float:left;
-				
-				& .title {
-					color: white;
-					font-weight:bold;	
-					display: block;
-					width:300px;		
-				}
-				
-				& .geo-desc {
-					color: white;
-				}
-			}
-			
-			& .img {
-				float:right;
-			}
-		}
-	}
+	
 	
 	& .underslider-menu {
 		height:32px;

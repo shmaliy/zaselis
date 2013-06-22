@@ -80,4 +80,9 @@ class Core_View_Helper_Common extends Core_View_Helper_Abstract
         $this->view->form = new Application_Form_ChangePassword();
         return $this->view->render('change-password.php3');
     }
+    
+    public function indexSlider()
+    {
+        return $this->view->render('index-slider.php3');
+    }
 }

@@ -56,7 +56,7 @@ function smartColumns() { //функция, подсчитывающая шир�
 		
 		var sfWrapper = $('.search-form-wrapper');
 		$(sfWrapper).css({'margin-top' : Math.floor(sliderHeight/2) - Math.floor(sfWrapper.height()/2) + 'px' });
-		$(sfWrapper).css({'margin-left' : Math.floor(display/2) - 426 + 'px' });
+		$(sfWrapper).css({'margin-left' : Math.floor(display/2) - 475 + 'px' });
 	}
 	
 	var underSlider = $('.underslider-menu') || null;

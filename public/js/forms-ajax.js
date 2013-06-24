@@ -121,7 +121,9 @@ function loginSuccess()
     window.location = redir;
 }
 
-
+/**
+ * Code for google autocomplete
+ */
 
 function initialize() {
   var input = /** @type {HTMLInputElement} */(document.getElementById('searchTextField'));

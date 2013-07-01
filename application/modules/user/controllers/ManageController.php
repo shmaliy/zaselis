@@ -23,6 +23,9 @@ class User_ManageController extends Zend_Controller_Action
     public function indexAction()
     {
         $this->_model->isActiveSession();
+        
+        $this->_model->googleGetAddress('Ukraine');
+        
     } 
     
     public function profileAction()

@@ -1,5 +1,5 @@
 <h1>Редактирование контактной информации</h1>
-<a id="morePhones">Добавить телефон</a>
+<a id="morePhones" class="add-more-phones"><span>Добавить телефон</span></a>
 
 <div id="formSource">
     <div class="input-prepend">
@@ -34,10 +34,15 @@
 <div id="panel" class="cf">
     <form id="PhonesEdit" class="main-form cf" action="" method="post" enctype="application/x-www-form-urlencoded">
         <div id="NewPhones"></div> 
+        <input type="submit" value="Сохранить" class="form-save-button" id="savePhones">
         <?php if (!empty($this->phones)) : ?>
+        <div class="phones-exist">Ваши телефоны</div>
             <?php foreach ($this->phones as $num=>$phone) : ?>
             <div class="phone cf">
-                <div class="number"><?php echo $phone->z_countries_id; ?> <?php echo $phone->number; ?></div>
+                <div class="number">
+                    <span class="code"><?php echo $phone->z_countries_id; ?></span>
+                    <span class="num"><?php echo $phone->number; ?></span>
+                </div>
                 <div class="status">
                     <?php if (!empty($phone->activate)) : ?>
                         <a class="inactive" rel="<?php echo $num; ?>">подтвердить</a>
@@ -49,7 +54,7 @@
             </div>
             <?php endforeach; ?>
         <?php endif; ?>
-        <input type="submit" value="Сохранить">
+        
     </form>
 </div>
 <div id="map-canvas"></div>
@@ -77,6 +82,7 @@
     function addPhone()
     {
         $('#formSource .input-prepend').clone().show().appendTo('#NewPhones');
+        $('#savePhones').show();
     }
     
     function addEvent()

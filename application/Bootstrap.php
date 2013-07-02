@@ -168,6 +168,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute('user-profile', $route);
         
         $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/profile/contacts',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'contacts',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('user-contacts', $route);
+        
+        $route = new Zend_Controller_Router_Route(
             ':lang/:currencie/user/mail',
             array(
                 'module' => 'user',

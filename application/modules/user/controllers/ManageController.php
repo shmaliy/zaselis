@@ -16,6 +16,7 @@ class User_ManageController extends Zend_Controller_Action
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext->addActionContext('change-password', 'json');
         $ajaxContext->addActionContext('profile', 'json');
+        $ajaxContext->addActionContext('contacts', 'json');
         $ajaxContext->initContext('json');
         
     }
@@ -24,7 +25,9 @@ class User_ManageController extends Zend_Controller_Action
     {
         $this->_model->isActiveSession();
         
-        $this->_model->googleGetAddress('Ukraine');
+        // z_countries country
+        // z_states administrative_area_level_1
+        // z_towns locality
         
     } 
     
@@ -32,16 +35,35 @@ class User_ManageController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
         $params = $request->getParams();
+        
+        $form = new User_Form_ProfileEdit();
+        $form->setDefaults($this->_model->prepareUserProfileData());
+        
         if ($request->isXmlHttpRequest() || $request->isPost()) {
-            
+            if ($form->isValid($params)) {
+                $this->_model->saveUserProfileData($params);
+            } else {
+                $this->view->formErrors        = $form->getErrors();
+    		$this->view->formErrorMessages = $form->getErrorMessages();
+            }
         } else {
-            $this->view->form = new User_Form_ProfileEdit();
+            $this->view->form = $form;
         }
     } 
     
     public function mailAction()
     {
         
+    } 
+    
+    public function contactsAction()
+    {
+        $data = $this->_model->getActiveUser();
+        echo '<pre>';
+        var_export($data['phones']);
+        echo '</pre>';
+        
+        $this->view->phones = $data['phones'];
     } 
     
     public function flatsAction()

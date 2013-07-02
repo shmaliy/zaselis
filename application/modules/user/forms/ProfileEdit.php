@@ -13,30 +13,40 @@ class User_Form_ProfileEdit extends Zend_Form
         	'label' => 'Фамилия',
                 'required' => true
         ));
+        $this->getElement('firstname')
+                ->addValidator(new Zend_Validate_NotEmpty());
+        
         
         $this->addElement('text', 'name', array(
         	'label' => 'Имя',
                 'required' => true
         ));
+        $this->getElement('name')
+                ->addValidator(new Zend_Validate_NotEmpty());
         
         $this->addElement('text', 'birth', array(
         	'label' => 'Дата рождения',
                 'required' => true
         ));
+        $this->getElement('birth')
+                ->addValidator(new Zend_Validate_NotEmpty());
         
         $this->addElement('text', 'geo', array(
         	'label' => 'Место жительства',
                 'required' => true
         ));
+        $this->getElement('geo')
+                ->addValidator(new Zend_Validate_NotEmpty())
+                ->setAttrib('id', 'searchTextField');
         
         $this->addElement('radio', 'gender', array(
         	'label' => 'Пол',
-                'required' => true
+                'required' => true,
+                'multiOptions' => array(
+                    'Male' => 'Мужской',
+                    'Female' => 'Женский'
+                )
             
-        ));
-        $this->getElement('gender')->addMultiOptions(array(
-            'male' => 'Male',
-            'female' => 'Female'
         ));
         
         $this->addElement('textarea', 'about', array(
@@ -49,40 +59,21 @@ class User_Form_ProfileEdit extends Zend_Form
                 'required' => true
         ));
         
-        $this->addElement('textarea', 'office_addr', array(
+        $this->addElement('text', 'office_addr', array(
         	'label' => 'Адрес офиса',
-                'required' => true
+                'required' => false
         ));
+        $this->getElement('office_addr')->setAttrib('id', 'usersOfficeAddr');
         
         $this->addElement('radio', 'type_of_settle', array(
         	'label' => 'Тип поселения',
-                'required' => true
-            
+                'required' => true,
+                'multiOptions' => array(
+                    'Office' => 'Ключ выдается в офисе',
+                    'OnPlace' => 'Ключ выдается по месту поселения',
+                    'Both' => 'Возможны оба варианта'
+                )
         ));
-        $this->getElement('type_of_settle')->addMultiOptions(array(
-            'male' => 'Male',
-            'female' => 'Female'
-        ));
-                
-        
-        
-        
-        
-        $this->addElement('text', 'phones', array(
-        	'label' => 'Телефоны',
-                'required' => true
-        ));
-        
-        $this->getElement('geo')->addValidator(new Zend_Validate_NotEmpty())
-                                ->addValidator(new Core_Validate_PasswValid())
-                                ->setAttrib('placeholder', 'Место жительства')
-                                ->setAttrib('id', 'searchTextField');
-        
-        
-//        $this->getElement('old_psw')->addValidator(new Zend_Validate_NotEmpty())
-//                                    ->addValidator(new Core_Validate_PasswValid())
-//                                    ->setAttrib('placeholder', 'Текущий пароль');
-        
         
         $this->addElement('submit', 'submit', array(
             'ignore' => true,

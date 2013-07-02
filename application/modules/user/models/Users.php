@@ -24,6 +24,75 @@ class User_Model_Users extends Core_Model_Abstract
         }
     }
     
+    public function parseUserLiveCity($str = null) {
+        if (is_null($str)) {
+            return false;
+        }
+        
+        $data = $this->googleGetAddress($str);
+        $data = $data->results[0];
+        
+        $country = $this->getCountry($data);
+        $state = $this->getState($data);
+        $town = $this->getTown($data);
+        
+        $return = array(
+            'z_countries_id' => $country,
+            'z_states_id' => $state,
+            'z_towns_id' => $town
+        );
+
+        return $return;
+    }
+    
+    public function prepareUserProfileData()
+    {
+        $data = $this->getActiveUser();
+        
+        $town = $this->getTownById($data['z_towns_id']);
+        $state = $this->getStateById($data['z_states_id']);
+        $country = $this->getCountryById($data['z_countries_id']);
+        
+        $data['geo'] = $town['title'] . ', ' . $state['title'] . ', ' . $country['title'];
+        $data['birth'] = date("Y-m-d", $data['birth']);
+        $data['documentation'] = ($data['documentation'] == 'YES') ? 1 : 0;
+        
+        return $data;
+    }
+    
+    public function saveUserProfileData($array)
+    {
+        $user = $this->getActiveUser();
+        $user_id = $user['z_users_id'];
+        
+        $living = $this->parseUserLiveCity($array['geo']);
+        
+        $birth = explode('-', $array['birth']);
+        $birth = mktime(0, 0, 0, $birth[1], $birth[2], $birth[0]);
+        
+        $office_addres = $this->googleGetAddress($array['office_addr']);
+        
+        $update = array(
+            'name' => $array['name'],
+            'firstname' => $array['firstname'],
+            'birth' => $birth,
+            'gender' => ucfirst($array['gender']),
+            'about' => $array['about'],
+            'documentation' => ($array['documentation'] == 1) ? 'YES' : 'NO',
+            'office_addr' => $office_addres->results[0]->formatted_address,
+            'type_of_settle' => $array['type_of_settle'],
+            'edited_ts' => time(),
+            'z_countries_id' => $living['z_countries_id'],
+            'z_states_id' => $living['z_states_id'],
+            'z_towns_id' => $living['z_towns_id']
+        );
+        
+        
+        $this->_update($user_id, $this->_tZUsers['title'], $update);
+        
+    }
+
+
     public function validateEmailOnDb($email) 
     {
         $select = $this->_db->select();

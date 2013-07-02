@@ -21,6 +21,8 @@
     <div>
         <ul class="vertical-menu">
             <li class="vertical-menu-item"><a href="<?php echo $this->url(array(), 'user-profile'); ?>" class="vertical-menu-link"><span>Редактирование личной информации</span></a></li>            
+            <li class="vertical-menu-item"><a href="<?php echo $this->url(array(), 'user-contacts'); ?>" class="vertical-menu-link"><span>Телефоны</span></a></li>
+            <li class="vertical-menu-item"><a href="#" class="vertical-menu-link"><span>Социальные сети</span></a></li>
             <li class="vertical-menu-item"><a href="#" class="vertical-menu-link"><span>Настройка оповещений</span></a></li>            
             <li class="vertical-menu-item"><a href="#" class="vertical-menu-link"><span>Методы выплаты</span></a></li>            
             <li class="vertical-menu-item"><a href="#" class="vertical-menu-link"><span>История платежей</span></a></li>            

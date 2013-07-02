@@ -23,7 +23,7 @@ function smartColumns() { //функция, подсчитывающая шир�
 	
 	var cRightWidth = siteWidth - 253;
         var uRightWidth = siteWidth - 270;
-        $(".userpanel-content").css({ 'width' : uRightWidth + 'px'});
+        $(".userpanel-content").css({ 'width' : uRightWidth - 40 + 'px'});
 	$(".column-right").css({ 'width' : cRightWidth + 'px'});
 	$(".column-right-wrapper").css({ 'width' : cRightWidth + 10 + 'px'});
 	$(".fullwidth > ul").css({ 'width' : siteWidth - 45 + 'px'});

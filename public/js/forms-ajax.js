@@ -130,9 +130,7 @@ function initialize() {
   var autocomplete = new google.maps.places.Autocomplete(input);
 }
 
-function initializeOfficeAddr() {
-  var input = /** @type {HTMLInputElement} */(document.getElementById('usersOfficeAddr'));
-  var autocomplete = new google.maps.places.Autocomplete(input);
-}
+
+
 google.maps.event.addDomListener(window, 'load', initialize);
-google.maps.event.addDomListener(window, 'load', initializeOfficeAddr);
+

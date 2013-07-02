@@ -91,6 +91,36 @@ class User_Model_Users extends Core_Model_Abstract
         $this->_update($user_id, $this->_tZUsers['title'], $update);
         
     }
+    
+    public function saveUserPhones($update) {
+        $user = $this->getActiveUser();
+        $user_id = $user['z_users_id'];
+        $upd['phones'] = base64_encode(json_encode($update));
+        
+        $this->_update($user_id, $this->_tZUsers['title'], $upd);
+    }
+    
+    public function getPhoneCodes($country_id = null)
+    {
+        $select = $this->_db->select();
+        $select->from($this->_tZPhoneCodes['title']);
+        if (!is_null($country_id)) {
+            $select->where('z_countries_id = ?', $country_id);
+            return $this->_db->fetchRow($select);
+        } else {
+            $select->order('z_countries_title');
+            return $this->_db->fetchAll($select);
+        }
+        
+    }
+    
+    public function getPhoneCode($id = null)
+    {
+        $select = $this->_db->select();
+        $select->from($this->_tZPhoneCodes['title']);
+        $select->where('z_phone_codes_id 	 = ?', $id);
+        return $this->_db->fetchRow($select);
+    }
 
 
     public function validateEmailOnDb($email) 
@@ -188,6 +218,19 @@ class User_Model_Users extends Core_Model_Abstract
         $select = $this->_db->select();
         $select->from(array('user' => $this->_tZUsers['title']));
         $select->where('user.z_users_id = ?', $user->z_users_id);
+        
+        $select->joinLeft(
+            array('session' => $this->_tZUsersSessions['title']),
+            'session.z_users_id = user.z_users_id',
+            array(
+                'session_country' => 'session.z_countries_id',
+                'session_state' => 'session.z_states_id',
+                'session_town' => 'session.z_towns_id'
+            )
+        );
+        $select->where(new Zend_Db_Expr('session.created_ts + session.ttl >' . time()));
+        $select->order('session.z_users_sessions_id desc');
+        
         $return = $this->_db->fetchRow($select);
         
         $return = $this->_treeFieldsTransform($this->_tZUsers['title'], $return, true);
@@ -228,11 +271,18 @@ class User_Model_Users extends Core_Model_Abstract
 
 
     public function writeRegisterSession($id, $ttl = 86400) {
+        $geo = $this->getGeoIp();
+        
+        $googleObject = $this->googleGetAddress($geo->city . ', ' . $geo->region_name . ', ' . $geo->country_name);
+        
         $insert = array(
             'z_users_id' => $id,
             'created_ts' => time(),
             'ttl' => $ttl,
-            'ip'        =>  $_SERVER['REMOTE_ADDR']
+            'ip'        =>  $_SERVER['REMOTE_ADDR'],
+            'z_countries_id' => $this->saveCountry($googleObject),
+            'z_states_id' => $this->saveState($googleObject),
+            'z_towns_id' => $this->saveTown($googleObject)
         );
         
         $this->_insert($this->_tZUsersSessions['title'], $insert);

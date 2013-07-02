@@ -82,7 +82,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         //$router->removeDefaultRoutes();
 
         $model = new Core_Model_Abstract();
-
+        
         $lang = Zend_Registry::get('lang');
         $l_alias = $lang['alias'];
         $currencie = Zend_Registry::get('currencie');

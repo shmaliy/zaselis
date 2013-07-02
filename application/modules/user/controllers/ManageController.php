@@ -29,6 +29,8 @@ class User_ManageController extends Zend_Controller_Action
         // z_states administrative_area_level_1
         // z_towns locality
         
+//        $this->_model->codeCleaner();
+        
     } 
     
     public function profileAction()
@@ -58,12 +60,48 @@ class User_ManageController extends Zend_Controller_Action
     
     public function contactsAction()
     {
-        $data = $this->_model->getActiveUser();
-        echo '<pre>';
-        var_export($data['phones']);
-        echo '</pre>';
+        $request = $this->getRequest();
+        $params = $request->getParams();
         
-        $this->view->phones = $data['phones'];
+        $data = $this->_model->getActiveUser();
+//        echo '<pre>';
+//        var_export($data['phones']);
+//        echo '</pre>';
+        
+        if ($request->isXmlHttpRequest() || $request->isPost()) { 
+            
+            $insert = array();
+            foreach ($params['phone'] as $key=>$num) {
+                if(!empty($num)) {
+                    $activate = md5($num);
+                    $activate = str_split($activate);
+                    array_splice($activate, 5);
+                    $insert[] = array(
+                        'z_countries_id' => $params['country'][$key],
+                        'number'         => $num,
+                        'activate'       => implode('', $activate)
+                    );
+                }
+            }
+            if (!empty($insert)) {
+                $ins = array_merge($data['phones'], $insert);
+                $this->_model->saveUserPhones($ins);
+            }
+            
+        } else {
+            $this->view->country = $data['session_country'];
+            $this->view->codes = $this->_model->getPhoneCodes();
+            
+            foreach ($data['phones'] as $phone) {
+                $code = $this->_model->getPhoneCode($phone->z_countries_id);
+                $phone->z_countries_id = $code['code'];
+            }
+            
+            $this->view->phones = $data['phones'];
+        }
+        
+        
+        
     } 
     
     public function flatsAction()

@@ -172,6 +172,60 @@ class Core_Model_Abstract
         } 
     }
     
+    public function codeCleaner()
+    {
+        $select = $this->_db->select();
+        $select->from($this->_tZPhoneCodes['title']);
+        $data = $this->_db->fetchAll($select);
+        
+        foreach ($data as $item) {
+            $select->reset();
+            
+            $select = $this->_db->select();
+            $select->from($this->_tZPhoneCodes['title']);
+            $select->where('z_countries_id = ?', $item['z_countries_id']);
+            
+            $codes = $this->_db->fetchAll($select);
+            
+            $i = 0;
+            foreach($codes as $code) {
+                if ($i > 0) {
+                    $this->_delete($code['z_phone_codes_id'], $this->_tZPhoneCodes['title']);
+                }
+                $i++;
+            }
+            
+        }
+    }
+    
+    public function getGeoIp()
+    {
+        if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1') {
+            $ip = '46.98.24.112';
+        } else {$ip = $_SERVER['REMOTE_ADDR'];}
+        
+        $url = 'http://freegeoip.net/json/' . $ip;
+                
+        $options = array(
+                       CURLOPT_RETURNTRANSFER => true,         // return web page
+                       CURLOPT_CONNECTTIMEOUT => 5,          // timeout on connect
+       );
+
+       $ch      = curl_init($url);
+       curl_setopt_array($ch, $options);
+       $content = curl_exec($ch);
+       $err     = curl_errno($ch);
+       $errmsg  = curl_error($ch) ;
+       $header  = curl_getinfo($ch);
+       curl_close($ch);
+
+       $content = json_decode($content);
+//       echo '<pre>';
+//       var_export($content);
+//       echo '</pre>';
+       return $content;
+    }
+    
     public function googleGetAddress($str = null, $lang = 'en')
     {
         if (is_null($str)) {

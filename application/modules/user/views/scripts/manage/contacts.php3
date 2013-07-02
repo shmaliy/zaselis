@@ -4,10 +4,12 @@
 <div id="formSource">
     <div class="input-prepend">
         <div class="btn-group cf">
-            <label class="control-label" for="inputInfo">Введите страну</label>
-            <input class="span2 input-large" type="text">
+            <label class="control-label" for="inputInfo">Выберите страну</label>
+            <select name="country">
+                <option value="0">Выбрать</option>
+            </select>
             <label class="control-label" for="inputInfo">Введите телефон</label>
-            <span class="add-on"></span>
+            <span class="add-on">056</span>
             <input name="phone[]" class="span3 input-xlarge" type="text">
         </div>
     </div>
@@ -36,9 +38,6 @@
     
     $('#PhonesEdit .control-label:first').css({marginLeft: 0});
     $('#formSource .control-label:first').css({marginLeft: 0});
-    
-    
-    
     
     function addPhone()
     {

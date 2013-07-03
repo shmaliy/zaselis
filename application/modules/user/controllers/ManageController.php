@@ -17,21 +17,50 @@ class User_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('change-password', 'json');
         $ajaxContext->addActionContext('profile', 'json');
         $ajaxContext->addActionContext('contacts', 'json');
+        $ajaxContext->addActionContext('remove-single-phone', 'json');
+        $ajaxContext->addActionContext('social-networks', 'json');
+        $ajaxContext->addActionContext('avatar', 'json');
+        $ajaxContext->addActionContext('remove-avatar', 'json');
         $ajaxContext->initContext('json');
         
     }
     
     public function indexAction()
     {
-        $this->_model->isActiveSession();
         
-        // z_countries country
-        // z_states administrative_area_level_1
-        // z_towns locality
         
-//        $this->_model->codeCleaner();
         
     } 
+
+    
+    public function avatarAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+        $data = $this->_model->getActiveUser();
+        
+        if ($request->isXmlHttpRequest() || $request->isPost()) { 
+            $file = parse_url($params['file']);
+            $this->_model->saveAvatar($file['path']);
+            
+        } else {
+            $this->view->avatar = $data['avatar'];
+        }
+    }
+    
+    public function removeAvatarAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+        $data = $this->_model->getActiveUser();
+        
+        if ($request->isXmlHttpRequest() || $request->isPost()) { 
+            $this->_model->saveAvatar();
+            
+        }
+    }
     
     public function profileAction()
     {
@@ -71,11 +100,13 @@ class User_ManageController extends Zend_Controller_Action
         if ($request->isXmlHttpRequest() || $request->isPost()) { 
             
             $insert = array();
+            
             foreach ($params['phone'] as $key=>$num) {
                 if(!empty($num)) {
                     $activate = md5($num);
                     $activate = str_split($activate);
                     array_splice($activate, 5);
+                    
                     $insert[] = array(
                         'z_countries_id' => $params['country'][$key],
                         'number'         => $num,
@@ -83,8 +114,18 @@ class User_ManageController extends Zend_Controller_Action
                     );
                 }
             }
+            
+            
             if (!empty($insert)) {
-                $ins = array_merge($data['phones'], $insert);
+                if (!empty($data['phones'])) {
+                    $ins = array_merge($data['phones'], $insert);
+                } else {
+                    $ins = $insert;
+                }
+//                var_export($data['phones']);
+//                var_export($insert);
+//                var_export($ins);
+//                return;
                 $this->_model->saveUserPhones($ins);
             }
             
@@ -93,16 +134,49 @@ class User_ManageController extends Zend_Controller_Action
             $this->view->codes = $this->_model->getPhoneCodes();
             
             foreach ($data['phones'] as $phone) {
-                $code = $this->_model->getPhoneCode($phone->z_countries_id);
-                $phone->z_countries_id = $code['code'];
+                $code = $this->_model->getPhoneCode($phone['z_countries_id']);
+                $phone['z_countries_id'] = $code['code'];
             }
             
             $this->view->phones = $data['phones'];
         }
-        
-        
-        
+    }
+    
+    public function removeSinglePhoneAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        $this->_model->removeSinglePhone($params['id']);
     } 
+    
+    public function socialNetworksAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        $form = new User_Form_SocialNetworks();
+        
+        $data = $this->_model->getActiveUser();
+        
+        if (!empty($data['social_networks'])) {
+            $form->setDefaults($data['social_networks']);
+        }
+        
+        if ($request->isXmlHttpRequest() || $request->isPost()) {  
+            $vk = strip_tags($params['vk']);
+            $fb = strip_tags($params['fb']);
+            
+            if (!empty($vk) || !empty($fb)) {
+                $insert = array(
+                    'vk' => $params['vk'],
+                    'fb' => $params['fb']
+                );
+                $this->_model->saveSocialNetworks($insert);
+            }
+        } else {
+            $this->view->form = $form;
+        }
+        
+    }
     
     public function flatsAction()
     {

@@ -33,12 +33,28 @@ class UploadHandler
         'max_height' => 'Image exceeds maximum height',
         'min_height' => 'Image requires a minimum height'
     );
+    
+    function createSubdir($dir = null)
+    {
+        if (is_null($dir)) {
+            $dir = $_SERVER['DOCUMENT_ROOT'] . '/contents/avatars/';
+        }
+        
+        return '';
+    }
 
     function __construct($options = null, $initialize = true, $error_messages = null) {
+        
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
+            $domain = 'https://' . $_SERVER['HTTP_HOST'];
+        } else {
+            $domain = 'http://' . $_SERVER['HTTP_HOST'];
+        }
+        
         $this->options = array(
             'script_url' => $this->get_full_url().'/',
-            'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/files/',
-            'upload_url' => $this->get_full_url().'/files/',
+            'upload_dir' => $_SERVER['DOCUMENT_ROOT'] . '/contents/avatars/' . $this->createSubdir(),
+            'upload_url' => $domain . '/contents/avatars/' . $this->createSubdir(),
             'user_dirs' => false,
             'mkdir_mode' => 0755,
             'param_name' => 'files',
@@ -106,7 +122,24 @@ class UploadHandler
                     //'crop' => true,
                     'max_width' => 80,
                     'max_height' => 80
+                ),
+                
+                'drop-thumbnail' => array(
+                    // Uncomment the following to force the max
+                    // dimensions and e.g. create square thumbnails:
+                    //'crop' => true,
+                    'max_width' => 80,
+                    'max_height' => 80
+                ),
+                
+                'thumbnail-180-256' => array(
+                    // Uncomment the following to force the max
+                    // dimensions and e.g. create square thumbnails:
+                    'crop' => true,
+                    'max_width' => 180,
+                    'max_height' => 256
                 )
+                
             )
         );
         if ($options) {
@@ -115,6 +148,7 @@ class UploadHandler
         if ($error_messages) {
             $this->error_messages = array_merge($this->error_messages, $error_messages);
         }
+        
         if ($initialize) {
             $this->initialize();
         }

@@ -23,7 +23,7 @@
                         <li>
                             <a class="menu-item-over-list-item-link" href="<?php echo $url; ?>">
                                 <span class="menu-item-over-list-item-link-span">
-                                    <?php echo $lng['title']->$lng['alias']; ?>
+                                    <?php echo $lng['title'][$lng['alias']]; ?>
                                 </span>
                             </a>
                         </li>

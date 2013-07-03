@@ -62,9 +62,11 @@ class User_IndexController extends Zend_Controller_Action
         if (Zend_Auth::getInstance()->hasIdentity()) {
             return;
         }
-        $form = new Application_Form_SimpleAuth();
         $request = $this->getRequest();
         $params = $request->getParams();
+        $form = new Application_Form_SimpleAuth();
+        
+        
         if ($request->isXmlHttpRequest() || $request->isPost()) {
             if ($form->isValid($params)) {
                 
@@ -76,16 +78,19 @@ class User_IndexController extends Zend_Controller_Action
                 $username = $this->getRequest()->getPost('email');
 		$password = $this->_model->preparePasswordToCompare($this->getRequest()->getPost('password'));
                 
+                
+                
                 $authAdapter->setIdentity($username)
 		            ->setCredential($password);
                 
                 $auth = Zend_Auth::getInstance();
                 $result = $auth->authenticate($authAdapter);
                 
+                
+                
                 if ($result->isValid()) {
                     
                     $identity = $authAdapter->getResultRowObject();
-
                     $authStorage = $auth->getStorage();
 
                     $authStorage->write($authAdapter->getResultRowObject(array(
@@ -93,10 +98,14 @@ class User_IndexController extends Zend_Controller_Action
                         'email',
                         'z_users_roles_id',
                     )));
+                    
+                    $user = Zend_Auth::getInstance()->getIdentity();
+                    
+//                    $this->view->redirect =  $this->_model->getActiveUser();
 
-                    $active = $this->_model->getActiveUser();
+//                    $active = $this->_model->getActiveUser();
 
-                    $this->_model->writeRegisterSession($active['z_users_id']);
+                    $this->_model->writeRegisterSession($user->z_users_id);
 
                     $this->view->redirect =  true;
 

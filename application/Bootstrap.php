@@ -132,6 +132,42 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute('change-password', $route);
         
         $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/ajax/remove-single-phone',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'remove-single-phone',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('ajax-remove-single-phone', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/ajax/change-avatar',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'avatar',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('ajax-avatar', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/ajax/remove-avatar',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'remove-avatar',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('ajax-remove-avatar', $route);
+        
+        $route = new Zend_Controller_Router_Route(
             ':lang/:currencie/user',
             array(
                 'module' => 'user',
@@ -178,6 +214,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             )
         );
         $router->addRoute('user-contacts', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/profile/social-networks',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'social-networks',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('user-social-networks', $route);
         
         $route = new Zend_Controller_Router_Route(
             ':lang/:currencie/user/mail',

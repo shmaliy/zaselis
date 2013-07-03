@@ -119,7 +119,8 @@ class Core_Model_Abstract
             'phones'            => 'array',
             'z_languages_array' => 'array',
             'votes'             => 'array',
-            'tops_price_drop'             => 'array'
+            'tops_price_drop'   => 'array',
+            'social_networks'   => 'array'
         )
     );
     
@@ -526,7 +527,7 @@ class Core_Model_Abstract
                 $nLang = $this->_treeFieldsTransform($this->_tZLanguages['title'], $nLang, false);
                 foreach ($nLang as $key=>&$item) {
                     if ($key == 'title') {
-                        $item = $item->$nLang['alias'];
+                        $item = $item[$nLang['alias']];
                     }
                 }
                 Zend_Registry::set('lang', $nLang);
@@ -634,7 +635,7 @@ class Core_Model_Abstract
         if (!empty($tbl['treeFields'])) {
             foreach ($data as $key=>&$value) {
                 if (isset($tbl['treeFields'][$key])) {
-                    $value = json_decode(base64_decode($value));
+                    $value = json_decode(base64_decode($value), true);
                     if($tbl['treeFields'][$key] == 'multilanguage' && $translate == true) {
                         $lang = $this->_lang['alias'];
                         if (isset($value->$lang)) {

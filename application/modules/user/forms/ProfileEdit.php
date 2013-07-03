@@ -77,9 +77,10 @@ class User_Form_ProfileEdit extends Zend_Form
         
         $this->addElement('submit', 'submit', array(
             'ignore' => true,
-            'label' => 'Сменить',
+            'label' => 'Coxpaнить',
             'required' => false
         ));
+        $this->getElement('submit')->setAttrib('class', 'form-save-button');
     }
 
 

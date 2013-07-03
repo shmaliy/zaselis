@@ -4,7 +4,7 @@
         <div class="header-resize-controls">
             <div class="main-menu cf right">
                 <ul class="main-menu-list">
-                    <?php if (!Zend_Auth::getInstance()->hasIdentity()) : ?>
+                    <?php if (!Zend_Auth::getInstance()->hasIdentity() || $this->active == 0) : ?>
                         <li class="main-menu-list-item">
                             <a onclick ="$('#register-dialog').dialog({'modal':true});" class="menu-item main-menu-list-item-link"><span>Регистрация</span></a>
                         </li>
@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-    <?php if (Zend_Auth::getInstance()->hasIdentity()) : ?>
+    <?php if (Zend_Auth::getInstance()->hasIdentity() && $this->active == 1) : ?>
         <div id="change-avatar-dialog" title="Смена аватара" style="display: none;"><?php  echo $this->Common()->avatarManger(); ?></div>
     <?php else : ?>
         <div id="login-dialog" style="display: none;" title="Авторизация"><?php echo $this->Common()->loginForm(); ?></div>

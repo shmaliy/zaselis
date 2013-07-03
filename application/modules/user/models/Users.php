@@ -95,7 +95,7 @@ class User_Model_Users extends Core_Model_Abstract
     public function saveUserPhones($update) {
         $user = $this->getActiveUser();
         $user_id = $user['z_users_id'];
-        $upd['phones'] = base64_encode(json_encode($update));
+        $upd['phones'] = $this->_prepareToTree($update);
         
         $this->_update($user_id, $this->_tZUsers['title'], $upd);
     }
@@ -118,8 +118,28 @@ class User_Model_Users extends Core_Model_Abstract
     {
         $select = $this->_db->select();
         $select->from($this->_tZPhoneCodes['title']);
-        $select->where('z_phone_codes_id 	 = ?', $id);
+        $select->where('z_phone_codes_id = ?', $id);
         return $this->_db->fetchRow($select);
+    }
+    
+    public function removeSinglePhone($id) {
+        $user = $this->getActiveUser();
+        $phones = $user['phones'];
+        unset ($phones[$id]);
+        $upd = array(
+            'phones' => $this->_prepareToTree($phones)
+        );
+        
+        $this->_update($user['z_users_id'], $this->_tZUsers['title'], $upd);
+    }
+    
+    public function saveSocialNetworks($ins)
+    {
+        $user = $this->getActiveUser();
+        $user_id = $user['z_users_id'];
+        $insert['social_networks'] = $this->_prepareToTree($ins);
+        
+        $this->_update($user_id, $this->_tZUsers['title'], $insert);
     }
 
 
@@ -232,14 +252,21 @@ class User_Model_Users extends Core_Model_Abstract
         $select->order('session.z_users_sessions_id desc');
         
         $return = $this->_db->fetchRow($select);
+        if ($return != false) {
+            $return = $this->_treeFieldsTransform($this->_tZUsers['title'], $return, true);
+            return $return;
+        }
         
-        $return = $this->_treeFieldsTransform($this->_tZUsers['title'], $return, true);
-        return $return;
+        return false;
+        
     }
     
     public function isActiveSession()
     {
         $user = $this->getActiveUser();
+        if (!$user) {
+            return false;
+        }
         
         $select = $this->_db->select();
         $select->from(array('session' => $this->_tZUsersSessions['title']));
@@ -247,12 +274,18 @@ class User_Model_Users extends Core_Model_Abstract
         $select->where(new Zend_Db_Expr('session.created_ts + session.ttl >' . time()));
         $select->order('session.z_users_sessions_id desc');
         
-        
-        
         $return = $this->_db->fetchRow($select);
         
         return $return;
         
+    }
+    
+    public function saveAvatar($fname) 
+    {
+        $user = $this->getActiveUser();      
+        $update['avatar'] = $fname;
+        
+        $this->_update($user['z_users_id'], $this->_tZUsers['title'], $update);
     }
     
     public function closeActiveSession()

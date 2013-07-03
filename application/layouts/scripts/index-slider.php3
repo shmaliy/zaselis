@@ -47,5 +47,12 @@
 </div>
 
 <script>
+    function initializeIndexSlider() {
+        var input = /** @type {HTMLInputElement} */(document.getElementById('searchTextField'));
+        var autocomplete = new google.maps.places.Autocomplete(input);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initializeIndexSlider);
+
     $("#inDate, #outDate").datepicker();
 </script>

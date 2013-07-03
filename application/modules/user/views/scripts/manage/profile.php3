@@ -1,4 +1,4 @@
-<h1>Редактирование личной информации</h1>
+<h2>Редактирование личной информации</h2>
 <div id="panel" class="cf">
     <?php echo $this->form; ?>
 </div>
@@ -10,7 +10,7 @@
             'user-profile', 
             {'lang': globalLang, 'currencie': globalCurr},
             '#ProfileEdit',
-            [['testCallback', '656465645'], ['testCallback', 'jdjhdfkhdfkf']]
+            [['updateWindow']]
         );
         return false;
     });

@@ -67,6 +67,13 @@ class Core_View_Helper_Common extends Core_View_Helper_Abstract
     
     public function header()
     {
+        $model = new User_Model_Users();
+        
+        if (!$model->isActiveSession()) {
+            $this->view->active = 0;
+        } else {
+            $this->view->active = 1;
+        }
         return $this->view->render('header.php3');
     }
     

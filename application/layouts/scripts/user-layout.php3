@@ -3,6 +3,7 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <link href='http://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic-ext,latin-ext,cyrillic' rel='stylesheet' type='text/css'>
 
 
 <?php $this->headTitle('Zaselis')->setSeparator(' | '); ?>
@@ -56,11 +57,15 @@
 </script>
 </head>
 <body>
+
 <?php echo $this->Common()->header(); ?>
 <div class="body">
     <div class="push1"></div>
+        <div class="userpanel-header">
+            <h1>Панель управления аккаунтом</h1>
+        </div>
         <div class="wrapper cf">
-            <div class="userpanel-header"></div>
+            
             <div class="userpanel-menu">
                 <?php echo $this->Common()->userMenu(); ?>
             </div>
@@ -73,6 +78,9 @@
 	<div class="footer_resize">
 		
 	</div>
+</div>
+<div class="mega-overlay">
+    <div></div>
 </div>
 </body>
 </html>

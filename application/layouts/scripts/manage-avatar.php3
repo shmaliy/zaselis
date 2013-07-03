@@ -1,9 +1,5 @@
-
-
-
 <link rel="stylesheet" href="/js/jquery/jQuery-File-Upload-master/css/style.css">
 <link rel="stylesheet" href="/js/jquery/jQuery-File-Upload-master/css/jquery.fileupload-ui.css">
-
 <div class="container">
     
     <!-- The fileinput-button span is used to style the file input field as button -->
@@ -40,10 +36,13 @@
 <script>
 /*jslint unparam: true */
 /*global window, $ */
+
+var timer = 0;
+
 $(function () {
     'use strict';
     // Change this to the location of your server-side upload handler:
-    var url = '<?php echo $this->url(array(), 'upload-avatar'); ?>',
+    var url = '/js/jquery/jQuery-File-Upload-master/server/php/',
         uploadButton = $('<button/>')
             .addClass('btn')
             .prop('disabled', true)
@@ -62,6 +61,8 @@ $(function () {
                     $this.remove();
                 });
             });
+    var i = 0;       
+    var k = 0;
     $('#fileupload').fileupload({
         url: url,
         dataType: 'json',
@@ -75,7 +76,9 @@ $(function () {
         previewCrop: true
     }).on('fileuploadadd', function (e, data) {
         data.context = $('<div/>').appendTo('#files');
+        
         $.each(data.files, function (index, file) {
+            if (i == 0) {
             var node = $('<p/>')
                     .append($('<span/>').text(file.name));
             if (!index) {
@@ -84,6 +87,8 @@ $(function () {
                     .append(uploadButton.clone(true).data(data));
             }
             node.appendTo(data.context);
+            }
+            i++;
         });
     }).on('fileuploadprocessalways', function (e, data) {
         var index = data.index,
@@ -111,13 +116,33 @@ $(function () {
             progress + '%'
         );
     }).on('fileuploaddone', function (e, data) {
+        
+        var res = {};
         $.each(data.result.files, function (index, file) {
             var link = $('<a>')
                 .attr('target', '_blank')
                 .prop('href', file.url);
             $(data.context.children()[index])
                 .wrap(link);
+            res = file['url'];
+
         });
+        clearInterval(timer);
+        timer = setTimeout(function(){
+            megaOverlayShow();
+            $.ajax({
+                url: '<?php echo $this->url(array(), 'ajax-avatar'); ?>',
+                data: {file: res},
+                type: 'POST',
+                error: function(jqXHR, textStatus, errorThrown) {},
+                success: function(data, textStatus, jqXHR) {
+                    updateWindow(); 
+                },
+                complete: function(jqXHR, textStatus) {}
+             });
+        }, 1000);
+        
+        
     }).on('fileuploadfail', function (e, data) {
         $.each(data.result.files, function (index, file) {
             var error = $('<span/>').text(file.error);

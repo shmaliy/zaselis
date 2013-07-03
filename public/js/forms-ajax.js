@@ -12,6 +12,7 @@
 function processUserForm (routename, routeparams, form_id, success_callbacks)
 {
     $('#errorsContainer').remove();
+    megaOverlayShow();
     $.ajax({
         url: '/' + globalLang + '/' + globalCurr + '/ajax-route',
         data: {'r_name': routename, 'r_params': routeparams},
@@ -31,6 +32,7 @@ function processUserForm (routename, routeparams, form_id, success_callbacks)
                             if(result['formErrors'] || errorsCount(result['formErrors']) > 0) {
                                 parseFormErrors(result['formErrors'], form_id);
                             } else {
+                                megaOverlayHide();
                                 showFormSuccess(form_id, success_callbacks);
                             }
                        },
@@ -121,16 +123,17 @@ function loginSuccess()
     window.location = redir;
 }
 
-/**
- * Code for google autocomplete
- */
-
-function initialize() {
-  var input = /** @type {HTMLInputElement} */(document.getElementById('searchTextField'));
-  var autocomplete = new google.maps.places.Autocomplete(input);
+function megaOverlayShow()
+{
+    $('.mega-overlay').show();
 }
 
+function megaOverlayHide()
+{
+    $('.mega-overlay').hide();
+}
 
-
-google.maps.event.addDomListener(window, 'load', initialize);
-
+function updateWindow()
+{
+    setTimeout(function(){window.location = window.location.href;}, 500);
+}

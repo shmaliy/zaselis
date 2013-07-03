@@ -1,84 +1,167 @@
+<?php 
+
+function checkActive($url) 
+{
+    $path = parse_url($url);
+    $current = parse_url($_SERVER['REQUEST_URI']);
+    
+    if ($path['path'] == $current['path']) {
+        return 'active';
+    } else return '';
+}
+
+function publicateMenuItem($menu, $alias)
+{
+    if (isset($menu[$alias])) {
+        ?>
+        <ul class="vertical-menu">
+            <?php foreach ($menu[$alias] as $item) : ?>
+             <li class="vertical-menu-item">
+                <a href="<?php echo $item['url']; ?>" 
+                   class="vertical-menu-link <?php echo $item['active']; ?>">
+                    <span><?php echo $item['title']; ?></span>
+                </a>
+            </li>    
+            <?php endforeach; ?>
+        </ul>
+        <?php
+    }
+}
+
+
+$menu = array(
+    'info' => array(
+        array(
+            'title' => 'Главная страница пользователя',
+            'url'   => $this->url(array(), 'user-index'),
+            'active' => checkActive($this->url(array(), 'user-index'))
+        )
+    ),
+    
+    'friends' => array(),
+    
+    'profile' => array(
+        array(
+            'title' => 'Редактирование личной информации',
+            'url'   => $this->url(array(), 'user-profile'),
+            'active' => checkActive($this->url(array(), 'user-profile'))
+        ),
+        array(
+            'title' => 'Телефоны',
+            'url'   => $this->url(array(), 'user-contacts'),
+            'active' => checkActive($this->url(array(), 'user-contacts'))
+        ),
+        array(
+            'title' => 'Социальные сети',
+            'url'   => $this->url(array(), 'user-social-networks'),
+            'active' => checkActive($this->url(array(), 'user-social-networks'))
+        ),
+        array(
+            'title' => 'Настройка оповещений',
+            'url'   => '#',
+            'active' => checkActive('#')
+        ),
+        array(
+            'title' => 'Методы выплаты',
+            'url'   => '#',
+            'active' => checkActive('#')
+        ),
+        array(
+            'title' => 'История платежей',
+            'url'   => '#',
+            'active' => checkActive('#')
+        ),
+        array(
+            'title' => 'Пригласить друзей',
+            'url'   => '#',
+            'active' => checkActive('#')
+        ),
+    ),
+    
+    'mail' => array(
+        array(
+            'title' => 'Входящие',
+            'url'   => '#',
+            'active' => checkActive('#')
+        ),
+        array(
+            'title' => 'Отправленные',
+            'url'   => '#',
+            'active' => checkActive('#')
+        ),
+        array(
+            'title' => 'Спам',
+            'url'   => '#',
+            'active' => checkActive('#')
+        )
+    ),
+    
+    'flats' => array(
+        array(
+            'title' => 'Список квартир',
+            'url'   => '#',
+            'active' => checkActive('#')
+        ),
+        array(
+            'title' => 'Добавить квартиру',
+            'url'   => '#',
+            'active' => checkActive('#')
+        ),
+        array(
+            'title' => 'Избранное',
+            'url'   => '#',
+            'active' => checkActive('#')
+        )
+    ),
+    
+    'travels' => array(
+        array(
+            'title' => 'Предстоящие поездки',
+            'url'   => '#',
+            'active' => checkActive('#')
+        ),
+        array(
+            'title' => 'На рассмотрении',
+            'url'   => '#',
+            'active' => checkActive('#')
+        ),
+        array(
+            'title' => 'Архив',
+            'url'   => '#',
+            'active' => checkActive('#')
+        )
+    ),
+    
+);
+?>
+
 <div id="userpanel-accordion">
     <h3>Инфо</h3>
     <div>
-        <p>
-        Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-        ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-        amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-        odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-        </p>
+        <?php echo $this->action('avatar', 'manage', 'user'); ?>
+        <?php publicateMenuItem($menu, 'info'); ?>
     </div>
     <h3>Друзья</h3>
-    <div>
-        <p>
-        Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer
-        ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit
-        amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut
-        odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate.
-        </p>
-    </div>
+    <div><?php publicateMenuItem($menu, 'friends'); ?></div>
     <h3>Профиль</h3>
     <div>
-        <ul class="vertical-menu">
-            <li class="vertical-menu-item"><a href="<?php echo $this->url(array(), 'user-profile'); ?>" class="vertical-menu-link"><span>Редактирование личной информации</span></a></li>            
-            <li class="vertical-menu-item"><a href="<?php echo $this->url(array(), 'user-contacts'); ?>" class="vertical-menu-link"><span>Телефоны</span></a></li>
-            <li class="vertical-menu-item"><a href="#" class="vertical-menu-link"><span>Социальные сети</span></a></li>
-            <li class="vertical-menu-item"><a href="#" class="vertical-menu-link"><span>Настройка оповещений</span></a></li>            
-            <li class="vertical-menu-item"><a href="#" class="vertical-menu-link"><span>Методы выплаты</span></a></li>            
-            <li class="vertical-menu-item"><a href="#" class="vertical-menu-link"><span>История платежей</span></a></li>            
-            <li class="vertical-menu-item"><a href="#" class="vertical-menu-link"><span>Пригласить друзей</span></a></li>            
-        </ul>
+        <?php publicateMenuItem($menu, 'profile'); ?>
     </div>
     <h3>Почтовый ящик</h3>
     <div>
-        <p>
-        Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
-        purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
-        velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
-        suscipit faucibus urna.
-        </p>
+        <?php publicateMenuItem($menu, 'mail'); ?>
     </div>
     <h3>Ваши объявления</h3>
     <div>
-        <p>
-        Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
-        Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
-        ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
-        lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
-        </p>
-        <ul>
-            <li>List item one</li>
-            <li>List item two</li>
-            <li>List item three</li>
-        </ul>
+        <?php publicateMenuItem($menu, 'flats'); ?>
     </div>
     <h3>Поездки</h3>
     <div>
-        <p>
-        Cras dictum. Pellentesque habitant morbi tristique senectus et netus
-        et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
-        faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
-        mauris vel est.
-        </p>
-        <p>
-        Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
-        Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-        inceptos himenaeos.
-        </p>
+        <?php publicateMenuItem($menu, 'travels'); ?>
     </div>
     <h3>Настройки аккаунта</h3>
     <div>
-        <p>
-        Cras dictum. Pellentesque habitant morbi tristique senectus et netus
-        et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
-        faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
-        mauris vel est.
-        </p>
-        <p>
-        Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
-        Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-        inceptos himenaeos.
-        </p>
+        
     </div>
     <h3>Смена пароля</h3>
     <div>
@@ -87,17 +170,7 @@
     <?php if ($this->user['z_users_roles_id'] == 1) : ?>
         <h3>Управление сайтом</h3>
         <div>
-            <p>
-            Cras dictum. Pellentesque habitant morbi tristique senectus et netus
-            et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
-            faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
-            mauris vel est.
-            </p>
-            <p>
-            Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
-            Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-            inceptos himenaeos.
-            </p>
+            
         </div>
     <?php endif; ?>
 </div>

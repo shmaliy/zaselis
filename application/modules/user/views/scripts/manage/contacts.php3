@@ -1,4 +1,4 @@
-<h1>Редактирование контактной информации</h1>
+<h2>Редактирование контактной информации</h2>
 <a id="morePhones" class="add-more-phones"><span>Добавить телефон</span></a>
 
 <div id="formSource">
@@ -40,14 +40,12 @@
             <?php foreach ($this->phones as $num=>$phone) : ?>
             <div class="phone cf">
                 <div class="number">
-                    <span class="code"><?php echo $phone->z_countries_id; ?></span>
-                    <span class="num"><?php echo $phone->number; ?></span>
+                    <span class="code"><?php echo $phone['z_countries_id']; ?></span>
+                    <span class="num"><?php echo $phone['number']; ?></span>
                 </div>
                 <div class="status">
-                    <?php if (!empty($phone->activate)) : ?>
+                    <?php if (!empty($phone['activate'])) : ?>
                         <a class="inactive" rel="<?php echo $num; ?>">подтвердить</a>
-                    <?php else : ?>
-                        <div class="active">подтвержден</div>
                     <?php endif; ?>
                 </div>
                 <div class="delete"><a class="delete-link" rel="<?php echo $num; ?>">удалить</a></div>
@@ -58,11 +56,45 @@
     </form>
 </div>
 <div id="map-canvas"></div>
+<div id="phoneRemoveDialog" title="Подтверждение удаления">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        Вы действительно хотите удалить номер телефона?
+    </p>
+</div>
 <script>
-    function updateWindow()
-    {
-        setTimeout(function(){window.location = window.location.href;}, 500);
-    }
+    
+    
+    $('#phoneRemoveDialog').hide();
+    $(document).ready( function (){
+        
+        $('.phone .delete-link').each(function () {
+            $(this).click(function () {
+                var rel = $(this).attr('rel');
+                $( "#phoneRemoveDialog" ).dialog ({
+                    resizable: false,
+                    height:190,
+                    modal: true,
+                    buttons: {
+                        "Удалить": function() { 
+                            megaOverlayShow();
+                            $.ajax({
+                                url: '<?php echo $this->url(array(), 'ajax-remove-single-phone'); ?>',
+                                data: {id: rel},
+                                type: 'POST',
+                                error: function(jqXHR, textStatus, errorThrown) {},
+                                success: function(data, textStatus, jqXHR) {
+                                    updateWindow(); 
+                                },
+                                complete: function(jqXHR, textStatus) {}
+                             });
+                        },
+                        "Я передумал": function() { $( this ).dialog( "close" ); }
+                    }
+                });
+            });
+        });
+    });
     
     $('#PhonesEdit').submit(function(){
         processUserForm(

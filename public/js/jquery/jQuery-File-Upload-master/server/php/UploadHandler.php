@@ -34,13 +34,13 @@ class UploadHandler
         'min_height' => 'Image requires a minimum height'
     );
     
-    function createSubdir($dir = null)
+    function createSubdir()
     {
-        if (is_null($dir)) {
-            $dir = $_SERVER['DOCUMENT_ROOT'] . '/contents/avatars/';
-        }
+        @session_start();
+        session_id($_COOKIE['PHPSESSID']);
+        $userid = $_SESSION['Zend_Auth']['storage']->z_users_id;
         
-        return '';
+        return $userid;
     }
 
     function __construct($options = null, $initialize = true, $error_messages = null) {
@@ -53,8 +53,8 @@ class UploadHandler
         
         $this->options = array(
             'script_url' => $this->get_full_url().'/',
-            'upload_dir' => $_SERVER['DOCUMENT_ROOT'] . '/contents/avatars/' . $this->createSubdir(),
-            'upload_url' => $domain . '/contents/avatars/' . $this->createSubdir(),
+            'upload_dir' => $_SERVER['DOCUMENT_ROOT'] . '/contents/' . $this->createSubdir() . '/avatars/',
+            'upload_url' => $domain . '/contents/' . $this->createSubdir() . '/avatars/',
             'user_dirs' => false,
             'mkdir_mode' => 0755,
             'param_name' => 'files',
@@ -127,9 +127,9 @@ class UploadHandler
                 'drop-thumbnail' => array(
                     // Uncomment the following to force the max
                     // dimensions and e.g. create square thumbnails:
-                    //'crop' => true,
-                    'max_width' => 80,
-                    'max_height' => 80
+                    'crop' => true,
+                    'max_width' => 40,
+                    'max_height' => 40
                 ),
                 
                 'thumbnail-180-256' => array(

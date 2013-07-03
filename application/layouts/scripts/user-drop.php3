@@ -11,7 +11,7 @@
         <div class="top cf">
             <div class="img">
                 <?php if (!empty($this->user['avatar'])) : ?>
-                
+                    <img src="<?php echo str_replace('avatars/', 'avatars/drop-thumbnail/', $this->user['avatar']); ?>" />
                 <?php else : ?>
                     <img src="/theme/img/user-drop/no-avatar.png" />
                 <?php endif; ?>

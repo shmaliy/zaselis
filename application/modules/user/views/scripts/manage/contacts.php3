@@ -40,7 +40,7 @@
             <?php foreach ($this->phones as $num=>$phone) : ?>
             <div class="phone cf">
                 <div class="number">
-                    <span class="code"><?php echo $phone['z_countries_id']; ?></span>
+                    <span class="code"><?php echo $phone['code']; ?></span>
                     <span class="num"><?php echo $phone['number']; ?></span>
                 </div>
                 <div class="status">

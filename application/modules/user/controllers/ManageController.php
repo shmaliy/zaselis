@@ -29,8 +29,7 @@ class User_ManageController extends Zend_Controller_Action
     {
         
         
-        
-    } 
+    }
 
     
     public function avatarAction()
@@ -133,9 +132,9 @@ class User_ManageController extends Zend_Controller_Action
             $this->view->country = $data['session_country'];
             $this->view->codes = $this->_model->getPhoneCodes();
             
-            foreach ($data['phones'] as $phone) {
+            foreach ($data['phones'] as &$phone) {
                 $code = $this->_model->getPhoneCode($phone['z_countries_id']);
-                $phone['z_countries_id'] = $code['code'];
+                $phone['code'] = $code['code'];
             }
             
             $this->view->phones = $data['phones'];

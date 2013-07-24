@@ -15,6 +15,7 @@
 	   ->appendStylesheet('/js/jquery/jquery-ui-1.9.0.custom/css/smoothness/jquery-ui-1.10.3.custom.css')
            
            ->appendStylesheet('/theme/css/bootstrap.css')
+           ->appendStylesheet('/theme/css/checkboxes.css')
 	   ->headLink(array('rel' => 'favicon', 'href' => '/favicon.png'), 'PREPEND'); 
 
       $this->headMeta()->appendName('keywords', '')

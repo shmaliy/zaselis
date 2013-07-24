@@ -16,7 +16,7 @@
                 <?php endforeach; ?>
             </select>
             <label class="control-label" for="inputInfo">Введите телефон</label>
-            <span class="add-on">
+            <span class="add-on">+
                 <?php foreach ($this->codes as $c) : ?>
                     <?php 
                         if ($c['z_countries_id'] == $this->country) {
@@ -40,13 +40,19 @@
             <?php foreach ($this->phones as $num=>$phone) : ?>
             <div class="phone cf">
                 <div class="number">
-                    <span class="code"><?php echo $phone['code']; ?></span>
+                    <span class="code">+<?php echo $phone['code']; ?></span>
                     <span class="num"><?php echo $phone['number']; ?></span>
                 </div>
                 <div class="status">
+                    <div class="slideThree">
                     <?php if (!empty($phone['activate'])) : ?>
-                        <a class="inactive" rel="<?php echo $num; ?>">подтвердить</a>
+                        <input type="checkbox" value="None" id="slideThree_<?php echo $num; ?>" name="check" />
+                        <label class="confirm-label" rel="<?php echo $num; ?>" onclick="" for="slideThree_<?php echo $num; ?>"></label>
+                    <?php else :  ?>
+                        <input type="checkbox" value="None" id="slideThree_<?php echo $num; ?>" name="check" checked disabled />
+                        <label for="slideThree_<?php echo $num; ?>"></label>
                     <?php endif; ?>
+                    </div>
                 </div>
                 <div class="delete"><a class="delete-link" rel="<?php echo $num; ?>">удалить</a></div>
             </div>
@@ -62,7 +68,39 @@
         Вы действительно хотите удалить номер телефона?
     </p>
 </div>
+
+<div id="phoneConfirmDialog" title="Активация номера">
+    <p>
+    <form id="PhoneConfirm" enctype="multypart/form-data" method="post">
+        <input class="line-number" type="hidden" name="line" value="-1" />
+        <input type="text" name="code" />
+        <input type="submit" value="Подтвердить">
+    </form>
+    </p>
+</div>
+
+
 <script>
+    $('#phoneConfirmDialog').hide();
+    $(document).ready( function (){
+       $('.status .slideThree .confirm-label').each(function(){
+           $(this).click(function(){
+               $('#PhoneConfirm .line-number').val($(this).attr('rel'));
+               $( "#phoneConfirmDialog" ).dialog ();
+           });
+       }); 
+    });
+    
+    $('#PhoneConfirm').submit(function(){
+        processUserForm(
+            'ajax-phone-activate', 
+            {'lang': globalLang, 'currencie': globalCurr},
+            '#PhoneConfirm',
+            [['updateWindow']]
+        );
+        return false;
+    });
+    
     
     
     $('#phoneRemoveDialog').hide();

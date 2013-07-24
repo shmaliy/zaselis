@@ -156,6 +156,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute('ajax-avatar', $route);
         
         $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/ajax/phone-activate',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'phone-activate',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('ajax-phone-activate', $route);
+        
+        $route = new Zend_Controller_Router_Route(
             ':lang/:currencie/ajax/remove-avatar',
             array(
                 'module' => 'user',

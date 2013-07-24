@@ -21,14 +21,30 @@ class User_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('social-networks', 'json');
         $ajaxContext->addActionContext('avatar', 'json');
         $ajaxContext->addActionContext('remove-avatar', 'json');
+        $ajaxContext->addActionContext('phone-activate', 'json');
         $ajaxContext->initContext('json');
         
     }
     
     public function indexAction()
     {
+        $request = $this->getRequest();
+        $params = $request->getParams();
         
+    }
+    
+    public function phoneActivateAction() 
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
         
+        $data = $this->_model->getActiveUser();
+        
+        if ($request->isXmlHttpRequest() || $request->isPost()) { 
+            if ($this->_model->activateUserPhone($params['line'], $params['code'])) {
+                
+            }
+        }
     }
 
     

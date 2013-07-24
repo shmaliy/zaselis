@@ -60,6 +60,11 @@ class User_Model_Users extends Core_Model_Abstract
         return $data;
     }
     
+    public function activateUserPhone($line=null, $code=-1)
+    {
+        
+    }
+    
     public function saveUserProfileData($array)
     {
         $user = $this->getActiveUser();

@@ -18,6 +18,7 @@ if (!defined('APPLICATION_PATH')) {
 if (!defined('LIBRARY_PATH')) {
 
     switch ($_SERVER['HTTP_HOST']) {
+        case 'www.public.zaselis_new':
         case 'public.zaselis_new':
             if (file_exists(realpath(ROOT_PATH . '/../..') . '/phpLibs')) {
                 $libraryPath[] = realpath(ROOT_PATH . '/../..' . '/phpLibs');

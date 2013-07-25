@@ -30,7 +30,17 @@
         </div>
     </div>
 </div>
+<style>
+    .slideThree:after {
+	content: 'Неактивен';
+	color: #000;
+    }
 
+    .slideThree:before {
+        content: 'Активирован';
+        color: green;
+    }
+</style>
 <div id="panel" class="cf">
     <form id="PhonesEdit" class="main-form cf" action="" method="post" enctype="application/x-www-form-urlencoded">
         <div id="NewPhones"></div> 
@@ -70,13 +80,8 @@
 </div>
 
 <div id="phoneConfirmDialog" title="Активация номера">
-    <p>
-    <form id="PhoneConfirm" enctype="multypart/form-data" method="post">
-        <input class="line-number" type="hidden" name="line" value="-1" />
-        <input type="text" name="code" />
-        <input type="submit" value="Подтвердить">
-    </form>
-    </p>
+    В течении нескольких минут на ваш номер придет СМС с кодом подтверждения. 
+    <?php echo $this->actForm; ?>
 </div>
 
 

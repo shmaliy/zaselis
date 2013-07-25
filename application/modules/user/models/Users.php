@@ -60,9 +60,23 @@ class User_Model_Users extends Core_Model_Abstract
         return $data;
     }
     
-    public function activateUserPhone($line=null, $code=-1)
+    public function activateUserPhone($line=-1, $code=null)
     {
+        if ($line == -1) {
+            return false;
+        }
         
+        $demo = 1;
+        $user = $this->getActiveUser();
+        
+        if ($code == $user['phones'][$line]['activate'] || $demo == 1) {
+            $user['phones'][$line]['activate'] = '';
+            $upd['phones'] = $this->_prepareToTree($user['phones']);
+            $this->_update($user['z_users_id'], $this->_tZUsers['title'], $upd);
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public function saveUserProfileData($array)

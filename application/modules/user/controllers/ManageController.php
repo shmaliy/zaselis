@@ -37,13 +37,27 @@ class User_ManageController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
         $params = $request->getParams();
+        $form = new User_Form_PhoneActivation();
+        
+        
         
         $data = $this->_model->getActiveUser();
         
         if ($request->isXmlHttpRequest() || $request->isPost()) { 
-            if ($this->_model->activateUserPhone($params['line'], $params['code'])) {
+            
+            if ($form->isValid($params)) {
+                if ($this->_model->activateUserPhone($params['line'], $params['code'])) {
+//                    $this->view->formErrors = $form->getErrors();
+                } else {
+                    $this->view->formErrors = array('code' => array('codeNotMatch'));
+                } 
                 
+            } else {
+                $this->view->formErrors        = $form->getErrors();
+    		$this->view->formErrorMessages = $form->getErrorMessages();
             }
+            
+            
         }
     }
 
@@ -106,6 +120,8 @@ class User_ManageController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
         $params = $request->getParams();
+        
+        $this->view->actForm = new User_Form_PhoneActivation();
         
         $data = $this->_model->getActiveUser();
 //        echo '<pre>';
@@ -177,16 +193,16 @@ class User_ManageController extends Zend_Controller_Action
         }
         
         if ($request->isXmlHttpRequest() || $request->isPost()) {  
-            $vk = strip_tags($params['vk']);
-            $fb = strip_tags($params['fb']);
+            $data = $form->getValues();
             
-            if (!empty($vk) || !empty($fb)) {
-                $insert = array(
-                    'vk' => $params['vk'],
-                    'fb' => $params['fb']
-                );
-                $this->_model->saveSocialNetworks($insert);
+            var_export ($data);
+            
+            foreach ($data as &$item) {
+                $item = strip_tags($item);
             }
+            
+            $this->_model->saveSocialNetworks($data);
+            
         } else {
             $this->view->form = $form;
         }

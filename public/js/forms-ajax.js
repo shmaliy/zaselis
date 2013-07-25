@@ -87,6 +87,7 @@ function parseFormErrors(data, form_id)
                 showErrorTooltip(errcode);
                 //console.log(form_id + '.' + i + '.' + data[i][j]);
             }
+            megaOverlayHide();
         }
     }
 }

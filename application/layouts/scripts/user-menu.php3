@@ -138,8 +138,8 @@ $menu = array(
 <div id="userpanel-accordion">
     <h3>Инфо</h3>
     <div>
-        <?php echo $this->action('avatar', 'manage', 'user'); ?>
         <?php publicateMenuItem($menu, 'info'); ?>
+        <?php echo $this->action('avatar', 'manage', 'user'); ?>
     </div>
     <h3>Друзья</h3>
     <div><?php publicateMenuItem($menu, 'friends'); ?></div>

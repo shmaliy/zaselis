@@ -185,6 +185,7 @@ class User_ManageController extends Zend_Controller_Action
         $request = $this->getRequest();
         $params = $request->getParams();
         $form = new User_Form_SocialNetworks();
+        $form->setlist($this->_model->snetworks_list);
         
         $data = $this->_model->getActiveUser();
         
@@ -193,9 +194,7 @@ class User_ManageController extends Zend_Controller_Action
         }
         
         if ($request->isXmlHttpRequest() || $request->isPost()) {  
-            $data = $form->getValues();
-            
-            var_export ($data);
+            $data = $params;
             
             foreach ($data as &$item) {
                 $item = strip_tags($item);

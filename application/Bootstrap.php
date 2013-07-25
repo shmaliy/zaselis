@@ -361,7 +361,32 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
         $router->addRoute('restore-password', $route);
 
-
+        
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/edit/:id',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'edit',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('flat-edit', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/edit/first-tab',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'edit-first-tab',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('edit-first-tab', $route);
+        
 
         return $router;
     }

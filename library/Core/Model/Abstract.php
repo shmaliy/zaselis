@@ -4,6 +4,49 @@ class Core_Model_Abstract
     protected $_db;
     protected $_lang;
     protected $_currencie;
+    
+    public $snetworks_list = array(
+        'vk' => array(
+            'title' => 'VK.com',
+            'url' => 'http://www.vk.com'
+        ),
+        'fb' => array(
+            'title' => 'Facebook',
+            'url' => 'http://www.facebook.com'
+        ),
+        'google' => array(
+            'title' => 'g+',
+            'url' => 'http://plus.google.com'
+        ),
+        'twitter' => array(
+            'title' => 'Twitter',
+            'url' => 'http://www.twitter.com'
+        ),
+        'linkedin' => array(
+            'title' => 'LinkedIn',
+            'url' => 'http://www.linkedin.com'
+        ),
+        'myspace' => array(
+            'title' => 'MySpace',
+            'url' => 'http://www.myspace.com'
+        ),
+        'pinterest' => array(
+            'title' => 'Pinterest',
+            'url' => 'http://www.pinterest.com/'
+        ),
+        'livejournal' => array(
+            'title' => 'Livejournal',
+            'url' => 'http://www.livejournal.com'
+        ),
+        'ask' => array(
+            'title' => 'ask.fm',
+            'url' => 'http://www.ask.fm/'
+        ),
+        'instagram' => array(
+            'title' => 'Instagram',
+            'url' => 'http://instagram.com'
+        )
+    );
 
     // List of tables
     protected $_tZCountries = array(
@@ -29,6 +72,11 @@ class Core_Model_Abstract
             'photos' => 'array',
             'votes' => 'array'
         )
+    );
+    
+    protected $_tZFlatsTypes = array(
+        'title' => 'z_flats_types',
+        'treeFields' => array()
     );
     
     protected $_tZFlatsInTop = array(
@@ -428,6 +476,16 @@ class Core_Model_Abstract
 //        echo '</pre>';
         
         return $this->_insert($this->_tZTowns['title'], $insert);
+    }
+    
+    public function saveDistrict($obj)
+    {
+        
+    }
+    
+    public function saveMetro($obj)
+    {
+        
     }
     
     public function getCountry($obj)

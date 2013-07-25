@@ -104,8 +104,8 @@ $menu = array(
         ),
         array(
             'title' => 'Добавить квартиру',
-            'url'   => '#',
-            'active' => checkActive('#')
+            'url'   => $this->url(array('id' => 'new'), 'flat-edit'),
+            'active' => checkActive($this->url(array('id' => 'new'), 'flat-edit'))
         ),
         array(
             'title' => 'Избранное',

@@ -93,8 +93,11 @@ $(document).ready(function(){
             type: 'POST',
             error: function(jqXHR, textStatus, errorThrown) {},
             success: function(data, textStatus, jqXHR) {
-    //            updateWindow(); 
-                megaOverlayHide();
+                var result = jQuery.parseJSON(jqXHR.responseText);
+                            
+                if (result['redirect']) {
+                    window.location.href = result['redirect'];
+                }
             },
             complete: function(jqXHR, textStatus) {}
          });    

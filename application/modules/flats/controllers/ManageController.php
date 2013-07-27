@@ -88,6 +88,8 @@ class Flats_ManageController extends Zend_Controller_Action
 //            var_export($params['list']);
             
             $this->_model_flats->savePhotos($params['flatId'], $params['list']);
+            $redirect = $this->view->url(array('id' => $params['flatId'], 'tab' => 'photos'), 'flat-edit-tab');
+            $this->view->redirect = $redirect;
             
         } else {
             $flat = $this->_model_flats->getFlat($params['id']);

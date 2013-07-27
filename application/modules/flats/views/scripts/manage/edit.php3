@@ -2,7 +2,7 @@
 
 <?php $tabs = array(
     'first' => 0,
-    'second' => 1,
+    'photos' => 1,
     'third' => 2,
     'fourth' => 3,
     'fivth' => 4,

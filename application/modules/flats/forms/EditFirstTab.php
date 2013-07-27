@@ -31,12 +31,10 @@ class Flats_Form_EditFirstTab extends Zend_Form
                 'required' => true
         ));
         
-        $this->addElement('text', 'guests_count', array(
-        	'label' => 'Колличество спальных мест',
+        $this->addElement('select', 'z_flats_room_types_id', array(
+        	'label' => 'Тип комнат',
                 'required' => true
         ));
-        $this->getElement('guests_count')->addValidator(new Zend_Validate_NotEmpty())
-                                         ->addValidator(new Zend_Validate_Int());
         
         $this->addElement('text', 'rooms_count', array(
         	'label' => 'Колличество комнат',
@@ -50,14 +48,6 @@ class Flats_Form_EditFirstTab extends Zend_Form
                 'required' => true
         ));
         $this->getElement('main_description')->addValidator(new Zend_Validate_NotEmpty());
-        
-        $this->addElement('text', 'price', array(
-        	'label' => 'Цена (US Dollar)',
-                'required' => true
-        ));
-        $this->getElement('price')->addValidator(new Zend_Validate_NotEmpty())
-                                  ->addValidator(new Zend_Validate_Float());
-        
         
         
         $this->addElement('submit', 'submit', array(

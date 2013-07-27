@@ -79,6 +79,11 @@ class Core_Model_Abstract
         'treeFields' => array()
     );
     
+    protected $_tZFlatsRoomTypes = array(
+        'title' => 'z_flats_room_types',
+        'treeFields' => array()
+    );
+    
     protected $_tZFlatsInTop = array(
         'title' => 'z_flats_in_top',
         'treeFields' => array()
@@ -134,6 +139,11 @@ class Core_Model_Abstract
         'treeFields' => array()
     );
     
+    protected $_tZStreets = array(
+        'title' => 'z_streets',
+        'treeFields' => array()
+    );
+    
     protected $_tZTowns = array(
         'title' => 'z_towns',
         'treeFields' => array()
@@ -183,7 +193,7 @@ class Core_Model_Abstract
         'z_states'    =>  'administrative_area_level_1',
         'z_towns'     => 'locality',
         'z_districts' => 'sublocality',
-        'street'      => 'route'
+        'z_streets'      => 'route'
     );
     
     public function __construct()
@@ -275,6 +285,26 @@ class Core_Model_Abstract
        return $content;
     }
     
+    public function writePosition()
+    {
+        try {
+            Zend_Registry::get('lat');
+            Zend_Registry::get('lng');
+        } catch (Exception $e) {
+            $place = $this->getGeoIp();
+            $string = $place->city . ', ' . $place->region_name . ', ' . $place->country_name;
+            $obj = $this->googleGetAddress($string);
+            
+            $town = $this->saveTown($obj);
+            $town = $this->getTownById($town);
+                        
+            Zend_Registry::set('lat', $town['latitude']);
+            Zend_Registry::set('lng', $town['longitude']);
+        }
+        
+        
+    }
+    
     public function googleGetAddress($str = null, $lang = 'en')
     {
         if (is_null($str)) {
@@ -352,9 +382,30 @@ class Core_Model_Abstract
         return $this->_db->fetchRow($select);
     }
     
+    public function getDistrictById($id) 
+    {
+        $select = $this->_db->select();
+        $select->from(
+            array ('district' => $this->_tZDistricts['title'])
+        );
+        $select->where('district.z_districts_id = ?', $id);
+        return $this->_db->fetchRow($select);
+    }
+    
+    public function getStreetById($id) 
+    {
+        $select = $this->_db->select();
+        $select->from(
+            array ('street' => $this->_tZStreets['title'])
+        );
+        $select->where('street.z_streets_id = ?', $id);
+        return $this->_db->fetchRow($select);
+    }
+    
     
     public function saveCountry($obj)
     {
+        $name = false;
         foreach ($obj->results[0]->address_components as $item) {
             foreach ($item->types as $type) {
                 if ($type == $this->geoPoints['z_countries']) {
@@ -363,7 +414,11 @@ class Core_Model_Abstract
             }
         }
         
-//        $name = $obj->results[0]->address_components[0]->long_name;
+        if (!$name) {
+            return 0;
+        }
+        
+        $obj = $this->googleGetAddress($name);
         
         $select = $this->_db->select();
         $select->from(
@@ -389,21 +444,30 @@ class Core_Model_Abstract
     
     public function saveState($obj)
     {
-//        echo '<pre>';
-//        var_export($obj);
-//        echo '</pre>';
         
         $states_parent = $this->saveCountry($obj);
-        
+        $name = false;
+        $new_string = array();
         foreach ($obj->results[0]->address_components as $item) {
             foreach ($item->types as $type) {
                 if ($type == $this->geoPoints['z_states']) {
                     $name = $item->long_name;
+                    $new_string[] = $item->long_name;
                 }
+                
+                if ($type == $this->geoPoints['z_countries']) {
+                    $new_string[] = $item->long_name;
+                }
+                
             }
         }
         
-//        echo $name;
+        if (!$name) {
+            return 0;
+        }
+        
+        $new_string = implode(', ', $new_string);
+        $obj = $this->googleGetAddress($new_string);
         
         $select = $this->_db->select();
         $select->from(
@@ -427,12 +491,7 @@ class Core_Model_Abstract
             
         );
         
-//        echo '<pre>';
-//        var_export($insert);
-//        echo '</pre>';
-        
         return $this->_insert($this->_tZStates['title'], $insert);
-        
     }
     
     public function saveTown($obj)
@@ -440,13 +499,31 @@ class Core_Model_Abstract
         $parent_state = $this->saveState($obj);
         $parent_country = $this->saveCountry($obj);
         
+        $new_string = array();
+        $name = false;
         foreach ($obj->results[0]->address_components as $item) {
             foreach ($item->types as $type) {
                 if ($type == $this->geoPoints['z_towns']) {
                     $name = $item->long_name;
+                    $new_string[] = $item->long_name;
+                }
+                
+                if ($type == $this->geoPoints['z_states']) {
+                    $new_string[] = $item->long_name;
+                }
+                
+                if ($type == $this->geoPoints['z_countries']) {
+                    $new_string[] = $item->long_name;
                 }
             }
         }
+        
+        if (!$name) {
+            return 0;
+        }
+        
+        $new_string = implode(', ', $new_string);
+        $obj = $this->googleGetAddress($new_string);
         
         $select = $this->_db->select();
         $select->from(
@@ -471,22 +548,155 @@ class Core_Model_Abstract
             'alias'     => $obj->results[0]->address_components[0]->short_name
         );
         
-//        echo '<pre>';
-//        var_export($insert);
-//        echo '</pre>';
-        
         return $this->_insert($this->_tZTowns['title'], $insert);
     }
     
     public function saveDistrict($obj)
     {
+        $parent_town = $this->saveTown($obj);
+        $parent_state = $this->saveState($obj);
+        $parent_country = $this->saveCountry($obj);
         
+        $name = false;
+        
+        $new_string = array();
+        foreach ($obj->results[0]->address_components as $item) {
+            foreach ($item->types as $type) {
+                if ($type == $this->geoPoints['z_districts']) {
+                    $name = $item->long_name;
+                    $new_string[] = $item->long_name;
+                }
+                
+                if ($type == $this->geoPoints['z_towns']) {
+                    $new_string[] = $item->long_name;
+                }
+                
+                if ($type == $this->geoPoints['z_states']) {
+                    $new_string[] = $item->long_name;
+                }
+                
+                if ($type == $this->geoPoints['z_countries']) {
+                    $new_string[] = $item->long_name;
+                }
+            }
+        }
+        
+        if (!$name) {
+            return 0;
+        }
+        
+        $new_string = implode(', ', $new_string);
+        
+        
+        $obj = $this->googleGetAddress($new_string);
+        
+        
+        $select = $this->_db->select();
+        $select->from(
+            array ('distr' => $this->_tZDistricts['title']),
+            array ('z_districts_id')
+        );
+        $select->where('distr.title = ?', $name);
+        $select->where('distr.z_countries_id = ?', $parent_country);
+        $select->where('distr.z_states_id = ?', $parent_state);
+        $select->where('distr.z_towns_id = ?', $parent_town);
+        $return = $this->_db->fetchRow($select);
+        
+        if($return) {
+            return $return['z_districts_id'];
+        }
+        
+        $insert = array(
+            'z_countries_id' => $parent_country,
+            'z_states_id' => $parent_state,
+            'z_towns_id' => $parent_state,
+            'title'          => $name,
+            'latitude'  => $obj->results[0]->geometry->location->lat,
+            'longitude' => $obj->results[0]->geometry->location->lng,
+            'alias'     => $obj->results[0]->address_components[0]->short_name
+        );
+        
+        return $this->_insert($this->_tZDistricts['title'], $insert);
     }
     
-    public function saveMetro($obj)
+    public function saveStreet($obj)
     {
+        $parent_district = $this->saveDistrict($obj);
+        $parent_town = $this->saveTown($obj);
+        $parent_state = $this->saveState($obj);
+        $parent_country = $this->saveCountry($obj);
         
+        $new_string = array();
+        $name = false;
+        foreach ($obj->results[0]->address_components as $item) {
+            foreach ($item->types as $type) {
+                
+                if ($type == $this->geoPoints['z_streets']) {
+                    $name = $item->long_name;
+                    $new_string[] = $item->long_name;
+                }
+                
+                if ($type == $this->geoPoints['z_districts']) {
+                    $new_string[] = $item->long_name;
+                }
+                
+                if ($type == $this->geoPoints['z_towns']) {
+                    $new_string[] = $item->long_name;
+                }
+                
+                if ($type == $this->geoPoints['z_states']) {
+                    $new_string[] = $item->long_name;
+                }
+                
+                if ($type == $this->geoPoints['z_countries']) {
+                    $new_string[] = $item->long_name;
+                }
+            }
+        }
+        if (!$name) {
+            return 0;
+        }
+        $new_string = implode(', ', $new_string);
+        
+        
+        $obj = $this->googleGetAddress($new_string);
+        
+        $select = $this->_db->select();
+        $select->from(
+            array ('street' => $this->_tZStreets['title']),
+            array ('z_streets_id')
+        );
+        $select->where('street.title = ?', $name);
+        $select->where('street.z_countries_id = ?', $parent_country);
+        $select->where('street.z_states_id = ?', $parent_state);
+        $select->where('street.z_towns_id = ?', $parent_town);
+        $select->where('street.z_districts_id = ?', $parent_district);
+        $return = $this->_db->fetchRow($select);
+        
+        if($return) {
+            return $return['z_streets_id'];
+        }
+        
+        $insert = array(
+            'z_countries_id' => $parent_country,
+            'z_states_id' => $parent_state,
+            'z_towns_id' => $parent_state,
+            'z_districts_id' => $parent_district,
+            'title'          => $name,
+            'latitude'  => $obj->results[0]->geometry->location->lat,
+            'longitude' => $obj->results[0]->geometry->location->lng,
+            'alias'     => $name
+        );
+        
+        
+        
+//        return;
+        
+        return $this->_insert($this->_tZStreets['title'], $insert);
     }
+    
+    
+    
     
     public function getCountry($obj)
     {

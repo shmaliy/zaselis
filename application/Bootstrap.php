@@ -83,6 +83,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $model = new Core_Model_Abstract();
         
+        $place = $model->writePosition();
+        
         $lang = Zend_Registry::get('lang');
         $l_alias = $lang['alias'];
         $currencie = Zend_Registry::get('currencie');
@@ -106,6 +108,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             )
         );
         $router->addRoute('index', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/map',
+            array(
+                'module' => 'default',
+                'controller' => 'index',
+                'action'     => 'map',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('map', $route);
         
         $route = new Zend_Controller_Router_Route(
             ':lang/:currencie/ajax-route',
@@ -361,7 +375,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
         $router->addRoute('restore-password', $route);
 
-        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'index',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('flat-list', $route);
         
         $route = new Zend_Controller_Router_Route(
             ':lang/:currencie/user/flats/edit/:id',
@@ -376,6 +400,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute('flat-edit', $route);
         
         $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/edit/:id/:tab',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'edit',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('flat-edit-tab', $route);
+        
+        $route = new Zend_Controller_Router_Route(
             ':lang/:currencie/user/flats/edit/first-tab',
             array(
                 'module' => 'flats',
@@ -386,6 +422,20 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             )
         );
         $router->addRoute('edit-first-tab', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/edit/photos',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'edit-photos',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('edit-photos', $route);
+        
+        
         
 
         return $router;

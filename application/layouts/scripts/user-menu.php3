@@ -99,8 +99,8 @@ $menu = array(
     'flats' => array(
         array(
             'title' => 'Список квартир',
-            'url'   => '#',
-            'active' => checkActive('#')
+            'url'   => $this->url(array(), 'flat-list'),
+            'active' => checkActive($this->url(array(), 'flat-list'))
         ),
         array(
             'title' => 'Добавить квартиру',

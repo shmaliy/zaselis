@@ -38,8 +38,18 @@
             </div>
         </div>
     </div>
-    <?php if (Zend_Auth::getInstance()->hasIdentity() && $this->active == 1) : ?>
+    <?php if (Zend_Auth::getInstance()->hasIdentity() && $this->active == 1) : 
+        $lang = Zend_Registry::get('lang');
+        $l_alias = $lang['alias'];
+        $currencie = Zend_Registry::get('currencie');
+        $c_alias = strtolower($currencie['alias']);
+
+        $stopUrl = '/' . $l_alias . '/' . $c_alias . '/user/flats/edit';
+
+        if (!strstr($_SERVER['REQUEST_URI'], $stopUrl)) : 
+    ?>
         <div id="change-avatar-dialog" title="Смена аватара" style="display: none;"><?php  echo $this->Common()->avatarManger(); ?></div>
+        <?php endif; ?>
     <?php else : ?>
         <div id="login-dialog" style="display: none;" title="Авторизация"><?php echo $this->Common()->loginForm(); ?></div>
         <div id="register-dialog" style="display: none;" title="Регистрация"><?php echo $this->Common()->regForm(); ?> </div>

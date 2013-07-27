@@ -29,6 +29,11 @@ function processUserForm (routename, routeparams, form_id, success_callbacks)
                        error: function(jqXHR, textStatus, errorThrown) {},
                        success: function(data, textStatus, jqXHR) {
                             var result = jQuery.parseJSON(jqXHR.responseText);
+                            
+                            if (result['redirect']) {
+                                window.location.href = result['redirect'];
+                            }
+                            
                             if(result['formErrors'] || errorsCount(result['formErrors']) > 0) {
                                 parseFormErrors(result['formErrors'], form_id);
                             } else {

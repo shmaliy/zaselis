@@ -6,7 +6,7 @@
             'edit-first-tab', 
             {'lang': globalLang, 'currencie': globalCurr},
             '#EditFirstTab',
-            [['testCallback', '656465645'], ['testCallback', 'jdjhdfkhdfkf']]
+            [[]]
         );
             return false;
     });

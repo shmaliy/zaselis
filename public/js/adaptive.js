@@ -24,6 +24,13 @@ function smartColumns() { //функция, подсчитывающая шир�
 	var cRightWidth = siteWidth - 253;
         var uRightWidth = siteWidth - 270;
         $(".userpanel-content").css({ 'width' : uRightWidth - 40 + 'px'});
+        
+        var uPContent = $(".userpanel-content").width();
+        $('#files-manipulator').css({ 'width' : uPContent + 'px'});
+        $('#files-manipulator .uploaded').css({ 'width' : uPContent/2-20 + 'px'});
+        $('#files-manipulator .to-trash').css({ 'width' : uPContent/2-50 + 'px'});
+        
+        
 	$(".column-right").css({ 'width' : cRightWidth + 'px'});
 	$(".column-right-wrapper").css({ 'width' : cRightWidth + 10 + 'px'});
 	$(".fullwidth > ul").css({ 'width' : siteWidth - 45 + 'px'});

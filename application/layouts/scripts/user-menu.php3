@@ -133,6 +133,17 @@ $menu = array(
     ),
     
 );
+
+if ($this->user['z_users_roles_id'] == 1) {
+    $menu['flats'][] = array(
+        'title' => '&#9733; Настройка параметров',
+        'url'   => $this->url(array(), 'parameters-edit'),
+        'active' => checkActive($this->url(array(), 'parameters-edit'))
+    );
+}
+
+
+
 ?>
 
 <div id="userpanel-accordion">

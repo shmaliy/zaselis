@@ -13,6 +13,35 @@ class Flats_Model_Flats extends Core_Model_Abstract
         parent::__construct();
     }
     
+    public function createParam($data) 
+    {
+        $this->_insert($this->_tZFlatsParams['title'], $data);
+        $this->fixParamsOrder();
+    }
+    
+    public function getManageParamsList()
+    {
+        $select = $this->_db->select();
+        
+        $select->from($this->_tZFlatsParams);
+        $select->order('ordering');
+        return $this->_db->fetchAll($select);
+    }
+    
+    public function fixParamsOrder()
+    {
+        $list = $this->getManageParamsList();
+        
+        if ($list[0]['ordering'] == 0) {
+            foreach ($list as $item) {
+                $upd = array(
+                    'ordering' => $item['ordering'] + 1
+                );
+                $this->_update($item['z_flats_params_id'], $this->_tZFlatsParams['title'], $upd);
+            }
+        }
+    }
+    
     public function getFlatsForMap()
     {
         $select = $this->_db->select();

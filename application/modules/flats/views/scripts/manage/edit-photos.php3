@@ -1,15 +1,15 @@
 <link rel="stylesheet" href="/js/jquery/jQuery-File-Upload-master/css/style.css">
 <link rel="stylesheet" href="/js/jquery/jQuery-File-Upload-master/css/jquery.fileupload-ui.css">
- <style>
-#upload-results { list-style-type: none; margin: 0; padding: 0; width: 450px; }
-#upload-results li { margin: 3px 3px 3px 0; padding: 1px; float: left; width: 100px; height: 120px; font-size: 10px; text-align: center; }
-</style>
-<div class="container">
-    
+<h4>Управление файлами</h4>
+<div class="container manage-photos-container">
+    <div class="manage-photos-container-description">
+        <p>Чтобы загрузить файл нажмите &laquo;Добавить файлы...&raquo; 
+        или перетащите один или несколько файлов в зеленую рамку.</p>
+    </div>
     <!-- The fileinput-button span is used to style the file input field as button -->
     <span class="btn btn-success fileinput-button">
         <i class="icon-plus icon-white"></i>
-        <span>Add files...</span>
+        <span>Добавить файлы...</span>
         <!-- The file input field used as target for the file upload widget -->
         <input id="fileupload" type="file" name="files[]" multiple>
     </span>
@@ -23,31 +23,55 @@
     <div id="files"></div>
 </div>
 
-<ul class="upload-result cf" id="upload-results">
-    
-    <?php if (!empty($this->exist) && is_array($this->exist)) : ?>
-        <?php foreach ($this->exist as $item) : ?>
-        <?php $thumb = str_replace('/flats/', '/flats/thumbnail-100-100/', $item); ?>
-        <li class="ui-state-default" rel="<?php echo $item; ?>">
-            <img src="<?php echo $thumb; ?>" />
-            <a rel="<?php echo $item; ?>">удалить</a>
-        </li>
-        <?php endforeach; ?>
-    <?php endif; ?>
-</ul>
+<div class="files-manipulator cf" id="files-manipulator">
+
+    <div class="uploaded">
+        <div class="uploaded-title">Загруженные файлы</div>
+        <div class="uploaded-description">
+            <p>Чтобы установить порядок отображения файлов перетаскивайте их мышкой и нажмите &laquo;Сохранить&raquo;.</p>
+            <p>Первый файл будет отображаться как иконка квартиры в списке.</p>
+        </div>
+        <ul class="upload-result cf" id="upload-results">
+           <?php if (!empty($this->exist) && is_array($this->exist)) : ?>
+                <?php foreach ($this->exist as $item) : ?>
+                    <?php if (is_file(ltrim($item, '/'))) : ?>
+                        <?php $thumb = str_replace('/flats/', '/flats/thumbnail-100-100/', $item); ?>
+                        <li class="ui-state-default" rel="<?php echo $item; ?>">
+                            <img src="<?php echo $thumb; ?>" />
+
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </ul>
+    </div>
+
+    <div class="to-trash">
+        <div class="to-trash-title">Корзина</div>
+        <div class="to-trash-description">
+            <p>Чтобы удалить файл из списка &laquo;Загруженные файлы&raquo; перетащите файл мышкой на красное поле.</p>
+            <p>Если вы передумали удалять файл — перетащите его обратно в &laquo;Загруженные файлы&raquo;</p>
+            <p><strong>Внимание!</strong> Файлы удаляются безвозвратно. После формирования списка на удаление нажмите &laquo;Сохранить&raquo;</p>
+        </div>
+        <ul class="upload-result cf" id="trash"></ul>
+    </div>
+</div>
 
 <?php if (!empty($this->exist) && is_array($this->exist)) : ?>
 <script>
     $(document).ready(function(){
-        $('#upload-results').sortable();
-        $('#upload-results').disableSelection();
-        $('#upload-results li a').each(function(){
-            $(this).click(function(){
-                removeFile($(this).attr('rel'));
-                $(this).closest('li').remove();
-                megaOverlayHide();
-            });
+        $('#upload-results, #trash').sortable({
+            connectWith: ".upload-result"
         });
+        
+        $('#upload-results, #trash').disableSelection();
+//        $('#upload-results li a').each(function(){
+//            $(this).click(function(){
+//                removeFile($(this).attr('rel'));
+//                $(this).closest('li').remove();
+//                megaOverlayHide();
+//            });
+//        });
         $('#SavePhotos').show();
     });
 </script>
@@ -81,44 +105,55 @@ $(document).ready(function(){
     <?php endif; ?>
     
     $('#SavePhotos').click(function(){
-        var list = [];
-        $('#upload-results li').each(function(){
-            list.push($(this).attr('rel'));
-        });
-
-        megaOverlayShow();
-        $.ajax({
-            url: '<?php echo $this->url(array(), 'edit-photos'); ?>',
-            data: {flatId: <?php echo $this->id; ?>, list: list},
-            type: 'POST',
-            error: function(jqXHR, textStatus, errorThrown) {},
-            success: function(data, textStatus, jqXHR) {
-                var result = jQuery.parseJSON(jqXHR.responseText);
-                            
-                if (result['redirect']) {
-                    window.location.href = result['redirect'];
-                }
-            },
-            complete: function(jqXHR, textStatus) {}
-         });    
-
+        saveList();
     });
 });
+
+function saveList()
+{
+    var list = [];
+    var trash = [];
+    $('#upload-results li').each(function(){
+        list.push($(this).attr('rel'));
+    });
+
+    $('#trash li').each(function(){
+        trash.push($(this).attr('rel'));
+    });
+
+    megaOverlayShow();
+    $.ajax({
+        url: '<?php echo $this->url(array(), 'edit-photos'); ?>',
+        data: {flatId: <?php echo $this->id; ?>, list: list, remove: trash},
+        type: 'POST',
+        error: function(jqXHR, textStatus, errorThrown) {},
+        success: function(data, textStatus, jqXHR) {
+            var result = jQuery.parseJSON(jqXHR.responseText);
+
+            if (result['redirect']) {
+                window.location.href = result['redirect'];
+            }
+        },
+        complete: function(jqXHR, textStatus) {}
+     });  
+}
 
 $(function () {
     'use strict';
     // Change this to the location of your server-side upload handler:
+    var addedCount = 0;
+    var uploadedCount = 0;
     var url = '/js/jquery/jQuery-File-Upload-master/server/php-multi/',
         uploadButton = $('<button/>')
             .addClass('btn')
             .prop('disabled', true)
-            .text('Processing...')
+            .text('Обработка...')
             .on('click', function () {
                 var $this = $(this),
                     data = $this.data();
                 $this
                     .off('click')
-                    .text('Abort')
+                    .text('Отменить')
                     .on('click', function () {
                         $this.remove();
                         data.abort();
@@ -144,8 +179,8 @@ $(function () {
         data.context = $('<div/>').appendTo('#files');
         
         $.each(data.files, function (index, file) {
-            var node = $('<p/>')
-                    .append($('<span/>').text(file.name));
+            var node = $('<p/>');
+                    //.append($('<span/>').text(file.name));
             if (!index) {
                 node
                     .append('<br>')
@@ -154,6 +189,7 @@ $(function () {
             node.appendTo(data.context);
             
         });
+        addedCount++;
     }).on('fileuploadprocessalways', function (e, data) {
         var index = data.index,
             file = data.files[index],
@@ -170,7 +206,7 @@ $(function () {
         }
         if (index + 1 === data.files.length) {
             data.context.find('button')
-                .text('Upload')
+                .text('Загрузить')
                 .prop('disabled', !!data.files.error);
         }
     }).on('fileuploadprogressall', function (e, data) {
@@ -194,37 +230,15 @@ $(function () {
                                      file['url'] + 
                                      '" ><img src="' +
                                      file['thumbnail-100-100_url'] + 
-                                     '" /><a rel="' +  
-                                     file['url'] + 
-                                     '">удалить</a></li>');
+                                     '" /></li>');
             $('#upload-results').sortable();
             $('#upload-results').disableSelection();
-            $('#upload-results li a').each(function(){
-                $(this).click(function(){
-                    removeFile($(this).attr('rel'));
-                    $(this).closest('li').remove();
-                    megaOverlayHide();
-                });
-            });
             $('#SavePhotos').show();
         });
-        
-        
-//        clearInterval(timer);
-//        timer = setTimeout(function(){
-//            megaOverlayShow();
-//            $.ajax({
-//                url: '<?php echo $this->url(array(), 'ajax-avatar'); ?>',
-//                data: {file: res},
-//                type: 'POST',
-//                error: function(jqXHR, textStatus, errorThrown) {},
-//                success: function(data, textStatus, jqXHR) {
-//                    updateWindow(); 
-//                },
-//                complete: function(jqXHR, textStatus) {}
-//             });
-//        }, 1000);
-        
+        uploadedCount++;
+        if (uploadedCount == addedCount) {
+            saveList();
+        }
         
     }).on('fileuploadfail', function (e, data) {
         $.each(data.result.files, function (index, file) {
@@ -236,19 +250,4 @@ $(function () {
     });
 });
 
-function removeFile(url) {
-//    alert(url);
-    megaOverlayShow();
-    $.ajax({
-        url: url,
-        data: {REQUEST_METHOD: 'DELETE'},
-        type: 'POST',
-        error: function(jqXHR, textStatus, errorThrown) {},
-        success: function(data, textStatus, jqXHR) {
-//            updateWindow(); 
-            
-        },
-        complete: function(jqXHR, textStatus) {}
-     });
-}
 </script>

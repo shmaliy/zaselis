@@ -435,6 +435,30 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
         $router->addRoute('edit-photos', $route);
         
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/parameters',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'parameters-edit',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('parameters-edit', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/parameters/create',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'create-parameter',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('create-parameter', $route);
+        
         
         
 

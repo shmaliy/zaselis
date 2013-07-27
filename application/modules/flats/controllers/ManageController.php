@@ -4,6 +4,9 @@ class Flats_ManageController extends Zend_Controller_Action
 {
     private $_model;
     private $_model_flats;
+    private $_subdirs = array(
+        'thumbnail', 'thumbnail-50-50', 'thumbnail-100-100', 'thumbnail-310-207', 'thumbnail-464-306'
+    );
     
     public function init()
     {
@@ -19,6 +22,8 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('edit', 'json');
         $ajaxContext->addActionContext('edit-first-tab', 'json');
         $ajaxContext->addActionContext('edit-photos', 'json');
+        $ajaxContext->addActionContext('parameters-edit', 'json');
+        $ajaxContext->addActionContext('create-parameter', 'json');
         $ajaxContext->initContext('json');
     }
     
@@ -27,6 +32,51 @@ class Flats_ManageController extends Zend_Controller_Action
         $list = $this->_model_flats->getFlatsForMap();
         $this->view->list = $list;
     }   
+    
+    public function parametersEditAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+        $list = array();
+        $list = $this->_model_flats->getManageParamsList();
+        
+        $this->view->list = $list;
+    }
+    
+    public function createParameterAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+//        var_export($params);
+        
+        if ($request->isXmlHttpRequest() || $request->isPost()) { 
+            $errors = array();
+            
+            if (empty($params['title'])) {
+                $errors['title'] = array('isEmpty');
+            }
+            
+            if (empty($params['description'])) {
+                $errors['description'] = array('isEmpty');
+            }
+            
+            if (!empty($errors)) {
+                $this->view->formErrors = $errors;
+            } else {
+                $insert = array(
+                    'title' => $params['title'],
+                    'description' => $params['description'],
+                    'type' => $request->getParam('type', 'BOOLEAN')
+                );
+                
+                $this->_model_flats->createParam($insert);
+            }
+        }
+    }
+    
+    
     
     public function editAction()
     {
@@ -55,7 +105,7 @@ class Flats_ManageController extends Zend_Controller_Action
                 $data = $form->getValues();
                 
                 $result = $this->_model_flats->saveFirstTab($data);
-                $redirect = $this->view->url(array('id' => $result, 'tab' => 'first'), 'flat-edit-tab');
+                $redirect = $this->view->url(array('id' => $result, 'tab' => 'photos'), 'flat-edit-tab');
                 $this->view->redirect = $redirect;
             } else {
                 $this->view->formErrors        = $form->getErrors();
@@ -86,6 +136,22 @@ class Flats_ManageController extends Zend_Controller_Action
                 $item = $item['path'];
             }
 //            var_export($params['list']);
+            
+            foreach ($params['remove'] as &$r) {
+                $rem = array();
+                $r = parse_url($r);
+                $r = $r['path'];
+                $rem[] = $r;
+                
+                foreach ($this->_subdirs as $dir) {
+                    $rem[] = str_replace('/flats/', '/flats/' . $dir . '/', $r);
+                }
+                
+                foreach ($rem as $file) {
+                    unlink(ltrim($file, '/'));
+                }
+                
+            }
             
             $this->_model_flats->savePhotos($params['flatId'], $params['list']);
             $redirect = $this->view->url(array('id' => $params['flatId'], 'tab' => 'photos'), 'flat-edit-tab');

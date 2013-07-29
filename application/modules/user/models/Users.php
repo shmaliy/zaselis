@@ -2,6 +2,10 @@
 
 class User_Model_Users extends Core_Model_Abstract
 {
+    public $thumbnails = array(
+        'drop-thumbnail', 'thumbnail', 'thumbnail-180-256'
+    );
+    
     public function registerSimple($data)
     {
         $lang = Zend_Registry::get('lang');
@@ -301,7 +305,19 @@ class User_Model_Users extends Core_Model_Abstract
     
     public function saveAvatar($fname) 
     {
-        $user = $this->getActiveUser();      
+        $user = $this->getActiveUser(); 
+        
+        if (!empty($user['avatar']) && empty($fname)) {
+            $file = ltrim($user['avatar'], '/');
+            
+            unlink($file);
+            
+            foreach ($this->thumbnails as $dir) {
+                $th = str_replace('/avatars/', '/avatars/' . $dir . '/', $file);
+                unlink($th);
+            }
+        }
+        
         $update['avatar'] = $fname;
         
         $this->_update($user['z_users_id'], $this->_tZUsers['title'], $update);

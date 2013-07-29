@@ -15,7 +15,7 @@
                 <?php else : ?>
                     <img src="/theme/img/user-drop/no-avatar.png" />
                 <?php endif; ?>
-                <a id="AvatarManager" onclick ="$('#change-avatar-dialog').dialog({'modal':true});">Сменить</a>
+                <a id="AvatarManager" href="<?php echo $this->url(array(), 'user-profile'); ?>">Сменить</a>
             </div>
             <div class="text">
                 <div class="name"><?php echo $this->user['firstname']; ?> <?php echo $this->user['name']; ?></div>

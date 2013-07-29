@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/js/jquery/jQuery-File-Upload-master/css/style.css">
-<link rel="stylesheet" href="/js/jquery/jQuery-File-Upload-master/css/jquery.fileupload-ui.css">
 <h4>Управление файлами</h4>
 <div class="container manage-photos-container">
     <div class="manage-photos-container-description">
@@ -79,21 +77,6 @@
 
 <input type="submit" class="form-save-button" value="Сохранить" id="SavePhotos" name="submit">
 
-<script src="/js/jquery/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js"></script>
-<!-- The Load Image plugin is included for the preview images and image resizing functionality -->
-<script src="/js/jquery/jQuery-File-Upload-master/proprietar/load-image.js"></script>
-<!-- The Canvas to Blob plugin is included for image resizing functionality -->
-<script src="/js/jquery/jQuery-File-Upload-master/proprietar/canvas-to-blob.js"></script>
-<!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<script src="/js/jquery/jQuery-File-Upload-master/js/jquery.iframe-transport.js"></script>
-<!-- The basic File Upload plugin -->
-<script src="/js/jquery/jQuery-File-Upload-master/js/jquery.fileupload.js"></script>
-<!-- The File Upload processing plugin -->
-<script src="/js/jquery/jQuery-File-Upload-master/js/jquery.fileupload-process.js"></script>
-<!-- The File Upload image resize plugin -->
-<script src="/js/jquery/jQuery-File-Upload-master/js/jquery.fileupload-resize.js"></script>
-<!-- The File Upload validation plugin -->
-<script src="/js/jquery/jQuery-File-Upload-master/js/jquery.fileupload-validate.js"></script>
 <script>
 /*jslint unparam: true */
 /*global window, $ */

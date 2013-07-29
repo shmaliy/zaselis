@@ -5,15 +5,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     public function run()
     {
         try {
-	    	$this->setConfig();	        
-	    	$this->setLoader();	    	
-	    	$this->setModules(); // merge config with modules config           
-	    	$this->setView();
-			$this->setPlugins();
-	        $this->setDbAdapter();	    	
-            $router = $this->setRouter();	    	
-            $front = Zend_Controller_Front::getInstance();            
-            $front->setRouter($router);            
+            $this->setConfig();	        
+            $this->setLoader();	    	
+            $this->setModules(); // merge config with modules config           
+            $this->setView();
+            $this->setPlugins();
+            $this->setDbAdapter();	    	
+            $this->setRouter();	    	
+                      
             //$front->registerPlugin(new Ext_Controller_Plugin_ModuleBootstrap, 1);
             Zend_Registry::set('interface', $this->_options['interface']);
             
@@ -24,12 +23,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     	parent::run();
     }
 	
-	public function setPlugins()
-	{
-		$front = Zend_Controller_Front::getInstance();
+    public function setPlugins()
+    {
+        $front = Zend_Controller_Front::getInstance();
         $front->registerPlugin(new Custom_Controller_Plugin_IEStopper(array('ieversion' => 7)));
-            
-	}
+
+    }
 	
     public function setConfig()
     {
@@ -39,13 +38,13 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     /**
      * 
      */
-	public function setLoader()
-	{
-		$autoLoader = Zend_Loader_Autoloader::getInstance();		
-		$autoLoader->setFallbackAutoloader(true);
-	}    
+    public function setLoader()
+    {
+        $autoLoader = Zend_Loader_Autoloader::getInstance();		
+        $autoLoader->setFallbackAutoloader(true);
+    }    
     
-	/**
+    /**
      * 
      */
     public function setView()
@@ -70,19 +69,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     public function setDbAdapter()
     {
-            $db = Zend_Db::factory(new Zend_Config($this->_options['resources']['db']));
-            Zend_Db_Table_Abstract::setDefaultAdapter($db);
-            Zend_Registry::set('db', $db);
-            $db->getConnection();
+        $db = Zend_Db::factory(new Zend_Config($this->_options['resources']['db']));
+        Zend_Db_Table_Abstract::setDefaultAdapter($db);
+        Zend_Registry::set('db', $db);
+        $db->getConnection();
     }
 	
     public function setRouter()
     {
+        $frontController = Zend_Controller_Front::getInstance();
         $router = new Zend_Controller_Router_Rewrite();
-        //$router->removeDefaultRoutes();
-
-        $model = new Core_Model_Abstract();
         
+        $model = new Core_Model_Abstract();
         $place = $model->writePosition();
         
         $lang = Zend_Registry::get('lang');
@@ -459,10 +457,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
         $router->addRoute('create-parameter', $route);
         
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/avatar',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'manage-avatar',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('manage-avatar', $route);
         
-        
-
-        return $router;
+        $frontController->setRouter($router);
     }
 	
     public function setModules()

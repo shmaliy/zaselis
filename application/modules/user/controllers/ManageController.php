@@ -5,6 +5,7 @@ class User_ManageController extends Zend_Controller_Action
 
     private $_model;
     
+    
     public function init()
     {
         $this->_model = new User_Model_Users();
@@ -20,7 +21,7 @@ class User_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('remove-single-phone', 'json');
         $ajaxContext->addActionContext('social-networks', 'json');
         $ajaxContext->addActionContext('avatar', 'json');
-        $ajaxContext->addActionContext('remove-avatar', 'json');
+        $ajaxContext->addActionContext('manage-avatar', 'json');
         $ajaxContext->addActionContext('phone-activate', 'json');
         $ajaxContext->initContext('json');
         
@@ -70,8 +71,7 @@ class User_ManageController extends Zend_Controller_Action
         }
     }
 
-    
-    public function avatarAction()
+    public function manageAvatarAction()
     {
         $request = $this->getRequest();
         $params = $request->getParams();
@@ -80,11 +80,20 @@ class User_ManageController extends Zend_Controller_Action
         
         if ($request->isXmlHttpRequest() || $request->isPost()) { 
             $file = parse_url($params['file']);
+            $this->_model->saveAvatar();
             $this->_model->saveAvatar($file['path']);
-            
         } else {
             $this->view->avatar = $data['avatar'];
         }
+    }
+    
+    public function avatarAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+        $data = $this->_model->getActiveUser();
+        $this->view->avatar = $data['avatar'];
     }
     
     public function removeAvatarAction()

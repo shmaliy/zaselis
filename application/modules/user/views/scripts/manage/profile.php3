@@ -1,4 +1,8 @@
 <h2>Редактирование личной информации</h2>
+<div class="test-avatar">
+    <?php echo $this->action('manage-avatar', 'manage', 'user'); ?>
+</div>
+
 <div id="panel" class="cf">
     <?php echo $this->form; ?>
 </div>

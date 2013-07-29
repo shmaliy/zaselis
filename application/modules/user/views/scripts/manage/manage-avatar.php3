@@ -1,28 +1,37 @@
 <h4>Управление вашим аватаром</h4>
 
 <div class="avatar-field">
-<?php if (!empty($this->avatar)): ?>
-    <div class="pic"><img src ="<?php echo str_replace('avatars/', 'avatars/thumbnail-180-256/', $this->avatar); ?>" /></div>
-    <a class="avatar-delete">Удалить</a>    
-<?php else : ?>
-    Вы еще не загрузили свой аватар. Сделайте это прямо сейчас!
-<?php endif; ?>
+    <div class="avatar-field-text">
+        Для загрузки или смены аватара нажмите &laquo;Сменить&raquo;
+        или перетащите файл в окно редактирования.
+    </div>
+    <?php if (!empty($this->avatar)): ?>
+        <div class="pic"><img src ="<?php echo str_replace('avatars/', 'avatars/thumbnail-180-256/', $this->avatar); ?>" /></div>
+
+        <span class="avatar-delete btn btn-danger fileinput-button">
+            <i class="icon-minus icon-white"></i>
+            <span>Удалить</span>
+        </span>
+
+    <?php else : ?>
+        Вы еще не загрузили свой аватар. Сделайте это прямо сейчас!
+    <?php endif; ?>
 </div>
 
 
 <div class="container">
     
     <!-- The fileinput-button span is used to style the file input field as button -->
-    <span class="btn btn-success fileinput-button">
-        <i class="icon-plus icon-white"></i>
-        <span>Add files...</span>
+    <span class="avatar-new btn btn-success fileinput-button">
+        <i class="icon-share-alt icon-white"></i>
+        <span>Изменить...</span>
         <!-- The file input field used as target for the file upload widget -->
         <input id="fileupload" type="file" name="files[]" multiple>
     </span>
     <br>
     <br>
     <!-- The global progress bar -->
-    <div id="progress" class="progress progress-success progress-striped">
+    <div id="progress" class="avatar-progress progress progress-success progress-striped">
         <div class="bar"></div>
     </div>
     <!-- The container for the uploaded files -->
@@ -74,6 +83,7 @@ $('.avatar-delete').click(function () {
 });
 
 var timer = 0;
+$('#progress').hide();
 
 $(function () {
     'use strict';
@@ -82,13 +92,13 @@ $(function () {
         uploadButton = $('<button/>')
             .addClass('btn')
             .prop('disabled', true)
-            .text('Processing...')
+            .text('Обработка...')
             .on('click', function () {
                 var $this = $(this),
                     data = $this.data();
                 $this
                     .off('click')
-                    .text('Abort')
+                    .text('Отмена')
                     .on('click', function () {
                         $this.remove();
                         data.abort();
@@ -115,8 +125,8 @@ $(function () {
         
         $.each(data.files, function (index, file) {
             if (i == 0) {
-            var node = $('<p/>')
-                    .append($('<span/>').text(file.name));
+            var node = $('<p/>');
+                    
             if (!index) {
                 node
                     .append('<br>')
@@ -142,10 +152,11 @@ $(function () {
         }
         if (index + 1 === data.files.length) {
             data.context.find('button')
-                .text('Upload')
+                .text('Загрузить')
                 .prop('disabled', !!data.files.error);
         }
     }).on('fileuploadprogressall', function (e, data) {
+        $('#progress').show();
         var progress = parseInt(data.loaded / data.total * 100, 10);
         $('#progress .bar').css(
             'width',
@@ -158,8 +169,8 @@ $(function () {
             var link = $('<a>')
                 .attr('target', '_blank')
                 .prop('href', file.url);
-            $(data.context.children()[index])
-                .wrap(link);
+            $(data.context.children()[index]).remove();
+//                .wrap(link);
             res = file['url'];
 
         });

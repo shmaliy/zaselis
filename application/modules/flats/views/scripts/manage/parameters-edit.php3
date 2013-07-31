@@ -178,6 +178,8 @@ $(document).ready(function(){
     
     $('.edit-parameters-values').each(function(){
         $(this).click(function(){
+            
+            megaOverlayShow();
             $.ajax({
                 url: '<?php echo $this->url(array(), 'get-parameter-values-list'); ?>',
                 data: {paramId: $(this).attr('rel')},
@@ -186,6 +188,7 @@ $(document).ready(function(){
                 success: function(data, textStatus, jqXHR) {
                     var result = jqXHR.responseText;
                     $('#edit-values-list p').html(result);
+                    megaOverlayHide();
                     $('#edit-values-list').dialog({modal: true, resizable: true});
                 },
                 complete: function(jqXHR, textStatus) {}

@@ -469,6 +469,30 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
         $router->addRoute('manage-avatar', $route);
         
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/parameter-icon',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'set-parameter-icon',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('set-parameter-icon', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/parameter-values-list',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'parameter-values-list',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('get-parameter-values-list', $route);
+        
         $frontController->setRouter($router);
     }
 	

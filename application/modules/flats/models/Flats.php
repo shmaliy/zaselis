@@ -19,6 +19,15 @@ class Flats_Model_Flats extends Core_Model_Abstract
         $this->fixParamsOrder();
     }
     
+    public function setParamIcon($pId, $file = null)
+    {
+        if (is_null($file)) {
+            $file = '';
+        }
+        $upd['icon'] = $file;
+        $this->_update($pId, $this->_tZFlatsParams['title'], $upd);
+    }
+    
     public function getManageParamsList()
     {
         $select = $this->_db->select();

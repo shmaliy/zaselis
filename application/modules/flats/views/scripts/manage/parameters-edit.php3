@@ -24,7 +24,7 @@
     <div class="create-form">
         <form id="CreateParameter"  action="" method="post" enctype="application/x-www-form-urlencoded">
             <div class="param-container cf">
-                <div class="legend">Новый параметр</div>
+                <h4>Новый параметр</h4>
                 <div class="text">Редактирование иконки, а так же списка значений будет доступно после сохранения.</div>
                 <div class="title"><input type="text" name="title" placeholder="название"></div>
                 <div class="description">
@@ -38,18 +38,22 @@
                     </div>            
                 </div>
                 <div class="save">
-                    <input type="submit" class="form-save-button" value="Сохранить">
+                    <a class="btn btn-success" onclick="$('#CreateParameter').submit();">
+                        <i class="icon-plus icon-white"></i>
+                        <span>Добавить</span>
+                    </a>
                 </div>
             </div>
         </form>
     </div>
     <div class="edit-icon">
-        <div class="container" rel="none">
-    
+        <h4>Редактирование иконки</h4>
+        <div id="param-title-legend"></div>
+        <div class="container" rel="none" id="images-container">
             <!-- The fileinput-button span is used to style the file input field as button -->
-            <span class="icon-new-new btn btn-success fileinput-button">
-                <i class="icon-share-alt icon-white"></i>
-                <span>Изменить...</span>
+            <span class="btn btn-success fileinput-button">
+                <i class="icon-plus icon-white"></i>
+                <span>Выбрать файл...</span>
                 <!-- The file input field used as target for the file upload widget -->
                 <input id="fileupload" type="file" name="files[]" multiple>
             </span>
@@ -78,62 +82,182 @@
 
 </script>
 
-<form id="EditParameters" action="" method="post" enctype="application/x-www-form-urlencoded">
-    <ul id="params-container" class="params-edit-table">
-        <li class="param-header cf">
-            <div class="icon">Иконка</div>
-            <div class="title">Название</div>
-            <div class="description">Описание</div>
-            <div class="type">Тип</div>
-            <div class="avaliable">Виден на сайте</div>
-            <div class="del">Удалить</div>
-        </li>
-        <?php if (!empty($this->list)) : ?>
-        
-            <?php foreach ($this->list as $item) : ?>
-                <li class="param cf" rel="<?php echo $item['z_flats_params_id']; ?>">
-                    <div class="icon"></div>
-                    <div class="title"><input type="text" name="title" placeholder="название" value="<?php echo $item['title']; ?>"></div>
-                    <div class="description">
-                        <textarea name="description"><?php echo $item['description']; ?></textarea>
-                    </div>
-                    <div class="type">
-                        <div class="slideThreeType">
-                            <?php if($item['type'] == 'BOOLEAN') : ?>
-                                <input type="checkbox" value="None" id="slideThree_<?php echo $item['z_flats_params_id']; ?>" name="type" />
-                                <label for="slideThree_<?php echo $item['z_flats_params_id']; ?>"></label>
-                            <?php else : ?>
-                                <input checked type="checkbox" value="None" id="slideThree_<?php echo $item['z_flats_params_id']; ?>" name="type" />
-                                <label for="slideThree_<?php echo $item['z_flats_params_id']; ?>"></label>
-                            <?php endif; ?>
-                        </div>  
-                        <?php if($item['type'] !== 'BOOLEAN') : ?>
-                        <a href="#">Список значений</a>
+
+<ul class="params-edit-table">
+    <li class="param-header cf">
+        <div class="icon">Иконка</div>
+        <div class="title">Название</div>
+        <div class="description">Описание</div>
+        <div class="type">Тип</div>
+        <div class="avaliable">Виден на сайте</div>
+        <div class="del">Удалить</div>
+    </li>
+</ul>
+
+<ul id="params-container" class="params-edit-table">
+
+    <?php if (!empty($this->list)) : ?>
+
+        <?php foreach ($this->list as $item) : ?>
+            <li class="param cf" rel="<?php echo $item['z_flats_params_id']; ?>">
+                <div class="icon">
+                    <?php if(empty($item['icon'])) : ?>
+                    <a rel="<?php echo $item['z_flats_params_id']; ?>" class="btn btn-warning change-icon-param">
+                        <i class="icon-plus icon-white"></i>
+                    </a>
+                    <?php else : ?>
+                        <?php $icon = str_replace('/parameters-icons/', '/parameters-icons/thumbnail-16-16/', $item['icon']); ?>
+                        <img src="<?php echo $icon; ?>" />
+                        <br /><br />
+                        <a rel="<?php echo $item['z_flats_params_id']; ?>" class="btn btn-warning change-icon-param">
+                            <i class="icon-share icon-white"></i>
+                        </a>
+
+                        <a rel="<?php echo $item['z_flats_params_id']; ?>" class="btn btn-danger delete-icon-param">
+                            <i class="icon-minus icon-white"></i>
+                        </a>
+                    <?php endif; ?>
+                </div>
+                <div class="title"><input type="text" name="title" placeholder="название" value="<?php echo $item['title']; ?>"></div>
+                <div class="description">
+                    <textarea name="description"><?php echo $item['description']; ?></textarea>
+                </div>
+                <div class="type">
+                    <div class="slideThreeType">
+                        <?php if($item['type'] == 'BOOLEAN') : ?>
+                            <input type="checkbox" value="None" id="slideThree_<?php echo $item['z_flats_params_id']; ?>" name="type" />
+                            <label for="slideThree_<?php echo $item['z_flats_params_id']; ?>"></label>
+                        <?php else : ?>
+                            <input checked type="checkbox" value="None" id="slideThree_<?php echo $item['z_flats_params_id']; ?>" name="type" />
+                            <label for="slideThree_<?php echo $item['z_flats_params_id']; ?>"></label>
                         <?php endif; ?>
-                    </div>
-                    <div class="avaliable">
-                        <div class="slideThreeOnOff">
-                            <?php if($item['avaliable'] == 'NO') : ?>
-                                <input type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>" name="avaliable" />
-                                <label for="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>"></label>
-                            <?php else : ?>
-                                <input checked type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>" name="avaliable" />
-                                <label for="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>"></label>
-                            <?php endif; ?>
-                        </div>  
-                    </div>
-                    <div class="del"></div>
-                </li>
-            <?php endforeach; ?>
+                    </div>  
+                    <?php if($item['type'] !== 'BOOLEAN') : ?>
+                    <a rel="<?php echo $item['z_flats_params_id']; ?>" class="edit-parameters-values">Список значений</a>
+                    <?php endif; ?>
+                </div>
+                <div class="avaliable">
+                    <div class="slideThreeOnOff">
+                        <?php if($item['avaliable'] == 'NO') : ?>
+                            <input type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>" name="avaliable" />
+                            <label for="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>"></label>
+                        <?php else : ?>
+                            <input checked type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>" name="avaliable" />
+                            <label for="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>"></label>
+                        <?php endif; ?>
+                    </div>  
+                </div>
+                <div class="del">
+                    <a rel="<?php echo $item['z_flats_params_id']; ?>" class="btn btn-danger delete-param">
+                        <i class="icon-minus icon-white"></i>
+                    </a>
+                </div>
+            </li>
+        <?php endforeach; ?>
+
+    <?php endif; ?>
+</ul>
+<a class="btn btn-success" id="save-greed">
+    <i class="icon-star icon-white"></i>
+    <span>Сохранить изменения</span>
+</a>
+
+<div id="edit-values-list" title="Редактирование значений параметра">
+    <p>
         
-        <?php endif; ?>
-    </ul>
-    
-</form>
+    </p>
+</div>
 
 <script>
 
-$('#progress').hide();
+
+
+$(document).ready(function(){
+    
+    $('#edit-values-list').hide();
+    
+    $('.edit-parameters-values').each(function(){
+        $(this).click(function(){
+            $.ajax({
+                url: '<?php echo $this->url(array(), 'get-parameter-values-list'); ?>',
+                data: {paramId: $(this).attr('rel')},
+                type: 'POST',
+                error: function(jqXHR, textStatus, errorThrown) {},
+                success: function(data, textStatus, jqXHR) {
+                    var result = jqXHR.responseText;
+                    $('#edit-values-list p').html(result);
+                    $('#edit-values-list').dialog({modal: true, resizable: true});
+                },
+                complete: function(jqXHR, textStatus) {}
+             });
+        });
+    });
+        
+    $('#save-greed').click(function(){
+        var post_data = [];
+        var greed = $('#params-container li');
+        
+        $(greed).each(function(){
+            
+            var id = $(this).attr('rel');
+            var title = $(this).find('.title input').val();
+            var descr = $(this).find('.description textarea').val();
+            var type = $(this).find('.type input');
+            
+            var c_type = 'BOOLEAN';
+            if ($(type).is(':checked')) {
+                c_type = 'TEXT';
+            }
+            
+            var aval = $(this).find('.avaliable input');
+            
+            var c_aval = 'NO';
+            if ($(type).is(':checked')) {
+                c_aval = 'YES';
+            }
+            
+            var tcell = [id, title, descr, c_type, c_aval];
+            
+            post_data.push(tcell);
+        });
+        console.log(post_data);
+        
+    
+    });
+
+    $('#progress').hide();
+    $('.edit-icon').hide();
+    $( "#params-container" ).sortable({
+        placeholder: "ui-state-highlight"
+    });
+    $( "#params-container" ).disableSelection();
+    
+    $(".change-icon-param").each(function(){
+        $(this).click(function(){
+            var row = $(this).closest('.param');
+            
+            $('#param-title-legend').html('').append($(row).find('.title input').val());
+            $('#images-container').attr('rel', $(this).attr('rel'));
+            $('.edit-icon').show();
+        });
+    });
+    
+    $(".delete-icon-param").each(function(){
+        $(this).click(function(){
+            megaOverlayShow();
+            $.ajax({
+                url: '<?php echo $this->url(array(), 'set-parameter-icon'); ?>',
+                data: {paramId: $(this).attr('rel')},
+                type: 'POST',
+                error: function(jqXHR, textStatus, errorThrown) {},
+                success: function(data, textStatus, jqXHR) {
+                    updateWindow(); 
+                },
+                complete: function(jqXHR, textStatus) {}
+             });
+        });
+    });
+});
 
 $(function () {
     'use strict';
@@ -224,19 +348,21 @@ $(function () {
             res = file['url'];
 
         });
+        if ($('#images-container').attr('rel') != 'none') {
         
-        megaOverlayShow();
-        $.ajax({
-            url: '<?php echo $this->url(array(), 'manage-avatar'); ?>',
-            data: {file: res},
-            type: 'POST',
-            error: function(jqXHR, textStatus, errorThrown) {},
-            success: function(data, textStatus, jqXHR) {
-                updateWindow(); 
-            },
-            complete: function(jqXHR, textStatus) {}
-         });
-        
+            megaOverlayShow();
+            $.ajax({
+                url: '<?php echo $this->url(array(), 'set-parameter-icon'); ?>',
+                data: {file: res, paramId: $('#images-container').attr('rel')},
+                type: 'POST',
+                error: function(jqXHR, textStatus, errorThrown) {},
+                success: function(data, textStatus, jqXHR) {
+                    updateWindow(); 
+                },
+                complete: function(jqXHR, textStatus) {}
+             });
+         
+         }
         
         
     }).on('fileuploadfail', function (e, data) {

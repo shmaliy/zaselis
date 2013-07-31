@@ -24,6 +24,8 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('edit-photos', 'json');
         $ajaxContext->addActionContext('parameters-edit', 'json');
         $ajaxContext->addActionContext('create-parameter', 'json');
+        $ajaxContext->addActionContext('set-parameter-icon', 'json');
+        $ajaxContext->addActionContext('parameter-values-list', 'html');
         $ajaxContext->initContext('json');
     }
     
@@ -42,6 +44,30 @@ class Flats_ManageController extends Zend_Controller_Action
         $list = $this->_model_flats->getManageParamsList();
         
         $this->view->list = $list;
+    }
+    
+    public function parameterValuesListAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+        $this->_helper->layout->disableLayout();
+    }            
+    
+    public function setParameterIconAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+        if ($request->isXmlHttpRequest() || $request->isPost()) { 
+            $file = $request->getParam('file', null);
+            if (!is_null($file)) {
+                $file = parse_url($params['file']);
+                $file = $file['path'];
+            }
+            
+            $this->_model_flats->setParamIcon($params['paramId'], $file);
+        }
     }
     
     public function createParameterAction()
@@ -65,10 +91,15 @@ class Flats_ManageController extends Zend_Controller_Action
             if (!empty($errors)) {
                 $this->view->formErrors = $errors;
             } else {
+                $type = $request->getParam('type', 'BOOLEAN');
+                if ($type !== 'BOOLEAN') {
+                    $type = 'TEXT';
+                }
+                
                 $insert = array(
                     'title' => $params['title'],
                     'description' => $params['description'],
-                    'type' => $request->getParam('type', 'BOOLEAN')
+                    'type' => $type
                 );
                 
                 $this->_model_flats->createParam($insert);

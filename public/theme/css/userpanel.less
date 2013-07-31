@@ -686,21 +686,53 @@
     }
 }
 
-.param-container {
-    border: 1px dashed #ccc;
-    padding: 15px;
 
-    & div {
-        margin: 0 10px 15px 0;
-    }
-    
-    & .icon {
+
+.params-forms-container {
+    margin: 0 0 25px 0;
+    padding: 0 0 15px 0;
+    border-bottom: 1px dashed #ccc;
+
+    & .create-form {
+        border: 1px dashed #ccc;
+        padding: 15px;
+        float: left;
+        width: 46%;
+
+        & .param-container {
         
+            & div {
+                margin: 0 10px 15px 0;
+                font-size: 12px;
+            }
+
+            & .text {
+
+            }
+        }
+    }
+
+    & .edit-icon {
+        border: 1px dashed #ccc;
+        padding: 15px;
+        float: right;
+        width: 46%;
+
+        & #param-title-legend {
+            font-size: 12px;
+            margin: 0 0 15px 0;
+        }
+
+        & .icon-progress {
+            width: 100%;
+        }
     }
 }
 
+
+
 .params-edit-table {
-    margin: 0;
+    margin: 0 0 15px 0;
     padding: 0;
     list-style: none;
 
@@ -721,7 +753,7 @@
         } 
 
         & .icon {
-            width: 120px;
+            width: 84px;
         }
 
         & .title {
@@ -740,7 +772,7 @@
             width: 91px;
         }
 
-        & .avaliable {
+        & .del {
             width: 91px;
         }
     }
@@ -749,8 +781,13 @@
         border-bottom: 1px solid #ccc;
         
         & .icon {
-            width: 120px;
+            width: 84px;
             padding: 10px;
+
+            & img {
+                padding: 10px;
+                border: 1px solid #ccc;
+            }
         }
 
         & .title {
@@ -773,7 +810,7 @@
             padding: 10px;
         }
 
-        & .avaliable {
+        & .del {
             width: 58px;
             padding: 10px;
         }

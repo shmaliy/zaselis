@@ -53,8 +53,8 @@ class UploadHandler
         
         $this->options = array(
             'script_url' => $this->get_full_url().'/',
-            'upload_dir' => $_SERVER['DOCUMENT_ROOT'] . '/contents/' . $this->createSubdir() . '/avatars/',
-            'upload_url' => $domain . '/contents/' . $this->createSubdir() . '/avatars/',
+            'upload_dir' => $_SERVER['DOCUMENT_ROOT'] . '/theme/img/parameters-icons/',
+            'upload_url' => $domain . '/theme/img/parameters-icons/',
             'user_dirs' => false,
             'mkdir_mode' => 0755,
             'param_name' => 'files',
@@ -116,28 +116,28 @@ class UploadHandler
                     'jpeg_quality' => 80
                 ),
                 */
-                'thumbnail' => array(
-                    // Uncomment the following to force the max
-                    // dimensions and e.g. create square thumbnails:
-                    //'crop' => true,
-                    'max_width' => 80,
-                    'max_height' => 80
-                ),
+//                'thumbnail' => array(
+//                    // Uncomment the following to force the max
+//                    // dimensions and e.g. create square thumbnails:
+//                    //'crop' => true,
+//                    'max_width' => 80,
+//                    'max_height' => 80
+//                ),
                 
-                'drop-thumbnail' => array(
-                    // Uncomment the following to force the max
-                    // dimensions and e.g. create square thumbnails:
-                    'crop' => true,
-                    'max_width' => 40,
-                    'max_height' => 40
-                ),
+//                'drop-thumbnail' => array(
+//                    // Uncomment the following to force the max
+//                    // dimensions and e.g. create square thumbnails:
+//                    'crop' => true,
+//                    'max_width' => 40,
+//                    'max_height' => 40
+//                ),
                 
-                'thumbnail-180-256' => array(
+                'thumbnail-16-16' => array(
                     // Uncomment the following to force the max
                     // dimensions and e.g. create square thumbnails:
-                    'crop' => true,
-                    'max_width' => 180,
-                    'max_height' => 256
+//                    'crop' => true,
+                    'max_width' => 16,
+                    'max_height' => 16
                 )
                 
             )

@@ -28,6 +28,21 @@ class Flats_Model_Flats extends Core_Model_Abstract
         $this->_update($pId, $this->_tZFlatsParams['title'], $upd);
     }
     
+    public function saveParamsGreed($greed)
+    {
+        $i = 1;
+        foreach ($greed as $cell) {
+            $upd = array(
+                'title' => $cell['1'],
+                'description' => $cell['2'],
+                'type' => $cell['3'],
+                'ordering' => $i,
+                'avaliable' => $cell['4']
+            );
+            $this->_update($cell['0'], $this->_tZFlatsParams['title'], $upd);
+        }
+    }
+    
     public function getManageParamsList()
     {
         $select = $this->_db->select();

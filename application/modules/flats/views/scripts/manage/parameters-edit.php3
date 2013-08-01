@@ -215,7 +215,7 @@ $(document).ready(function(){
             var aval = $(this).find('.avaliable input');
             
             var c_aval = 'NO';
-            if ($(type).is(':checked')) {
+            if ($(aval).is(':checked')) {
                 c_aval = 'YES';
             }
             
@@ -225,6 +225,20 @@ $(document).ready(function(){
         });
         console.log(post_data);
         
+        if (post_data.length > 0) {
+            megaOverlayShow();
+            $.ajax({
+                url: '<?php echo $this->url(array(), 'parameters-edit'); ?>',
+                data: {greed: post_data},
+                type: 'POST',
+                error: function(jqXHR, textStatus, errorThrown) {},
+                success: function(data, textStatus, jqXHR) {
+                    updateWindow();
+                    
+                },
+                complete: function(jqXHR, textStatus) {}
+             });
+        }
     
     });
 
@@ -233,7 +247,7 @@ $(document).ready(function(){
     $( "#params-container" ).sortable({
         placeholder: "ui-state-highlight"
     });
-    $( "#params-container" ).disableSelection();
+//    $( "#params-container" ).disableSelection();
     
     $(".change-icon-param").each(function(){
         $(this).click(function(){

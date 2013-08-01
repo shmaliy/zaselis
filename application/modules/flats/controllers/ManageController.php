@@ -26,6 +26,7 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('create-parameter', 'json');
         $ajaxContext->addActionContext('set-parameter-icon', 'json');
         $ajaxContext->addActionContext('parameter-values-list', 'html');
+        $ajaxContext->addActionContext('parameters-edit', 'json');
         $ajaxContext->initContext('json');
     }
     
@@ -40,10 +41,17 @@ class Flats_ManageController extends Zend_Controller_Action
         $request = $this->getRequest();
         $params = $request->getParams();
         
-        $list = array();
-        $list = $this->_model_flats->getManageParamsList();
+        if ($request->isXmlHttpRequest() || $request->isPost()) { 
+//            var_export($params);
+            $this->_model_flats->saveParamsGreed($params['greed']);
+            
+        } else {
         
-        $this->view->list = $list;
+            $list = array();
+            $list = $this->_model_flats->getManageParamsList();
+
+            $this->view->list = $list;
+        }
     }
     
     public function parameterValuesListAction()

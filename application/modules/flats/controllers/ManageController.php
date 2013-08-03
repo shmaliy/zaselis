@@ -59,6 +59,23 @@ class Flats_ManageController extends Zend_Controller_Action
         $request = $this->getRequest();
         $params = $request->getParams();
         
+        if ($request->isXmlHttpRequest() || $request->isPost()) { 
+            $paramId = $params['paramId'];
+            
+            $form = new Flats_Form_ParamsValues();
+            $this->view->form = $form;
+            
+            $this->view->list = $this->_model_flats->getParameterValuesList($paramId);
+            
+            if (is_array($params['greed'])) {
+                
+            }
+            
+            if (is_array($params['new'])) {
+                
+            }
+        }
+        
         $this->_helper->layout->disableLayout();
     }            
     

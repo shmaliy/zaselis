@@ -43,11 +43,20 @@ class Flats_Model_Flats extends Core_Model_Abstract
         }
     }
     
+    public function getParameterValuesList($paramId)
+    {
+        $select = $this->_db->select();
+        $select->from($this->_tZFlatsParamsValues['title']);
+        $select->where('z_flats_params_id = ?', $paramId);
+        $select->order('ordering');
+        return $this->_db->fetchAll($select);
+    }
+    
     public function getManageParamsList()
     {
         $select = $this->_db->select();
         
-        $select->from($this->_tZFlatsParams);
+        $select->from($this->_tZFlatsParams['title']);
         $select->order('ordering');
         return $this->_db->fetchAll($select);
     }

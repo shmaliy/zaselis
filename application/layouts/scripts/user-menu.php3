@@ -136,7 +136,7 @@ $menu = array(
 
 if ($this->user['z_users_roles_id'] == 1) {
     $menu['flats'][] = array(
-        'title' => '&#9733; Настройка параметров',
+        'title' => '&#9733; Настройка удобств',
         'url'   => $this->url(array(), 'parameters-edit'),
         'active' => checkActive($this->url(array(), 'parameters-edit'))
     );

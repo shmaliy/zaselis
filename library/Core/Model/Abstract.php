@@ -91,10 +91,7 @@ class Core_Model_Abstract
     
     protected $_tZFlatsParams = array(
         'title' => 'z_flats_params',
-        'treeFields' => array(
-            'title'              => 'multilanguage',
-            'description'        => 'multilanguage'
-        )
+        'treeFields' => array()
     );
     
     protected $_tZFlatsParamsValues = array(

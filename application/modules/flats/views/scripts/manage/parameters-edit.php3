@@ -174,6 +174,8 @@
 
 $(document).ready(function(){
     
+    
+        
     $('#edit-values-list').hide();
     
     $('.edit-parameters-values').each(function(){
@@ -189,7 +191,7 @@ $(document).ready(function(){
                     var result = jqXHR.responseText;
                     $('#edit-values-list p').html(result);
                     megaOverlayHide();
-                    $('#edit-values-list').dialog({modal: true, resizable: true});
+                    $('#edit-values-list').dialog({modal: true, resizable: true, width: 600});
                 },
                 complete: function(jqXHR, textStatus) {}
              });

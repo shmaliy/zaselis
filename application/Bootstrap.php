@@ -493,6 +493,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
         $router->addRoute('get-parameter-values-list', $route);
         
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/add-param-value',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'add-param-value',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('add-param-value', $route);
+        
         $frontController->setRouter($router);
     }
 	

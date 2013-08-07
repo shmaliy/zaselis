@@ -867,3 +867,36 @@
         }
     }
 }
+
+.exiting-values-container {
+    & input[type=checkbox] {
+        visibility: visible !important;
+    }
+    & ul {
+        
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        & li {
+            padding: 9px 10px 0 10px;
+            & div {
+                float: left;
+                margin: 0 15px 0 0;
+            }
+
+            & input[type=text] {
+                width: 435px;
+            }
+
+            & input[type=checkbox] {
+                margin: 10px 0 0 0;
+            }
+
+            & a {
+                display: block;
+                margin: 2px 0 0 0;
+            }
+        }
+    }
+}

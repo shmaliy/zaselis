@@ -27,6 +27,7 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('set-parameter-icon', 'json');
         $ajaxContext->addActionContext('parameter-values-list', 'html');
         $ajaxContext->addActionContext('parameters-edit', 'json');
+        $ajaxContext->addActionContext('add-param-value', 'json');
         $ajaxContext->initContext('json');
     }
     
@@ -63,10 +64,8 @@ class Flats_ManageController extends Zend_Controller_Action
             $paramId = $params['paramId'];
             
             $form = new Flats_Form_ParamsValues();
+            $form->getElement('z_flats_params_id')->setValue($paramId);
             $this->view->form = $form;
-            
-            $new_values = $form->getValues();
-            var_export($new_values);
             
             $this->view->list = $this->_model_flats->getParameterValuesList($paramId);
             
@@ -80,7 +79,27 @@ class Flats_ManageController extends Zend_Controller_Action
         }
         
         $this->_helper->layout->disableLayout();
-    }            
+    } 
+    
+    public function addParamValueAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+        $form = new Flats_Form_ParamsValues();
+        
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+        if ($request->isXmlHttpRequest() || $request->isPost()) { 
+            if ($form->isValid($params)) {
+                $this->_model_flats->createParametersValue($form->getValues());
+                
+            } else {
+                $this->view->formErrors        = $form->getErrors();
+    		$this->view->formErrorMessages = $form->getErrorMessages();
+            }
+        }
+    }
     
     public function setParameterIconAction()
     {

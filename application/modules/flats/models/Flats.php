@@ -52,6 +52,30 @@ class Flats_Model_Flats extends Core_Model_Abstract
         return $this->_db->fetchAll($select);
     }
     
+    public function createParametersValue($data)
+    {
+        $this->_insert($this->_tZFlatsParamsValues['title'], $data);
+        $this->fixValuesOrdering($data['z_flats_params_id']);
+    }
+    
+    public function fixValuesOrdering($paramId)
+    {
+        $select = $this->_db->select();
+        $select->from($this->_tZFlatsParamsValues['title']);
+        $select->where('z_flats_params_id = ?', $paramId);
+        $select->order('ordering');
+        $list = $this->_db->fetchAll($select);
+        
+        if ($list[0]['ordering'] == 0) {
+            foreach ($list as $item) {
+                $upd = array(
+                    'ordering' => $item['ordering'] + 1
+                );
+                $this->_update($item['z_flats_params_values_id'], $this->_tZFlatsParamsValues['title'], $upd);
+            }
+        }
+    }
+    
     public function getManageParamsList()
     {
         $select = $this->_db->select();
@@ -59,6 +83,8 @@ class Flats_Model_Flats extends Core_Model_Abstract
         $select->from($this->_tZFlatsParams['title']);
         $select->order('ordering');
         return $this->_db->fetchAll($select);
+        
+        
     }
     
     public function fixParamsOrder()

@@ -65,6 +65,9 @@ class Flats_ManageController extends Zend_Controller_Action
             $form = new Flats_Form_ParamsValues();
             $this->view->form = $form;
             
+            $new_values = $form->getValues();
+            var_export($new_values);
+            
             $this->view->list = $this->_model_flats->getParameterValuesList($paramId);
             
             if (is_array($params['greed'])) {

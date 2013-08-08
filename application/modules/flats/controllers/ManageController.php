@@ -28,6 +28,8 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('parameter-values-list', 'html');
         $ajaxContext->addActionContext('parameters-edit', 'json');
         $ajaxContext->addActionContext('add-param-value', 'json');
+        $ajaxContext->addActionContext('save-parameters-values', 'json');
+        $ajaxContext->addActionContext('remove-parameters-value', 'json');
         $ajaxContext->initContext('json');
     }
     
@@ -68,14 +70,6 @@ class Flats_ManageController extends Zend_Controller_Action
             $this->view->form = $form;
             
             $this->view->list = $this->_model_flats->getParameterValuesList($paramId);
-            
-            if (is_array($params['greed'])) {
-                
-            }
-            
-            if (is_array($params['new'])) {
-                
-            }
         }
         
         $this->_helper->layout->disableLayout();
@@ -99,6 +93,24 @@ class Flats_ManageController extends Zend_Controller_Action
     		$this->view->formErrorMessages = $form->getErrorMessages();
             }
         }
+    }
+    
+    public function saveParametersValuesAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+        $request = $this->getRequest();
+        $params = $request->getParams();
+    }
+    
+    public function removeParametersValueAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+        $this->_model_flats->removeParametersValue($params['paramId']);
     }
     
     public function setParameterIconAction()

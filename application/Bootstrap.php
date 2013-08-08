@@ -505,6 +505,30 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
         $router->addRoute('add-param-value', $route);
         
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/save-parameters-values',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'save-parameters-values',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('save-parameters-values', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/remove-parameters-value',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'remove-parameters-value',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('remove-parameters-value', $route);
+        
         $frontController->setRouter($router);
     }
 	

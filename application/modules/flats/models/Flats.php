@@ -58,6 +58,16 @@ class Flats_Model_Flats extends Core_Model_Abstract
         $this->fixValuesOrdering($data['z_flats_params_id']);
     }
     
+    public function saveParametersValues($greed)
+    {
+        
+    }
+    
+    public function removeParametersValue($id)
+    {
+        $this->_delete($id, $this->_tZFlatsParamsValues['title']);
+    }
+    
     public function fixValuesOrdering($paramId)
     {
         $select = $this->_db->select();

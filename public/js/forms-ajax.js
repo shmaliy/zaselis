@@ -143,3 +143,19 @@ function updateWindow()
 {
     setTimeout(function(){window.location = window.location.href;}, 500);
 }
+
+function reloadParamsValuesDialog(data)
+{
+    $.ajax({
+        url: data[1],
+        data: {paramId: data[0]},
+        type: 'POST',
+        error: function(jqXHR, textStatus, errorThrown) {},
+        success: function(data, textStatus, jqXHR) {
+            var result = jqXHR.responseText;
+            $('#edit-values-list p').html(result);
+            megaOverlayHide();
+        },
+        complete: function(jqXHR, textStatus) {}
+     });
+}

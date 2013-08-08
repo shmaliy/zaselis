@@ -32,6 +32,8 @@ class User_ManageController extends Zend_Controller_Action
         $request = $this->getRequest();
         $params = $request->getParams();
         
+        
+        
 //        $obj = $this->_model->googleGetAddress('Россия, город Москва, Москва, площадь Красная 1/2');
 //        
 //        //$street = $this->_model->saveStreet($obj);

@@ -25,7 +25,7 @@ class Flats_Form_ParamsValues extends Zend_Form
             array(
                 'formName' => $this->getAttrib('id'),
                 'ignore' => true,
-                'value' => 'Сохранить',
+                'value' => 'Добавить',
                 'requored' => false
             )
         ));

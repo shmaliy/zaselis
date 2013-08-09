@@ -94,6 +94,11 @@ class Core_Model_Abstract
         'treeFields' => array()
     );
     
+    protected $_tZFlatsBads = array(
+        'title' => 'z_flats_beds',
+        'treeFields' => array()
+    );
+    
     protected $_tZFlatsParamsValues = array(
         'title' => 'z_flats_params_values',
         'treeFields' => array(

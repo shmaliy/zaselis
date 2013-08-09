@@ -60,12 +60,78 @@ class Flats_Model_Flats extends Core_Model_Abstract
     
     public function saveParametersValues($greed)
     {
-        
+        $i = 1;
+        foreach ($greed as $row) {
+            $rowId = $row['0'];
+            $upd = array(
+                'text_value' => $row['1'],
+                'avaliable' => $row['2'],
+                'ordering' => $i
+            );
+            
+            $this->_update($rowId, $this->_tZFlatsParamsValues['title'], $upd);
+            $i++;
+        } 
     }
     
     public function removeParametersValue($id)
     {
         $this->_delete($id, $this->_tZFlatsParamsValues['title']);
+    }
+    
+    public function removeParam($id)
+    {
+        $select = $this->_db->select();
+        $select->from($this->_tZFlatsParamsValues['title']);
+        $select->where('z_flats_params_id = ?', $id);
+        $values = $this->_db->fetchAll($select);
+
+        $this->_delete($id, $this->_tZFlatsParams['title']);
+        
+        if (!empty($values)) {
+            foreach ($values as $item) {
+                $this->_delete($item['z_flats_params_values_id'], $this->_tZFlatsParamsValues['title']);
+            }
+        }
+    }
+    
+    public function getManageBedsList()
+    {
+        $select = $this->_db->select();
+        $select->from($this->_tZFlatsBads['title']);
+        $select->order('ordering');
+        return $this->_db->fetchAll($select);
+    }
+    
+    public function createBed($data)
+    {
+        $this->_insert($this->_tZFlatsBads['title'], $data);
+        $this->fixBedsOrder();
+    }
+    
+    public function removeBed()
+    {
+        
+    }
+    
+    public function saveBedsGreed()
+    {
+        
+    }
+    
+    public function fixBedsOrder()
+    {
+        $select = $this->_db->select();
+        $select->from($this->_tZFlatsBads['title']);
+        $select->order('ordering');
+        $list = $this->_db->fetchAll($select);
+        
+        if ($list[0]['ordering'] == 0) {
+            foreach ($list as $item) {
+                $upd['ordering'] = $item['ordering'] + 1;
+                $this->_update($item['z_flats_beds_id'], $this->_tZFlatsBads['title'], $upd);
+            }
+        }
     }
     
     public function fixValuesOrdering($paramId)

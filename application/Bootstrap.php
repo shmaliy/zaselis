@@ -529,6 +529,30 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
         $router->addRoute('remove-parameters-value', $route);
         
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/remove-param',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'remove-param',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('remove-param', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/beds',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'beds-edit',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('beds', $route);
+        
         $frontController->setRouter($router);
     }
 	

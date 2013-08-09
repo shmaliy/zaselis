@@ -1,15 +1,5 @@
-<h2>Добавление/редактирование удобств квартиры</h2>
+<h2>Настройка спальных мест</h2>
 <style>
-    .slideThreeType:after {
-	content: 'Да / Нет';
-	color: #000;
-    }
-
-    .slideThreeType:before {
-        content: 'Список';
-        color: green;
-    }
-    
     .slideThreeOnOff:after {
 	content: 'Off';
 	color: #000;
@@ -22,29 +12,8 @@
 </style>
 <div class="params-forms-container cf">
     <div class="create-form">
-        <form id="CreateParameter"  action="" method="post" enctype="application/x-www-form-urlencoded">
-            <div class="param-container cf">
-                <h4>Новый параметр</h4>
-                <div class="text">Редактирование иконки, а так же списка значений будет доступно после сохранения.</div>
-                <div class="title"><input type="text" name="title" placeholder="название"></div>
-                <div class="description">
-                    <textarea name="description" placeholder="описание"></textarea>
-                </div>
-                <div class="type-legend">Тип параметра</div>
-                <div class="type">
-                    <div class="slideThreeType">	
-                        <input type="checkbox" value="None" id="slideThree" name="type" />
-                        <label for="slideThree"></label>
-                    </div>            
-                </div>
-                <div class="save">
-                    <a class="btn btn-success" onclick="$('#CreateParameter').submit();">
-                        <i class="icon-plus icon-white"></i>
-                        <span>Добавить</span>
-                    </a>
-                </div>
-            </div>
-        </form>
+        <h4>Новая кровать</h4>
+        <?php echo $this->form; ?>
     </div>
     <div class="edit-icon">
         <h4>Редактирование иконки</h4>
@@ -69,11 +38,11 @@
     </div>
 </div>
 <script>
-    $('#CreateParameter').submit(function(){
+    $('#CreateBed').submit(function(){
         processUserForm(
-            'create-parameter', 
+            'beds', 
             {'lang': globalLang, 'currencie': globalCurr},
-            '#CreateParameter',
+            '#CreateBed',
             [['updateWindow']]
         );
         return false;
@@ -88,7 +57,6 @@
         <div class="icon">Иконка</div>
         <div class="title">Название</div>
         <div class="description">Описание</div>
-        <div class="type">Тип</div>
         <div class="avaliable">Виден на сайте</div>
         <div class="del">Удалить</div>
     </li>
@@ -99,42 +67,30 @@
     <?php if (!empty($this->list)) : ?>
 
         <?php foreach ($this->list as $item) : ?>
-            <li class="param cf" rel="<?php echo $item['z_flats_params_id']; ?>">
+            <li class="param cf" rel="<?php echo $item['z_flats_bads_id']; ?>">
                 <div class="icon">
                     <?php if(empty($item['icon'])) : ?>
-                    <a rel="<?php echo $item['z_flats_params_id']; ?>" class="btn btn-warning change-icon-param">
+                    <a rel="<?php echo $item['z_flats_bads_id']; ?>" class="btn btn-warning change-icon-param">
                         <i class="icon-plus icon-white"></i>
                     </a>
                     <?php else : ?>
                         <?php $icon = str_replace('/parameters-icons/', '/parameters-icons/thumbnail-16-16/', $item['icon']); ?>
                         <img src="<?php echo $icon; ?>" />
                         <br /><br />
-                        <a rel="<?php echo $item['z_flats_params_id']; ?>" class="btn btn-warning change-icon-param">
+                        <a rel="<?php echo $item['z_flats_bads_id']; ?>" class="btn btn-warning change-icon-param">
                             <i class="icon-share icon-white"></i>
                         </a>
 
-                        <a rel="<?php echo $item['z_flats_params_id']; ?>" class="btn btn-danger delete-icon-param">
+                        <a rel="<?php echo $item['z_flats_bads_id']; ?>" class="btn btn-danger delete-icon-param">
                             <i class="icon-minus icon-white"></i>
                         </a>
                     <?php endif; ?>
                 </div>
-                <div class="title"><input type="text" name="title" placeholder="название" value="<?php echo $item['title']; ?>"></div>
-                <div class="description">
-                    <textarea name="description"><?php echo $item['description']; ?></textarea>
+                <div class="title">
+                    <input type="text" name="title" placeholder="название" value="<?php echo $item['title']; ?>">
                 </div>
-                <div class="type">
-                    <div class="slideThreeType">
-                        <?php if($item['type'] == 'BOOLEAN') : ?>
-                            <input type="checkbox" value="None" id="slideThree_<?php echo $item['z_flats_params_id']; ?>" name="type" />
-                            <label for="slideThree_<?php echo $item['z_flats_params_id']; ?>"></label>
-                        <?php else : ?>
-                            <input checked type="checkbox" value="None" id="slideThree_<?php echo $item['z_flats_params_id']; ?>" name="type" />
-                            <label for="slideThree_<?php echo $item['z_flats_params_id']; ?>"></label>
-                        <?php endif; ?>
-                    </div>  
-                    <?php if($item['type'] !== 'BOOLEAN') : ?>
-                    <a rel="<?php echo $item['z_flats_params_id']; ?>" class="edit-parameters-values">Список значений</a>
-                    <?php endif; ?>
+                <div class="guests">
+                    <input type="text" name="guests" placeholder="вместимость" value="<?php echo $item['guests']; ?>">
                 </div>
                 <div class="avaliable">
                     <div class="slideThreeOnOff">
@@ -321,7 +277,7 @@ $(document).ready(function(){
 $(function () {
     'use strict';
     // Change this to the location of your server-side upload handler:
-    var url = '/js/jquery/jQuery-File-Upload-master/server/php-parameter-icon/',
+    var url = '/js/jquery/jQuery-File-Upload-master/server/php-bed-icon/',
         uploadButton = $('<button/>')
             .addClass('btn')
             .prop('disabled', true)

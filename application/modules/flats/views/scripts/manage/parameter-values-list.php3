@@ -7,7 +7,7 @@
 
     <?php if (!empty($this->list)) : ?>
     <div class="exiting-values-container">
-        Управление параметрами
+        <h5>Управление значениями</h5>
         <ul id="ParamsValuesList">
             <?php foreach ($this->list as $item) : ?>
             <li class="ui-state-default cf" rel="<?php echo $item['z_flats_params_values_id']; ?>">
@@ -35,8 +35,19 @@
     </a>
     <?php endif; ?>
 </div>
+
+<div id="remove-param-value-dialog-confirm" title="Подумай трижды">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
+        Если нажмешь да, то значение параметра полетит к черту. 
+        Все владельцы квартир, использующие это значение, тебя проклянут!
+    </p>
+</div>
+
 <script>
 $(document).ready(function(){   
+    
+    $('#remove-param-value-dialog-confirm').hide();
     
     $('#save-params-values-greed').click(function(){
        var greed = [];
@@ -50,14 +61,15 @@ $(document).ready(function(){
                var avaliable = 'YES';
            }
            var row = [id, text_value, avaliable];
-           
+           greed.push(row);
        });
        
-       console.log(greed);
-       if (row.length > 0) {
+       
+       if (greed.length > 0) {
            
             var alt = $('#z_flats_params_id').val();
             megaOverlayShow();
+            
             $.ajax({
                 url: '<?php echo $this->url(array(), 'save-parameters-values'); ?>',
                 data: {greed: greed},
@@ -75,17 +87,33 @@ $(document).ready(function(){
        $(this).click(function(){
            
            var alt = $(this).attr('alt');
-           megaOverlayShow();
-            $.ajax({
-                url: '<?php echo $this->url(array(), 'remove-parameters-value'); ?>',
-                data: {paramId: $(this).attr('rel')},
-                type: 'POST',
-                error: function(jqXHR, textStatus, errorThrown) {},
-                success: function(data, textStatus, jqXHR) {
-                    reloadDialog(alt);
+           var rel = $(this).attr('rel');
+           
+           $( "#remove-param-value-dialog-confirm" ).dialog({
+                resizable: false,
+                height:280,
+                modal: true,
+                buttons: {
+                    "Я уверен!": function() {
+                    $(this).dialog( "close" );
+                    megaOverlayShow();
+                    $.ajax({
+                        url: '<?php echo $this->url(array(), 'remove-parameters-value'); ?>',
+                        data: {paramId: rel},
+                        type: 'POST',
+                        error: function(jqXHR, textStatus, errorThrown) {},
+                        success: function(data, textStatus, jqXHR) {
+                            reloadDialog(alt);
+                            
+                        },
+                        complete: function(jqXHR, textStatus) {}
+                     });  
                 },
-                complete: function(jqXHR, textStatus) {}
-             });
+                'Да ну на!': function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            });
        });
     });
     

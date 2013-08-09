@@ -30,6 +30,8 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('add-param-value', 'json');
         $ajaxContext->addActionContext('save-parameters-values', 'json');
         $ajaxContext->addActionContext('remove-parameters-value', 'json');
+        $ajaxContext->addActionContext('remove-param', 'json');
+        $ajaxContext->addActionContext('beds-edit', 'json');
         $ajaxContext->initContext('json');
     }
     
@@ -38,6 +40,27 @@ class Flats_ManageController extends Zend_Controller_Action
         $list = $this->_model_flats->getFlatsForMap();
         $this->view->list = $list;
     }   
+    
+    public function bedsEditAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+        $form = new Flats_Form_CreateBed();
+        
+        if ($request->isXmlHttpRequest() || $request->isPost()) { 
+            if ($form->isValid($params)) {
+                $this->_model_flats->createBed($form->getValues());
+                
+            } else {
+                $this->view->formErrors        = $form->getErrors();
+    		$this->view->formErrorMessages = $form->getErrorMessages();
+            }
+        } else {
+            $this->view->list = $this->_model_flats->getManageBedsList();
+            $this->view->form = $form;
+        }
+    }
     
     public function parametersEditAction()
     {
@@ -55,6 +78,18 @@ class Flats_ManageController extends Zend_Controller_Action
 
             $this->view->list = $list;
         }
+    }
+    
+    public function removeParamAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+        
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+        $this->_model_flats->removeParam($params['paramId']);
+        
     }
     
     public function parameterValuesListAction()
@@ -101,6 +136,8 @@ class Flats_ManageController extends Zend_Controller_Action
         $this->_helper->layout->disableLayout();
         $request = $this->getRequest();
         $params = $request->getParams();
+        
+        $this->_model_flats->saveParametersValues($params['greed']);
     }
     
     public function removeParametersValueAction()

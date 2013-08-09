@@ -142,6 +142,14 @@ if ($this->user['z_users_roles_id'] == 1) {
     );
 }
 
+if ($this->user['z_users_roles_id'] == 1) {
+    $menu['flats'][] = array(
+        'title' => '&#9733; Настройка кроватей',
+        'url'   => $this->url(array(), 'beds'),
+        'active' => checkActive($this->url(array(), 'beds'))
+    );
+}
+
 
 
 ?>

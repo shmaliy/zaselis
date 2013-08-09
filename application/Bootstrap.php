@@ -553,6 +553,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
         $router->addRoute('beds', $route);
         
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/beds/set-bed-icon',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'set-bed-icon',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('set-bed-icon', $route);
+        
         $frontController->setRouter($router);
     }
 	

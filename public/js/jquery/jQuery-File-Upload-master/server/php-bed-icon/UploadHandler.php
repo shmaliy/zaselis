@@ -53,8 +53,8 @@ class UploadHandler
         
         $this->options = array(
             'script_url' => $this->get_full_url().'/',
-            'upload_dir' => $_SERVER['DOCUMENT_ROOT'] . '/theme/img/parameters-icons/',
-            'upload_url' => $domain . '/theme/img/parameters-icons/',
+            'upload_dir' => $_SERVER['DOCUMENT_ROOT'] . '/theme/img/beds-icons/',
+            'upload_url' => $domain . '/theme/img/beds-icons/',
             'user_dirs' => false,
             'mkdir_mode' => 0755,
             'param_name' => 'files',
@@ -135,9 +135,16 @@ class UploadHandler
                 'thumbnail-16-16' => array(
                     // Uncomment the following to force the max
                     // dimensions and e.g. create square thumbnails:
-//                    'crop' => true,
+                    'crop' => true,
                     'max_width' => 16,
                     'max_height' => 16
+                ),
+                'thumbnail-24-24' => array(
+                    // Uncomment the following to force the max
+                    // dimensions and e.g. create square thumbnails:
+                    'crop' => true,
+                    'max_width' => 24,
+                    'max_height' => 24
                 )
                 
             )

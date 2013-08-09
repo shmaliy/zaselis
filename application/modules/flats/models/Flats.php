@@ -119,6 +119,12 @@ class Flats_Model_Flats extends Core_Model_Abstract
         
     }
     
+    public function setBedIcon($id, $file)
+    {
+        $upd['icon'] = $file;
+        $this->_update($id, $this->_tZFlatsBads['title'], $upd);
+    }
+    
     public function fixBedsOrder()
     {
         $select = $this->_db->select();

@@ -32,6 +32,7 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('remove-parameters-value', 'json');
         $ajaxContext->addActionContext('remove-param', 'json');
         $ajaxContext->addActionContext('beds-edit', 'json');
+        $ajaxContext->addActionContext('set-bed-icon', 'json');
         $ajaxContext->initContext('json');
     }
     
@@ -59,6 +60,43 @@ class Flats_ManageController extends Zend_Controller_Action
         } else {
             $this->view->list = $this->_model_flats->getManageBedsList();
             $this->view->form = $form;
+        }
+    }
+    
+    public function removeBedAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+        
+        $request = $this->getRequest();
+        $params = $request->getParams();
+    }
+    
+    public function saveBadsGreedAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+        
+        $request = $this->getRequest();
+        $params = $request->getParams();
+    }
+    
+    public function setBedIconAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+        
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+        if ($request->isXmlHttpRequest() || $request->isPost()) { 
+            $file = $request->getParam('file', null);
+            if (!is_null($file)) {
+                $file = parse_url($params['file']);
+                $file = $file['path'];
+            }
+            
+            $this->_model_flats->setBedIcon($params['bedId'], $file);
         }
     }
     

@@ -67,21 +67,21 @@
     <?php if (!empty($this->list)) : ?>
 
         <?php foreach ($this->list as $item) : ?>
-            <li class="param cf" rel="<?php echo $item['z_flats_bads_id']; ?>">
+            <li class="param cf" rel="<?php echo $item['z_flats_beds_id']; ?>">
                 <div class="icon">
                     <?php if(empty($item['icon'])) : ?>
-                    <a rel="<?php echo $item['z_flats_bads_id']; ?>" class="btn btn-warning change-icon-param">
+                    <a rel="<?php echo $item['z_flats_beds_id']; ?>" class="btn btn-warning change-icon-param">
                         <i class="icon-plus icon-white"></i>
                     </a>
                     <?php else : ?>
-                        <?php $icon = str_replace('/parameters-icons/', '/parameters-icons/thumbnail-16-16/', $item['icon']); ?>
+                        <?php $icon = str_replace('/beds-icons/', '/beds-icons/thumbnail-24-24/', $item['icon']); ?>
                         <img src="<?php echo $icon; ?>" />
                         <br /><br />
-                        <a rel="<?php echo $item['z_flats_bads_id']; ?>" class="btn btn-warning change-icon-param">
+                        <a rel="<?php echo $item['z_flats_beds_id']; ?>" class="btn btn-warning change-icon-param">
                             <i class="icon-share icon-white"></i>
                         </a>
 
-                        <a rel="<?php echo $item['z_flats_bads_id']; ?>" class="btn btn-danger delete-icon-param">
+                        <a rel="<?php echo $item['z_flats_beds_id']; ?>" class="btn btn-danger delete-icon-param">
                             <i class="icon-minus icon-white"></i>
                         </a>
                     <?php endif; ?>
@@ -95,16 +95,16 @@
                 <div class="avaliable">
                     <div class="slideThreeOnOff">
                         <?php if($item['avaliable'] == 'NO') : ?>
-                            <input type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>" name="avaliable" />
-                            <label for="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>"></label>
+                            <input type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_beds_id']; ?>" name="avaliable" />
+                            <label for="slideThreeOnOff_<?php echo $item['z_flats_beds_id']; ?>"></label>
                         <?php else : ?>
-                            <input checked type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>" name="avaliable" />
-                            <label for="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>"></label>
+                            <input checked type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_beds_id']; ?>" name="avaliable" />
+                            <label for="slideThreeOnOff_<?php echo $item['z_flats_beds_id']; ?>"></label>
                         <?php endif; ?>
                     </div>  
                 </div>
                 <div class="del">
-                    <a rel="<?php echo $item['z_flats_params_id']; ?>" class="btn btn-danger delete-param">
+                    <a rel="<?php echo $item['z_flats_beds_id']; ?>" class="btn btn-danger delete-param">
                         <i class="icon-minus icon-white"></i>
                     </a>
                 </div>
@@ -367,8 +367,8 @@ $(function () {
         
             megaOverlayShow();
             $.ajax({
-                url: '<?php echo $this->url(array(), 'set-parameter-icon'); ?>',
-                data: {file: res, paramId: $('#images-container').attr('rel')},
+                url: '<?php echo $this->url(array(), 'set-bed-icon'); ?>',
+                data: {file: res, bedId: $('#images-container').attr('rel')},
                 type: 'POST',
                 error: function(jqXHR, textStatus, errorThrown) {},
                 success: function(data, textStatus, jqXHR) {

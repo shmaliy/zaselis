@@ -109,19 +109,33 @@ class Flats_Model_Flats extends Core_Model_Abstract
         $this->fixBedsOrder();
     }
     
-    public function removeBed()
+    public function removeBed($id)
     {
-        
+        $this->_delete($id, $this->_tZFlatsBads['title']);
     }
     
-    public function saveBedsGreed()
+    public function saveBedsGreed($greed)
     {
-        
+        $i = 1;
+        foreach ($greed as $row) {
+            $id = $row[0];
+            $upd = array(
+                'title' => $row[1],
+                'guests' => $row[2],
+                'avaliable' => $row[3],
+                'ordering' => $i
+            );
+            $this->_update($id, $this->_tZFlatsBads['title'], $upd);
+            $i++;
+        }
     }
     
-    public function setBedIcon($id, $file)
+    public function setBedIcon($id, $file = null)
     {
         $upd['icon'] = $file;
+        if (is_null($file)) {
+            $upd['icon'] = '';
+        }
         $this->_update($id, $this->_tZFlatsBads['title'], $upd);
     }
     
@@ -273,6 +287,8 @@ class Flats_Model_Flats extends Core_Model_Abstract
             'adress' => $adress,
             'district_description' => $data['district_description'],
             'main_description' => $data['main_description'],
+            'route_description' => $data['route_description'],
+            'house_rules' => $data['house_rules'],
             'rooms_count' => $data['rooms_count'],
             'latitude' => $lat,
             'longitude' => $lng,
@@ -300,5 +316,44 @@ class Flats_Model_Flats extends Core_Model_Abstract
     public function savePhotos($id, $list) {
         $update['photos'] = $this->_prepareToTree($list);
         return $this->_update($id, $this->_tZFlats['title'], $update);
+    }
+    
+    public function getParamsList($flatId)
+    {
+        $select = $this->_db->select();
+        $select->from(
+            array('params' => $this->_tZFlatsParams['title']),
+            array(
+                'param_id' => 'params.' . $this->_tZFlatsParams['title'] . '_id',
+                'param_icon' => 'params.icon',
+                'param_title' => 'params.title',
+                'param_type' => 'params.type'
+            )
+        );
+        $select->where('params.avaliable = ?', 'YES');
+        $select->order('params.ordering');
+        
+        $select->joinLeft(
+            array('relations' => $this->_tZFlatsParamsValuesRelations['title']),
+            "params.z_flats_params_id = relations.z_flats_params_id and " . 
+            "relations.z_flats_id = " . $flatId,
+            array(
+                'rel_id' => 'relations.z_flats_params_values_relations_id',
+                'rel_boolean' => 'relations.boolean',
+                'rel_value_id' => 'relations.z_flats_params_values_id'
+            )
+        );
+        $return = $this->_db->fetchAll($select);
+        
+        echo '<pre>';
+        var_export($return);
+        echo '</pre>';
+        
+        return $return;
+    }
+    
+    public function getParamsValuesList()
+    {
+        $select = $this->_db->select();
     }
 }

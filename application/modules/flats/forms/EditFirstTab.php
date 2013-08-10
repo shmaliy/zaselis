@@ -49,13 +49,28 @@ class Flats_Form_EditFirstTab extends Zend_Form
         ));
         $this->getElement('main_description')->addValidator(new Zend_Validate_NotEmpty());
         
-        
-        $this->addElement('submit', 'submit', array(
-            'ignore' => true,
-            'label' => 'Сохранить',
-            'required' => false
+        $this->addElement('textarea', 'route_description', array(
+        	'label' => 'Описание проезда от вокзалов и аэропорта',
+                'required' => true
         ));
-        $this->getElement('submit')->setAttrib('class', 'form-save-button');
+        $this->getElement('route_description')->addValidator(new Zend_Validate_NotEmpty());
+        
+        $this->addElement('textarea', 'house_rules', array(
+        	'label' => 'Правила для жильцов',
+                'required' => true
+        ));
+//        $this->getElement('house_rules')->addValidator(new Zend_Validate_NotEmpty());
+        
+        
+        $this->addElement( new Core_Form_Element_Submit(
+            'submit', 
+            array(
+                'formName' => $this->getAttrib('id'),
+                'ignore' => true,
+                'value' => 'Сохранить',
+                'requored' => false
+            )
+        ));
     }
 
 

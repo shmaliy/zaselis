@@ -75,7 +75,12 @@
 </script>
 <?php endif; ?>
 
-<input type="submit" class="form-save-button" value="Сохранить" id="SavePhotos" name="submit">
+<a class="btn btn-success" id="SavePhotos">
+    <i class="icon-star icon-white"></i>
+    <span>Сохранить изменения</span>
+</a>
+
+
 
 <script>
 /*jslint unparam: true */

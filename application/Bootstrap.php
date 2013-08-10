@@ -433,6 +433,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         );
         $router->addRoute('edit-photos', $route);
         
+        
+        
         $route = new Zend_Controller_Router_Route(
             ':lang/:currencie/user/flats/parameters',
             array(
@@ -564,6 +566,31 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             )
         );
         $router->addRoute('set-bed-icon', $route);
+        
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/beds/remove-bed',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'remove-bed',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('remove-bed', $route);
+        
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/beds/save-beds-greed',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'save-beds-greed',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('save-beds-greed', $route);
         
         $frontController->setRouter($router);
     }

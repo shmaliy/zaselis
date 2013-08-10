@@ -22,6 +22,7 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('edit', 'json');
         $ajaxContext->addActionContext('edit-first-tab', 'json');
         $ajaxContext->addActionContext('edit-photos', 'json');
+        $ajaxContext->addActionContext('edit-params-and-beds', 'json');
         $ajaxContext->addActionContext('parameters-edit', 'json');
         $ajaxContext->addActionContext('create-parameter', 'json');
         $ajaxContext->addActionContext('set-parameter-icon', 'json');
@@ -33,6 +34,8 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('remove-param', 'json');
         $ajaxContext->addActionContext('beds-edit', 'json');
         $ajaxContext->addActionContext('set-bed-icon', 'json');
+        $ajaxContext->addActionContext('save-beds-greed', 'json');
+        $ajaxContext->addActionContext('remove-bed', 'json');
         $ajaxContext->initContext('json');
     }
     
@@ -70,15 +73,20 @@ class Flats_ManageController extends Zend_Controller_Action
         
         $request = $this->getRequest();
         $params = $request->getParams();
+        
+        $this->_model_flats->removeBed($params['bedId']);
     }
     
-    public function saveBadsGreedAction()
+    public function saveBedsGreedAction()
     {
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
         
         $request = $this->getRequest();
         $params = $request->getParams();
+        
+        $this->_model_flats->saveBedsGreed($params['greed']);
+        
     }
     
     public function setBedIconAction()
@@ -327,5 +335,19 @@ class Flats_ManageController extends Zend_Controller_Action
             $this->view->exist = $flat['photos'];
             $this->view->id = $params['id'];
         }
-    }        
+    }   
+    
+    public function editParamsAndBedsAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+        
+        
+        if ($request->isXmlHttpRequest() || $request->isPost()) { 
+            
+        } else {
+            $this->view->params = $this->_model_flats->getParamsList($params['id']);
+        }
+    }
 }

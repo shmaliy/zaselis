@@ -104,7 +104,7 @@
                     </div>  
                 </div>
                 <div class="del">
-                    <a rel="<?php echo $item['z_flats_beds_id']; ?>" class="btn btn-danger delete-param">
+                    <a rel="<?php echo $item['z_flats_beds_id']; ?>" class="btn btn-danger delete-bed">
                         <i class="icon-minus icon-white"></i>
                     </a>
                 </div>
@@ -118,17 +118,12 @@
     <span>Сохранить изменения</span>
 </a>
 
-<div id="edit-values-list" title="Редактирование значений параметра">
-    <p>
-        
-    </p>
-</div>
 
-<div id="remove-param-dialog-confirm" title="Подумай трижды">
+<div id="remove-bed-dialog-confirm" title="Подумай трижды">
     <p>
         <span class="ui-icon ui-icon-alert" style="float: left; margin: 0 7px 20px 0;"></span>
-        Если нажмешь да, то параметр и все его значения, если они есть, полетят к черту. 
-        Все владельцы квартир, использующие этот параметр, тебя проклянут!
+        Если нажмешь да, то в мире резко сократится кол-во спальных мест. 
+        Все владельцы квартир, купившие такую кровать, тебя проклянут!
     </p>
 </div>
 
@@ -138,13 +133,13 @@
 
 $(document).ready(function(){
     
-    $('#remove-param-dialog-confirm').hide();
+    $('#remove-bed-dialog-confirm').hide();
     
-    $('.delete-param').each(function(){
+    $('.delete-bed').each(function(){
        $(this).click(function(){
            var rel = $(this).attr('rel');
            
-            $( "#remove-param-dialog-confirm" ).dialog({
+            $( "#remove-bed-dialog-confirm" ).dialog({
                 resizable: false,
                 height:280,
                 modal: true,
@@ -152,8 +147,8 @@ $(document).ready(function(){
                     "Я уверен!": function() {
                     megaOverlayShow();
                     $.ajax({
-                        url: '<?php echo $this->url(array(), 'remove-param'); ?>',
-                        data: {paramId: rel},
+                        url: '<?php echo $this->url(array(), 'remove-bed'); ?>',
+                        data: {bedId: rel},
                         type: 'POST',
                         error: function(jqXHR, textStatus, errorThrown) {},
                         success: function(data, textStatus, jqXHR) {
@@ -172,27 +167,6 @@ $(document).ready(function(){
        });
     });
         
-    $('#edit-values-list').hide();
-    
-    $('.edit-parameters-values').each(function(){
-        $(this).click(function(){
-            
-            megaOverlayShow();
-            $.ajax({
-                url: '<?php echo $this->url(array(), 'get-parameter-values-list'); ?>',
-                data: {paramId: $(this).attr('rel')},
-                type: 'POST',
-                error: function(jqXHR, textStatus, errorThrown) {},
-                success: function(data, textStatus, jqXHR) {
-                    var result = jqXHR.responseText;
-                    $('#edit-values-list p').html(result);
-                    megaOverlayHide();
-                    $('#edit-values-list').dialog({modal: true, resizable: true, width: 600});
-                },
-                complete: function(jqXHR, textStatus) {}
-             });
-        });
-    });
         
     $('#save-greed').click(function(){
         var post_data = [];
@@ -202,13 +176,8 @@ $(document).ready(function(){
             
             var id = $(this).attr('rel');
             var title = $(this).find('.title input').val();
-            var descr = $(this).find('.description textarea').val();
-            var type = $(this).find('.type input');
+            var descr = $(this).find('.guests input').val();
             
-            var c_type = 'BOOLEAN';
-            if ($(type).is(':checked')) {
-                c_type = 'TEXT';
-            }
             
             var aval = $(this).find('.avaliable input');
             
@@ -217,7 +186,7 @@ $(document).ready(function(){
                 c_aval = 'YES';
             }
             
-            var tcell = [id, title, descr, c_type, c_aval];
+            var tcell = [id, title, descr, c_aval];
             
             post_data.push(tcell);
         });
@@ -226,7 +195,7 @@ $(document).ready(function(){
         if (post_data.length > 0) {
             megaOverlayShow();
             $.ajax({
-                url: '<?php echo $this->url(array(), 'parameters-edit'); ?>',
+                url: '<?php echo $this->url(array(), 'save-beds-greed'); ?>',
                 data: {greed: post_data},
                 type: 'POST',
                 error: function(jqXHR, textStatus, errorThrown) {},
@@ -261,8 +230,8 @@ $(document).ready(function(){
         $(this).click(function(){
             megaOverlayShow();
             $.ajax({
-                url: '<?php echo $this->url(array(), 'set-parameter-icon'); ?>',
-                data: {paramId: $(this).attr('rel')},
+                url: '<?php echo $this->url(array(), 'set-bed-icon'); ?>',
+                data: {bedId: $(this).attr('rel')},
                 type: 'POST',
                 error: function(jqXHR, textStatus, errorThrown) {},
                 success: function(data, textStatus, jqXHR) {

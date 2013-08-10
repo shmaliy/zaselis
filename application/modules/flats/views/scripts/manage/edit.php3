@@ -3,7 +3,7 @@
 <?php $tabs = array(
     'first' => 0,
     'photos' => 1,
-    'third' => 2,
+    'params-and-beds' => 2,
     'fourth' => 3,
     'fivth' => 4,
 ); ?>
@@ -12,9 +12,8 @@
         <li><a href="#EditFirstTabTab">Общая информация</a></li>
         <?php if ($this->id != 'new') : ?>
         <li><a href="#photos">Фотографии</a></li>
-        <li><a href="#tabs-3">Параметры квартиры</a></li>
-        <li><a href="#tabs-4">Правила</a></li>
-        <li><a href="#tabs-5">Календарь</a></li>
+        <li><a href="#params-and-beds">Удобства и кровати</a></li>
+        <li><a href="#tabs-4">Календарь и цены</a></li>
         <?php endif; ?>
     </ul>
     <div id="EditFirstTabTab">
@@ -26,15 +25,13 @@
     <div id="photos">
         <p><?php echo $this->action('edit-photos', 'manage', 'flats', array('id' => $this->id)); ?></p>
     </div>
-    <div id="tabs-3">
-        <p></p>
+    <div id="params-and-beds">
+        <p><?php echo $this->action('edit-params-and-beds', 'manage', 'flats', array('id' => $this->id)); ?></p>
     </div>
     <div id="tabs-4">
         <p></p>
     </div>
-    <div id="tabs-5">
-        <p></p>
-    </div>
+    
     <?php endif; ?>
 </div>
 

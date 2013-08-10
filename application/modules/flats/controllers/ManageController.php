@@ -36,6 +36,7 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('set-bed-icon', 'json');
         $ajaxContext->addActionContext('save-beds-greed', 'json');
         $ajaxContext->addActionContext('remove-bed', 'json');
+        $ajaxContext->addActionContext('save-flats-params-greed', 'json');
         $ajaxContext->initContext('json');
     }
     
@@ -123,6 +124,7 @@ class Flats_ManageController extends Zend_Controller_Action
             $list = $this->_model_flats->getManageParamsList();
 
             $this->view->list = $list;
+            
         }
     }
     
@@ -343,11 +345,24 @@ class Flats_ManageController extends Zend_Controller_Action
         $params = $request->getParams();
         
         
-        
         if ($request->isXmlHttpRequest() || $request->isPost()) { 
             
         } else {
             $this->view->params = $this->_model_flats->getParamsList($params['id']);
+            $this->view->params_values = $this->_model_flats->getParamsValuesList();
+            $this->view->id = $params['id'];
         }
+    }
+    
+    public function saveFlatsParamsGreedAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+        $this->_model_flats->saveFlatsParamsGreed($params['id'], $params['greed']) ;
+        
+//        var_export($params);
     }
 }

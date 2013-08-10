@@ -345,9 +345,9 @@ class Flats_Model_Flats extends Core_Model_Abstract
         );
         $return = $this->_db->fetchAll($select);
         
-        echo '<pre>';
-        var_export($return);
-        echo '</pre>';
+//        echo '<pre>';
+//        var_export($return);
+//        echo '</pre>';
         
         return $return;
     }
@@ -355,5 +355,36 @@ class Flats_Model_Flats extends Core_Model_Abstract
     public function getParamsValuesList()
     {
         $select = $this->_db->select();
+        $select->from($this->_tZFlatsParamsValues['title']);
+        $select->where('avaliable = ?', 'YES');
+        $select->order('z_flats_params_id');
+        $select->order('ordering');
+        
+        
+        
+        return $this->_db->fetchAll($select);
+    }
+    
+    public function saveFlatsParamsGreed($flatId, $greed) 
+    {
+        foreach ($greed as $row) {
+            
+            $db_data = array(
+                'z_flats_id' => $flatId,
+                'z_flats_params_id' => $row[0],
+                'boolean' => $row[2],
+            );
+            
+            $db_data['z_flats_params_values_id'] = 0;
+            if ($row[3] !== 'NULL') {
+                $db_data['z_flats_params_values_id'] = $row[3];
+            }
+            
+            if ($row[1] == 'new') {
+                $this->_insert($this->_tZFlatsParamsValuesRelations['title'], $db_data);
+            } else {
+                $this->_update($row[1], $this->_tZFlatsParamsValuesRelations['title'], $db_data);
+            }
+        }
     }
 }

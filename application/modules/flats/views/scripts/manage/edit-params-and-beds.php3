@@ -27,22 +27,38 @@
                 <?php if ($param['param_type'] == 'BOOLEAN') : ?>
                     <div class="slideThreeOnOff">
                         <?php if($param['rel_boolean'] == 'NO' || is_null($param['rel_boolean'])) : ?>
-                            <input type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $param['rel_id']; ?>" name="avaliable" />
+                            <input type="checkbox" value="YES" id="slideThreeOnOff_<?php echo $param['rel_id']; ?>" name="avaliable" />
                             <label for="slideThreeOnOff_<?php echo $param['rel_id']; ?>"></label>
                         <?php else : ?>
-                            <input checked type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $param['rel_id']; ?>" name="avaliable" />
+                            <input checked type="checkbox" value="YES" id="slideThreeOnOff_<?php echo $param['rel_id']; ?>" name="avaliable" />
                             <label for="slideThreeOnOff_<?php echo $param['rel_id']; ?>"></label>
                         <?php endif; ?>
                     </div>  
                 <?php else : ?>
                 <select name="value">
                     <option value="NULL">Выберите значение</option>
+                    <?php foreach ($this->params_values as $value): ?>
+                    <?php if ($value['z_flats_params_id'] == $param['param_id']) : ?>
+                        <?php 
+                            $ch = '';
+                            if ($param['rel_value_id'] == $value['z_flats_params_values_id']) {
+                                $ch = 'selected';
+                            }
+                        ?>
+                    
+                        <option <?php echo $ch; ?> value="<?php echo $value['z_flats_params_values_id']; ?>"><?php echo $value['text_value']; ?></option>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </select>
                 <?php endif; ?>
             </div>
         </li>
         <?php endforeach; ?>
     </ul>
+    <a class="btn btn-success" id="save-flats-params-greed">
+        <i class="icon-star icon-white"></i>
+        <span>Сохранить удобства</span>
+    </a>
 </div>
 
 <script>
@@ -50,7 +66,42 @@
 
 
 $(document).ready(function(){
-    
+    $('#save-flats-params-greed').click(function(){
+        var greed = $('#ParamsGreed li');
+        var post_data = [];
+        
+        $(greed).each(function(){
+            var param_id = $(this).attr('rel');
+            var rel_id = $(this).attr('alt') || 'new';
+            var value_bool = $(this).find('input:checkbox').is(':checked') || 'NO';
+            
+            if (value_bool == true) {
+                value_bool = 'YES';
+            }
+            
+            var value_text = $(this).find('select').val() || 'NULL';
+            
+            var row = [param_id, rel_id, value_bool, value_text];
+            post_data.push(row);
+        });
+        console.log(post_data);
+        
+        if (post_data.length > 0) {
+            megaOverlayShow();
+            
+            $.ajax({
+                url: '<?php echo $this->url(array('id' => $this->id), 'save-flats-params-greed'); ?>',
+                data: {greed: post_data},
+                type: 'POST',
+                error: function(jqXHR, textStatus, errorThrown) {},
+                success: function(data, textStatus, jqXHR) {
+                    updateWindow();
+//                    megaOverlayHide();
+                },
+                complete: function(jqXHR, textStatus) {}
+             });
+        }
+    });
 });
     
 

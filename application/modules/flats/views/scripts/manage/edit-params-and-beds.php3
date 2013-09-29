@@ -61,6 +61,33 @@
     </a>
 </div>
 
+<div class="beds-container">
+    <h4>Управление спальными местами</h4>
+    <ul id="BedsGreed">
+        <?php foreach ($this->beds as $bTitle) : ?>
+        <?php 
+            $bRelId = 0;
+            $bCount = 0;
+       
+            foreach ($this->bCounts as $count) {
+                if ($count['z_flats_id'] == $this->id && $bTitle['z_flats_beds_id'] == $count['z_flats_beds_id']) {
+                    $bRelId = $count['z_flats_beds_relations_id'];
+                    $bCount = $count['length'];
+                }
+            }
+        ?>
+        <li class="bed-record cf" rel="<?php echo $bRelId; ?>" alt="<?php echo $bTitle['z_flats_beds_id'] ;?>">
+            <div class="b-title"><?php echo $bTitle['title'];?> (<?php echo $bTitle['guests']; ?> гостей)</div>
+            <div class="b-count"><input type="text" name="gCount" value="<?php echo $bCount; ?>" /></div>
+        </li>
+        <?php endforeach; ?>
+    </ul>
+    <a class="btn btn-success" id="save-flats-beds-greed">
+        <i class="icon-star icon-white"></i>
+        <span>Сохранить настройки кроватей</span>
+    </a>
+</div>
+
 <script>
 
 
@@ -84,7 +111,7 @@ $(document).ready(function(){
             var row = [param_id, rel_id, value_bool, value_text];
             post_data.push(row);
         });
-        console.log(post_data);
+//        console.log(post_data);
         
         if (post_data.length > 0) {
             megaOverlayShow();
@@ -102,6 +129,37 @@ $(document).ready(function(){
              });
         }
     });
+    
+     $('#save-flats-beds-greed').click(function(){
+        var greed = $('#BedsGreed li');
+        var post_data = [];
+        
+        $(greed).each(function(){
+            var rel_id = $(this).attr('rel');
+            var bed_id = $(this).attr('alt');
+            var flat_id = <?php echo $this->id; ?>;
+            var count_beds = $(this).find('input').val() || 0;
+            var row = [rel_id, bed_id, flat_id, count_beds];
+            post_data.push(row);
+        });
+//        console.log(post_data);
+        
+        if (post_data.length > 0) {
+            megaOverlayShow();
+            
+            $.ajax({
+                url: '<?php echo $this->url(array('id' => $this->id), 'save-flats-beds-greed'); ?>',
+                data: {greed: post_data},
+                type: 'POST',
+                error: function(jqXHR, textStatus, errorThrown) {},
+                success: function(data, textStatus, jqXHR) {
+                    updateWindow();
+//                    megaOverlayHide();
+                },
+                complete: function(jqXHR, textStatus) {}
+             });
+        }
+     });
 });
     
 

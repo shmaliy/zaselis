@@ -56,8 +56,8 @@
     <li class="param-header cf">
         <div class="icon">Иконка</div>
         <div class="title">Название</div>
-        <div class="description">Описание</div>
-        <div class="avaliable">Виден на сайте</div>
+        <div class="description">Вместимость</div>
+        <div class="avaliable">Видна на сайте</div>
         <div class="del">Удалить</div>
     </li>
 </ul>

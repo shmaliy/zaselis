@@ -38,7 +38,7 @@
         var globalCurr = '<?php echo $c_alias; ?>';
     </script>
 <?php
-    $this->headScript()->appendFile('/js/jquery-1.8.1.min.js');
+    $this->headScript()->appendFile('/js/jquery-1.10.2.min.js');
     $this->headScript()->appendFile('/js/bootstrap.min.js');
     $this->headScript()->appendFile('/js/forms-ajax.js');
     $this->headScript()->appendFile('/js/adaptive.js');

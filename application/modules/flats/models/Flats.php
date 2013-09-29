@@ -103,6 +103,15 @@ class Flats_Model_Flats extends Core_Model_Abstract
         return $this->_db->fetchAll($select);
     }
     
+    public function getUserBedsList()
+    {
+        $select = $this->_db->select();
+        $select->from($this->_tZFlatsBads['title']);
+        $select->where('avaliable = ?', 'YES');
+        $select->order('ordering');
+        return $this->_db->fetchAll($select);
+    }
+    
     public function createBed($data)
     {
         $this->_insert($this->_tZFlatsBads['title'], $data);
@@ -152,6 +161,14 @@ class Flats_Model_Flats extends Core_Model_Abstract
                 $this->_update($item['z_flats_beds_id'], $this->_tZFlatsBads['title'], $upd);
             }
         }
+    }
+    
+    public function getFlatBedsRelations($flatId)
+    {
+        $select = $this->_db->select();
+        $select->from($this->_tZFlatsBedsRelations['title']);
+        $select->where('z_flats_id = ?', $flatId);
+        return $this->_db->fetchAll($select);
     }
     
     public function fixValuesOrdering($paramId)
@@ -208,14 +225,39 @@ class Flats_Model_Flats extends Core_Model_Abstract
                 'main_description', 
                 'latitude', 
                 'longitude', 
-                'adress')
+                'adress',
+                'photos')
         );
         
         if (!$this->_demo) {
             $select->where('flat.status = ?', 'Visible');
         }
         
-        return $this->_db->fetchAll($select);
+        $ret = $this->_db->fetchAll($select);
+        
+        return $this->_multiTreeFieldsTransform($this->_tZFlats['title'], $ret);
+        
+    }
+    
+    public function getFlatsForManage()
+    {
+        $select = $this->_db->select();
+        $select->from(
+            array('flat' => $this->_tZFlats['title']),
+            array(
+                'z_flats_id', 
+                'district_description', 
+                'main_description', 
+                'latitude', 
+                'longitude', 
+                'adress',
+                'photos',
+                'guests_count')
+        );
+        
+        $ret = $this->_db->fetchAll($select);
+        
+        return $this->_multiTreeFieldsTransform($this->_tZFlats['title'], $ret);
         
     }
     
@@ -386,5 +428,37 @@ class Flats_Model_Flats extends Core_Model_Abstract
                 $this->_update($row[1], $this->_tZFlatsParamsValuesRelations['title'], $db_data);
             }
         }
+    }
+    
+    public function saveFlatsBedsGreed($flatId, $greed)
+    {
+        $guestsCount = 0;
+        foreach ($greed as $row) {
+            $db_data = array(
+                'z_flats_id' => $flatId,
+                'z_flats_beds_id' => $row[1],
+                'length' => $row[3]
+            );
+            
+            $select = $this->_db->select();
+            $select->from($this->_tZFlatsBads['title']);
+            $select->where('z_flats_beds_id = ?', $row[1]);
+            $record = $this->_db->fetchRow($select);
+            $select->reset();
+            
+            $guestsCount = $guestsCount + ($row[3] * $record['guests']);
+            
+            $rel_id = $row[0];
+            
+            if ($rel_id > 0) {
+                $this->_update($rel_id, $this->_tZFlatsBedsRelations['title'], $db_data);
+            } else {
+                $this->_insert($this->_tZFlatsBedsRelations['title'], $db_data);
+            }
+        }
+        
+        $upd['guests_count'] = $guestsCount;
+        
+        $this->_update($flatId, $this->_tZFlats['title'], $upd);
     }
 }

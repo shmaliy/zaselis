@@ -7,7 +7,7 @@
 
         $this->headLink()
              ->appendStylesheet('/theme/css/style.css')
-             ->appendStylesheet('http://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic-ext,latin-ext,cyrillic')
+//             ->appendStylesheet('http://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic-ext,latin-ext,cyrillic')
              ->appendStylesheet('/js/jquery/jQuery-File-Upload-master/css/style.css')
              ->appendStylesheet('/js/jquery/jQuery-File-Upload-master/css/jquery.fileupload-ui.css')
              ->appendStylesheet('/theme/css/userpanel.css')
@@ -39,7 +39,7 @@
     </script>
     <?php
         $this->headScript()->appendFile('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places');
-        $this->headScript()->appendFile('/js/jquery-1.8.1.min.js');
+        $this->headScript()->appendFile('/js/jquery-1.10.2.min.js');
         $this->headScript()->appendFile('/js/bootstrap.min.js');
         $this->headScript()->appendFile('/js/adaptive.js');
         $this->headScript()->appendFile('/js/forms-ajax.js');

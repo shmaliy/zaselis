@@ -37,12 +37,29 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('save-beds-greed', 'json');
         $ajaxContext->addActionContext('remove-bed', 'json');
         $ajaxContext->addActionContext('save-flats-params-greed', 'json');
+        $ajaxContext->addActionContext('save-flats-beds-greed', 'json');
+        $ajaxContext->addActionContext('edit-prices', 'html');
         $ajaxContext->initContext('json');
     }
     
     public function indexAction()
     {
-        $list = $this->_model_flats->getFlatsForMap();
+        $list = $this->_model_flats->getFlatsForManage();
+        
+        foreach ($list as &$flat) {
+            $flat['avatar'] = '';
+            if (is_array($flat['photos'])) {
+                $avatar = reset($flat['photos']);
+                $flat['avatar'] = str_replace('/flats/', '/flats/' . $this->_subdirs[3] . '/', $avatar);
+            }
+        }
+        
+//        echo '<pre>';
+//        var_export($list);
+//        echo '</pre>';
+        
+        
+        
         $this->view->list = $list;
     }   
     
@@ -351,7 +368,70 @@ class Flats_ManageController extends Zend_Controller_Action
             $this->view->params = $this->_model_flats->getParamsList($params['id']);
             $this->view->params_values = $this->_model_flats->getParamsValuesList();
             $this->view->id = $params['id'];
+            
+            $this->view->beds = $this->_model_flats->getUserBedsList();
+            $this->view->bCounts = $this->_model_flats->getFlatBedsRelations($params['id']);
         }
+    }
+    
+    public function editPricesAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        
+        
+        
+        $month = $request->getParam('month', date('m'));
+        $year = $request->getParam('year', date('Y'));
+        
+        $firstDay = mktime(0, 0, 0, $month, 1, $year);
+        $dayInfo = getdate($firstDay);
+        $firstDayPosition = $dayInfo['wday'];
+        if ($firstDayPosition == 0) {
+            $firstDayPosition = 7;
+        }
+        
+        $days = date('t', strtotime($year . "-" . $month)); 
+        
+        $dkount = 1;
+        $monthInfo = array();
+        for ($dkount = 1; $dkount <= $days; $dkount++) {
+            $monthInfo[] = array (
+                'position' => $firstDayPosition,
+                'date' => $dkount
+            );
+           
+                $firstDayPosition++;
+           
+        }
+        
+        $this->view->calendar = $monthInfo;
+        
+        echo '<pre>';
+        var_export($monthInfo);
+        var_export($month);
+        var_export($year);
+        var_export(getdate($firstDay));
+        var_export($days);
+        echo '</pre>';
+        echo '<pre>';
+        var_export($params);
+        echo '</pre>';
+        
+        $this->view->id = $params['id'];
+            
+        
+    }
+    
+    public function saveFlatsBedsGreedAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+        $request = $this->getRequest();
+        $params = $request->getParams();
+//        var_export($params);
+        
+        $this->_model_flats->saveFlatsBedsGreed($params['id'], $params['greed']);
     }
     
     public function saveFlatsParamsGreedAction()

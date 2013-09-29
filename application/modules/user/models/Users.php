@@ -10,8 +10,8 @@ class User_Model_Users extends Core_Model_Abstract
     {
         $lang = Zend_Registry::get('lang');
         $data['password'] = $this->_crypt($data['password']);
-        $data['name'] = array($lang['alias'] => $data['name']);
-        $data['firstname'] = array($lang['alias'] => $data['firstname']);
+//        $data['name'] = array($lang['alias'] => $data['name']);
+//        $data['firstname'] = array($lang['alias'] => $data['firstname']);
         $preformated = array(
             'z_users_roles_id' => 2,
             'created_ts'       => time(),

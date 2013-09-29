@@ -422,6 +422,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $router->addRoute('save-flats-params-greed', $route);
         
         $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/edit/:id/params-and-beds/save-beds',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'save-flats-beds-greed',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('save-flats-beds-greed', $route);
+        
+        $route = new Zend_Controller_Router_Route(
             ':lang/:currencie/user/flats/edit/first-tab',
             array(
                 'module' => 'flats',

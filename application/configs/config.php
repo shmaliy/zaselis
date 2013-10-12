@@ -1,7 +1,7 @@
 <?php
 switch ($_SERVER['HTTP_HOST']) {
-    case 'public.zaselis_new':
-    case 'www.public.zaselis_new':
+    case 'public.zaselis':
+    case 'www.public.zaselis':
         $cms_config_host = 'localhost';
         $cms_config_user = 'root';
         $cms_config_password = '';
@@ -26,29 +26,7 @@ $cms_config_dbprefix = 'cms';
 $root = dirname(dirname(dirname(__FILE__)));
 $root .= '/';
 
-//TODO move this into abstract model
-$interface = array(
-	"MORE_NEWS" => array(
-			"ru" => 'все новости',
-			"en" => 'more news',
-			"de" => 'mehr news',
-	),
-	"ALL_JOBS" => array(
-			"ru" => 'все вакансии',
-			"en" => 'all jobs',
-			"de" => 'alle jobs',
-	),
-	"CHOOSE_LANG" => array(
-			"ru" => 'Выберите язык:',
-			"en" => 'Choose a language:',
-			"de" => 'Wählen Sie eine Sprache:',
-	),
-	"CHOOSE_SITE" => array(
-			"ru" => 'Сайты компании:',
-			"en" => 'Sites of the company:',
-			"de" => 'Websites des Unternehmens:',
-	)
-);
+
 error_reporting(1);
 // Масив настроек
 $config = array(
@@ -60,7 +38,6 @@ $config = array(
             )
         ),   
     */
-	'interface' => $interface,
     'phpSettings' => array(
             'display_startup_errors' => 1,
             'display_errors' => 1,

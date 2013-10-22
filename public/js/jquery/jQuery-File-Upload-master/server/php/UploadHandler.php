@@ -124,6 +124,14 @@ class UploadHandler
                     'max_height' => 80
                 ),
                 
+                'thumbnail-70' => array(
+                    // Uncomment the following to force the max
+                    // dimensions and e.g. create square thumbnails:
+                    //'crop' => true,
+                    'max_width' => 70,
+                    'max_height' => 70
+                ),
+                
                 'drop-thumbnail' => array(
                     // Uncomment the following to force the max
                     // dimensions and e.g. create square thumbnails:

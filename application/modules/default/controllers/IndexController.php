@@ -38,6 +38,12 @@ class IndexController extends Zend_Controller_Action
         
     }
     
+    public function sliderAction()
+    {
+        $list = $this->_model_flats->getFlatsForSlider();
+        $this->view->items = json_encode($list);
+    }
+    
     
     
     

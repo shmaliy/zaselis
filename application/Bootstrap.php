@@ -62,7 +62,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         if($url[0] == 'admin'){
                 $layout->setLayout('admin');
         } else {
-                $layout->setLayout('layout');
+                $layout->setLayout('responsive');
         }
         $view->addHelperPath('Core/View/Helper', 'Core_View_Helper');
     }    

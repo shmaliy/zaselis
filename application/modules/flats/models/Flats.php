@@ -13,6 +13,44 @@ class Flats_Model_Flats extends Core_Model_Abstract
         parent::__construct();
     }
     
+    public function getFlatsForSlider()
+    {
+        $select = $this->_db->select();
+        
+        $select->from(
+            array('flats' => $this->_tZFlats['title']),
+            array('z_flats_id', 'district_description', 'adress', 'photos')
+        );
+        $select->where('flats.photos != ?', '');
+        
+        $select->joinLeft(
+             array('user' => $this->_tZUsers['title']),
+             "user.z_users_id = flats.z_users_id",
+             array(
+                 'z_users_id', 'avatar'
+             )
+        );
+        
+        $return = $this->_db->fetchAll($select);
+        $return = $this->_multiTreeFieldsTransform($this->_tZFlats['title'], $return);
+        
+        if (!empty($return)) {
+            foreach ($return as &$item) {
+                $item['photos'] = $item['photos'][0];
+                $file = ltrim($item['photos'], '/');
+                list($width, $height) = getimagesize($file);
+                $item['img_w'] = $width;
+                $item['img_h'] = $height;
+            }
+        }
+//        echo '<pre>';
+//        var_export($return);
+//        echo '</pre>';
+        
+        return $return;
+        
+    }
+    
     public function createParam($data) 
     {
         $this->_insert($this->_tZFlatsParams['title'], $data);

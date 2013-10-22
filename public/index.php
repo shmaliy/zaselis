@@ -3,7 +3,6 @@ error_reporting(1);
 //session_start();
 
 
-
 /* Корневой каталог */
 if (!defined('ROOT_PATH')) {
 	define('ROOT_PATH', realpath(dirname(dirname(__FILE__))));
@@ -14,14 +13,16 @@ if (!defined('APPLICATION_PATH')) {
 	define('APPLICATION_PATH', ROOT_PATH . '/application');
 }
 
+
+
 /* Каталог библиотек ZEND */
 if (!defined('LIBRARY_PATH')) {
 
     switch ($_SERVER['HTTP_HOST']) {
-        case 'www.public.zaselis_new':
-        case 'public.zaselis_new':
-            if (file_exists(realpath(ROOT_PATH . '/../..') . '/phpLibs')) {
-                $libraryPath[] = realpath(ROOT_PATH . '/../..' . '/phpLibs');
+        case 'www.public.zaselis':
+        case 'public.zaselis':
+            if (file_exists(realpath(ROOT_PATH . '/../..') . '/home/phpLibs')) {
+                $libraryPath[] = realpath(ROOT_PATH . '/../..' . '/home/phpLibs');
             }
             $libraryPath[] = ROOT_PATH . '/library';
             break;
@@ -39,10 +40,13 @@ if (!defined('LIBRARY_PATH')) {
 }
 
 
+
 /* Каталог публично доступных файлов */
 if (!defined('PUBLIC_PATH')) {
 	define('PUBLIC_PATH', ROOT_PATH . '/public');
 }
+
+
 
 /* Установка среды */
 if (!defined('APPLICATION_ENV')) {

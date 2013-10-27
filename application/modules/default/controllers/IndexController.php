@@ -44,6 +44,11 @@ class IndexController extends Zend_Controller_Action
         $this->view->items = json_encode($list);
     }
     
+    public function searchFormAction()
+    {
+        
+    }
+    
     
     
     

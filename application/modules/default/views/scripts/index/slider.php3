@@ -1,4 +1,5 @@
 <div class="index-flats-slider">
+    <div class="after-shadow"></div>
     <a class="slide-left" id="SlideLeft">
         <i></i>
     </a>
@@ -17,9 +18,13 @@
   var slides;
   var sliderWidth = $('.index-flats-slider').width();
   var sliderHeight = $('.index-flats-slider').height();
+  var newSliderHeight;
   
   var methods = {
     init : function( options ) { 
+        newSliderHeight = $(window).height() - $('.header').height() - $('.index-search-form').height() - 9;
+        $('.index-flats-slider').css({height: newSliderHeight + 'px'});
+        
         $(this).slider('showFlat');
     },
     setSlides : function (data) {
@@ -59,10 +64,34 @@
             var diff = (sliderHeight - flat['img_h'])/2;
         }
         
+        var imgWidth = flat['img_w'];
+        var imgHeight = flat['img_h'];
+        
+        var newImgHeight = sliderWidth * imgHeight / imgWidth;
+        
+        var imgShift = 0;
+        
+        if (newImgHeight > sliderHeight) {
+            imgShift = ((newImgHeight - sliderHeight)/2).toFixed(0) * -1;
+        }
+        
+        
+        var bsize = '100% auto';
+        var bg = ' top ' + imgShift + 'px center no-repeat';
+        if (newImgHeight < newSliderHeight) {
+            bsize = 'auto 100%';
+            bg = 'top center no-repeat';
+        } else {
+            
+        }
+        
+//        console.log(newImgHeight);
+//        console.log(imgShift);
+        
         $('.index-flats-slider').prepend('<div class="img"></div>');
         $('.index-flats-slider .img').hide().css({
             background: 'url(' + flat['photos'] + ') top center no-repeat',
-            backgroundSize: '100% auto'
+            backgroundSize: 'cover'
         }).fadeIn('slow');
         
         $('.index-flats-slider .info').html( 

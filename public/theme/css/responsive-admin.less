@@ -1,0 +1,155 @@
+.wrapper {
+    .userpanel-menu {
+        padding:0 0 0 15px;
+    }
+
+    .userpanel-content {
+        padding: 0 15px 15px 0;
+    }
+}
+
+
+
+
+
+#left-menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+        display: block;
+        margin: 0 0 2px 0;
+        padding: 2px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+
+        .main {
+            display: block;
+            height: 26px;
+
+            .micon {
+                display: block;
+                float: left;
+                width: 26px;
+                height: 26px;
+                margin: 0 5px 0 0;
+            }
+
+            .micon- {
+                &mainpage {
+                    background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -52px 0;
+                }
+
+                &friends {
+                    background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -52px -26px;
+                }
+
+                &profile {
+                    background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -52px -52px;
+                }
+
+                &ads {
+                    background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -52px -78px;
+                }
+
+                &trips {
+                    background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -52px -104px;
+                }
+
+                &chpassword {
+                    background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -52px -130px;
+                }
+
+                &messages {
+                    background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -52px -156px;
+                }
+
+                &accsettings {
+                    background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -52px -182px;
+                }
+
+                &sitemanage {
+                    background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -52px -208px;
+                }
+            }
+            div {
+                height: 23px;
+                float: left;
+                font-family: 'open sans';
+                color: #000;
+                font-size:14px;
+                padding: 3px 0 0 0;
+            }
+            .marrow {
+                display: block;
+                float: right;
+                width: 26px;
+                height: 26px;
+                background: url('/theme/img/newdesign/admin-menu-arrows-sprite.png') 0 0;
+            }
+        }
+
+        .main:hover {
+            background: #f0eeee;
+
+            div {
+                color: #ea004e;
+            }
+            .marrow {
+                background: url('/theme/img/newdesign/admin-menu-arrows-sprite.png') -26px 0;
+            }
+            .micon- {
+              &mainpage {
+                background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -26px 0;
+              }
+
+              &friends {
+                background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -26px -26px;
+              }
+
+              &profile {
+                background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -26px -52px;
+              }
+
+              &ads {
+                background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -26px -78px;
+              }
+
+              &trips {
+                background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -26px -104px;
+              }
+
+              &chpassword {
+                background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -26px -130px;
+              }
+
+              &messages {
+                background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -26px -156px;
+              }
+
+              &accsettings {
+                background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -26px -182px;
+              }
+
+              &sitemanage {
+                background: url('/theme/img/newdesign/admin-menu-icons-sprite.png') -26px -208px;
+              }
+            }
+        }
+
+
+
+        .collapsed {}
+        .expanded {}
+    }
+
+    .collapsed {
+        .inner {
+            min-height: 150px;
+            border-top: 1px solid #ea004e;
+        }
+    }
+}
+

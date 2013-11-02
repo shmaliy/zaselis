@@ -16,7 +16,7 @@
            ->appendName('description', '')
            ->appendName('robots', 'index, follow')
            ->appendName('revisit', 'after 1 days')
-	   ->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8')
+	       ->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8')
            ->appendName('document-state', 'dynamic');					 					 					 		
 ?>
 <?php echo $this->headMeta();?>

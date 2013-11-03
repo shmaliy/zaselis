@@ -69,83 +69,11 @@
     <div class="row-fluid">
         <div class="wrapper cf span8 offset2 row-fluid">
             <div class="userpanel-menu span3">
-                <ul class="left-menu" id="left-menu">
-                    <li class="collapsed">
-                        <a href="#" class="main cf">
-                            <i class="micon micon-mainpage"></i>
-                            <div>Главная страница</div>
-                            <i class="marrow"></i>
-                        </a>
-                        <div class="inner"></div>
-                    </li>
-                    <li class="collapsed">
-                        <a href="#" class="main cf">
-                            <i class="micon micon-friends"></i>
-                            <div>Друзья</div>
-                            <i class="marrow"></i>
-                        </a>
-                        <div class="inner"></div>
-                    </li>
-                    <li class="collapsed">
-                        <a href="#" class="main cf">
-                            <i class="micon micon-profile"></i>
-                            <div>Профиль</div>
-                            <i class="marrow"></i>
-                        </a>
-                        <div class="inner"></div>
-                    </li>
-                    <li class="collapsed">
-                        <a href="#" class="main cf">
-                            <i class="micon micon-ads"></i>
-                            <div>Ваши объявления</div>
-                            <i class="marrow"></i>
-                        </a>
-                        <div class="inner"></div>
-                    </li>
-                    <li class="collapsed">
-                        <a href="#" class="main cf">
-                            <i class="micon micon-trips"></i>
-                            <div>Поездки</div>
-                            <i class="marrow"></i>
-                        </a>
-                        <div class="inner"></div>
-                    </li>
-                    <li class="collapsed">
-                        <a href="#" class="main cf">
-                            <i class="micon micon-chpassword"></i>
-                            <div>Смена пароля</div>
-                            <i class="marrow"></i>
-                        </a>
-                        <div class="inner"></div>
-                    </li>
-                    <li class="collapsed">
-                        <a href="#" class="main cf">
-                            <i class="micon micon-messages"></i>
-                            <div>Сообщения</div>
-                            <i class="marrow"></i>
-                        </a>
-                        <div class="inner"></div>
-                    </li>
-                    <li class="collapsed">
-                        <a href="#" class="main cf">
-                            <i class="micon micon-accsettings"></i>
-                            <div>Настройка аккаунта</div>
-                            <i class="marrow"></i>
-                        </a>
-                        <div class="inner"></div>
-                    </li>
-                    <li class="collapsed">
-                        <a href="#" class="main cf">
-                            <i class="micon micon-sitemanage"></i>
-                            <div>Управление сайтом</div>
-                            <i class="marrow"></i>
-                        </a>
-                        <div class="inner"></div>
-                    </li>
-                </ul>
-                <?php echo $this->Common()->userMenu(); ?>
+                <?php echo $this->action('avatar', 'manage', 'user'); ?>
+                <?php echo $this->action('left-menu', 'manage', 'user'); ?>
+
             </div>
-            <div class="userpanel-content span6"><?php  echo $this->layout()->content;?></div>
+            <div class="userpanel-content span9"><?php  echo $this->layout()->content;?></div>
         </div>
     </div>
     <div class="push2"></div>    

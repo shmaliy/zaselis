@@ -1,34 +1,35 @@
 <h2>Редактирование контактной информации</h2>
-<a id="morePhones" class="add-more-phones"><span>Добавить телефон</span></a>
+<a id="morePhones" class="btn btn-warning"><i class="icon icon-white icon-plus"></i></a>
 
 <div id="formSource">
-    <div class="input-prepend">
-        <div class="btn-group cf">
-            <label class="control-label" for="inputInfo">Выберите страну</label>
-            <select name="country[]">
-                <option value="0" rel="0">Выбрать</option>
-                <?php foreach ($this->codes as $code) : ?>
-                <option rel="<?php echo $code['code']; ?>" 
+    <form class="form-inline">
+        <label class="control-label" for="inputInfo">Выберите страну</label>
+        <select name="country[]">
+            <option value="0" rel="0">Выбрать</option>
+            <?php foreach ($this->codes as $code) : ?>
+                <option rel="<?php echo $code['code']; ?>"
                         value="<?php echo $code['z_phone_codes_id']; ?>"
-                        <?php echo ($code['z_countries_id'] == $this->country) ? ' selected' : ''; ?>>
+                    <?php echo ($code['z_countries_id'] == $this->country) ? ' selected' : ''; ?>>
                     <?php echo $code['z_countries_title']; ?>
                 </option>
-                <?php endforeach; ?>
-            </select>
-            <label class="control-label" for="inputInfo">Введите телефон</label>
+            <?php endforeach; ?>
+        </select>
+        <label class="control-label" for="inputInfo">Введите телефон</label>
+        <div class="input-prepend">
             <span class="add-on">+
                 <?php foreach ($this->codes as $c) : ?>
-                    <?php 
-                        if ($c['z_countries_id'] == $this->country) {
-                            echo $c['code'];
-                            break;
-                        }
+                    <?php
+                    if ($c['z_countries_id'] == $this->country) {
+                        echo $c['code'];
+                        break;
+                    }
                     ?>
                 <?php endforeach; ?>
             </span>
-            <input name="phone[]" class="span3 input-xlarge" type="text">
+            <input name="phone[]" class="span9 input-xlarge" type="text">
         </div>
-    </div>
+    </form>
+
 </div>
 <style>
     .slideThree:after {
@@ -43,28 +44,31 @@
 </style>
 <div id="panel" class="cf">
     <form id="PhonesEdit" class="main-form cf" action="" method="post" enctype="application/x-www-form-urlencoded">
-        <div id="NewPhones"></div> 
-        <input type="submit" value="Сохранить" class="form-save-button" id="savePhones">
+        <div id="NewPhones"></div>
+        <button class="btn btn-success" id="savePhones"><i class="icon icon-white icon-star"></i>Сохранить</button>
+
         <?php if (!empty($this->phones)) : ?>
-        <div class="phones-exist">Ваши телефоны</div>
+        <h3 class="top-30">Ваши телефоны</h3>
             <?php foreach ($this->phones as $num=>$phone) : ?>
-            <div class="phone cf">
-                <div class="number">
-                    <span class="code">+<?php echo $phone['code']; ?></span>
-                    <span class="num"><?php echo $phone['number']; ?></span>
+
+            <div class="phone-exist form-inline">
+                <div class="input-prepend span3">
+                    <span class="add-on">+<?php echo $phone['code']; ?></span>
+                    <input name="phone[]" class="span9 input-xlarge" type="text" disabled value="<?php echo $phone['number']; ?>">
                 </div>
-                <div class="status">
+
+                <div class="span4 prepend3">
                     <div class="slideThree">
-                    <?php if (!empty($phone['activate'])) : ?>
-                        <input type="checkbox" value="None" id="slideThree_<?php echo $num; ?>" name="check" />
-                        <label class="confirm-label" rel="<?php echo $num; ?>" onclick="" for="slideThree_<?php echo $num; ?>"></label>
-                    <?php else :  ?>
-                        <input type="checkbox" value="None" id="slideThree_<?php echo $num; ?>" name="check" checked disabled />
-                        <label for="slideThree_<?php echo $num; ?>"></label>
-                    <?php endif; ?>
+                        <?php if (!empty($phone['activate'])) : ?>
+                            <input type="checkbox" value="None" id="slideThree_<?php echo $num; ?>" name="check" />
+                            <label class="confirm-label" rel="<?php echo $num; ?>" onclick="" for="slideThree_<?php echo $num; ?>"></label>
+                        <?php else :  ?>
+                            <input type="checkbox" value="None" id="slideThree_<?php echo $num; ?>" name="check" checked disabled />
+                            <label for="slideThree_<?php echo $num; ?>"></label>
+                        <?php endif; ?>
                     </div>
                 </div>
-                <div class="delete"><a class="delete-link" rel="<?php echo $num; ?>">удалить</a></div>
+                <button  class="delete-link btn btn-danger" rel="<?php echo $num; ?>"><i class="icon icon-white icon-remove"></i></button>
             </div>
             <?php endforeach; ?>
         <?php endif; ?>
@@ -156,7 +160,7 @@
     
     function addPhone()
     {
-        $('#formSource .input-prepend').clone().show().appendTo('#NewPhones');
+        $('#formSource form').clone().show().appendTo('#NewPhones');
         $('#savePhones').show();
     }
     

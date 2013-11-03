@@ -41,6 +41,11 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('edit-prices', 'html');
         $ajaxContext->initContext('json');
     }
+
+    public function adsInnerHtmlAction()
+    {
+
+    }
     
     public function indexAction()
     {

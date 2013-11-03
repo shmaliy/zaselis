@@ -92,4 +92,11 @@ class Core_View_Helper_Common extends Core_View_Helper_Abstract
     {
         return $this->view->render('index-slider.php3');
     }
+
+    public function userLeftInnerHtml($container)
+    {
+
+        $this->view->container = $container;
+        return $this->view->render('user-left-inner-html.php3');
+    }
 }

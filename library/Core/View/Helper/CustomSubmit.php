@@ -86,7 +86,7 @@ class Core_View_Helper_CustomSubmit extends Zend_View_Helper_FormElement
         
         
         $xhtml = '<a class="btn btn-success form-btn-submit" onclick="$('. $formName .').submit();">'
-                 . '      <i class="icon-plus icon-white"></i>'
+                 . '      <i class="icon-ok icon-white"></i>'
                  . '       <span>' . $this->view->escape($value) . '</span>'
                  . '</a>';
 

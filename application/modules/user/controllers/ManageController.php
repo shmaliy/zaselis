@@ -26,6 +26,21 @@ class User_ManageController extends Zend_Controller_Action
         $ajaxContext->initContext('json');
         
     }
+
+    public function leftMenuAction()
+    {
+
+    }
+
+    public function profileInnerHtmlAction()
+    {
+
+    }
+
+    public function messagesInnerHtmlAction()
+    {
+
+    }
     
     public function indexAction()
     {

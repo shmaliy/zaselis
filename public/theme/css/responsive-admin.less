@@ -8,7 +8,7 @@
     }
 }
 
-
+a, img { outline: 0; }
 
 
 
@@ -522,3 +522,94 @@
 }
 
 
+.manage-photos-container {
+  width: auto;
+}
+
+.files-manipulator {
+
+  margin: 15px 0 25px 0;
+
+  & .uploaded {
+
+    margin: 20px 0 30px 0;
+
+    &-title {
+      font-weight: bold;
+    }
+
+    &-description {
+      font-size: 12px;
+      line-height: 0.8
+    }
+
+    & .upload-result {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      border: 1px dashed #f1da36;
+      background: #fefcea;
+
+      & li {
+        margin: 3px 3px 3px 0;
+        padding: 1px;
+        float: left;
+        width: 100px;
+        font-size: 10px;
+        text-align: center;
+      }
+    }
+  }
+
+  & .to-trash {
+
+    &-title {
+      font-weight: bold;
+    }
+
+    &-description {
+      font-size: 12px;
+      line-height: 0.8;
+    }
+
+    & .upload-result {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      min-height: 100px;
+      border: 1px dashed #f02f17;
+      background: #EFC4BF;
+
+      & li {
+        margin: 3px 3px 3px 0;
+        padding: 1px;
+        float: left;
+        width: 100px;
+        font-size: 10px;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.admin-params-table {
+  thead th {
+    vertical-align: top !important;
+  }
+  .param-icon {
+    display: block;
+    float: none;
+    margin: 0 0 5px 0;
+  }
+
+  .change-icon-param {
+    cursor: pointer;
+    display: block;
+    float: left;
+  }
+  .delete-icon-param {
+    cursor: pointer;
+    display: block;
+    float: left;
+  }
+}

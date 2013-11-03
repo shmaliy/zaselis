@@ -1,4 +1,4 @@
-<h4>Управление файлами</h4>
+<h3>Управление файлами</h3>
 <div class="container manage-photos-container">
     <div class="manage-photos-container-description">
         <p>Чтобы загрузить файл нажмите &laquo;Добавить файлы...&raquo; 
@@ -24,7 +24,7 @@
 <div class="files-manipulator cf" id="files-manipulator">
 
     <div class="uploaded">
-        <div class="uploaded-title">Загруженные файлы</div>
+        <h4>Загруженные файлы</h4>
         <div class="uploaded-description">
             <p>Чтобы установить порядок отображения файлов перетаскивайте их мышкой и нажмите &laquo;Сохранить&raquo;.</p>
             <p>Первый файл будет отображаться как иконка квартиры в списке.</p>
@@ -45,7 +45,7 @@
     </div>
 
     <div class="to-trash">
-        <div class="to-trash-title">Корзина</div>
+        <h4>Корзина</h4>
         <div class="to-trash-description">
             <p>Чтобы удалить файл из списка &laquo;Загруженные файлы&raquo; перетащите файл мышкой на красное поле.</p>
             <p>Если вы передумали удалять файл — перетащите его обратно в &laquo;Загруженные файлы&raquo;</p>

@@ -20,11 +20,11 @@
         color: green;
     }
 </style>
-<div class="params-forms-container cf">
-    <div class="create-form">
+<div class="params-forms-container row-fluid cf">
+    <div class="create-form span6">
         <form id="CreateParameter"  action="" method="post" enctype="application/x-www-form-urlencoded">
             <div class="param-container cf">
-                <h4>Новый параметр</h4>
+                <h3>Новый параметр</h3>
                 <div class="text">Редактирование иконки, а так же списка значений будет доступно после сохранения.</div>
                 <div class="title"><input type="text" name="title" placeholder="название"></div>
                 <div class="description">
@@ -46,8 +46,8 @@
             </div>
         </form>
     </div>
-    <div class="edit-icon">
-        <h4>Редактирование иконки</h4>
+    <div class="edit-icon span6">
+        <h3>Редактирование иконки</h3>
         <div id="param-title-legend"></div>
         <div class="container" rel="none" id="images-container">
             <!-- The fileinput-button span is used to style the file input field as button -->
@@ -82,81 +82,76 @@
 
 </script>
 
-
-<ul class="params-edit-table">
-    <li class="param-header cf">
-        <div class="icon">Иконка</div>
-        <div class="title">Название</div>
-        <div class="description">Описание</div>
-        <div class="type">Тип</div>
-        <div class="avaliable">Виден на сайте</div>
-        <div class="del">Удалить</div>
-    </li>
-</ul>
-
-<ul id="params-container" class="params-edit-table">
-
-    <?php if (!empty($this->list)) : ?>
-
-        <?php foreach ($this->list as $item) : ?>
-            <li class="param cf" rel="<?php echo $item['z_flats_params_id']; ?>">
-                <div class="icon">
-                    <?php if(empty($item['icon'])) : ?>
+<?php if (!empty($this->list)) : ?>
+    <h3>Параметры</h3>
+    <table id="params-container" class="table table-striped admin-params-table">
+        <thead>
+            <th>Иконка</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Тип</th>
+            <th>Виден на сайте</th>
+            <th>Удалить</th>
+        </thead>
+    <?php foreach ($this->list as $item) : ?>
+        <tr rel="<?php echo $item['z_flats_params_id']; ?>">
+            <td>
+                <?php if(empty($item['icon'])) : ?>
                     <a rel="<?php echo $item['z_flats_params_id']; ?>" class="btn btn-warning change-icon-param">
                         <i class="icon-plus icon-white"></i>
                     </a>
-                    <?php else : ?>
-                        <?php $icon = str_replace('/parameters-icons/', '/parameters-icons/thumbnail-16-16/', $item['icon']); ?>
-                        <img src="<?php echo $icon; ?>" />
-                        <br /><br />
-                        <a rel="<?php echo $item['z_flats_params_id']; ?>" class="btn btn-warning change-icon-param">
-                            <i class="icon-share icon-white"></i>
-                        </a>
+                <?php else : ?>
+                    <?php $icon = str_replace('/parameters-icons/', '/parameters-icons/thumbnail-16-16/', $item['icon']); ?>
+                    <img class="param-icon" src="<?php echo $icon; ?>" />
 
-                        <a rel="<?php echo $item['z_flats_params_id']; ?>" class="btn btn-danger delete-icon-param">
-                            <i class="icon-minus icon-white"></i>
-                        </a>
-                    <?php endif; ?>
-                </div>
-                <div class="title"><input type="text" name="title" placeholder="название" value="<?php echo $item['title']; ?>"></div>
-                <div class="description">
-                    <textarea name="description"><?php echo $item['description']; ?></textarea>
-                </div>
-                <div class="type">
-                    <div class="slideThreeType">
-                        <?php if($item['type'] == 'BOOLEAN') : ?>
-                            <input type="checkbox" value="None" id="slideThree_<?php echo $item['z_flats_params_id']; ?>" name="type" />
-                            <label for="slideThree_<?php echo $item['z_flats_params_id']; ?>"></label>
-                        <?php else : ?>
-                            <input checked type="checkbox" value="None" id="slideThree_<?php echo $item['z_flats_params_id']; ?>" name="type" />
-                            <label for="slideThree_<?php echo $item['z_flats_params_id']; ?>"></label>
-                        <?php endif; ?>
-                    </div>  
-                    <?php if($item['type'] !== 'BOOLEAN') : ?>
-                    <a rel="<?php echo $item['z_flats_params_id']; ?>" class="edit-parameters-values">Список значений</a>
-                    <?php endif; ?>
-                </div>
-                <div class="avaliable">
-                    <div class="slideThreeOnOff">
-                        <?php if($item['avaliable'] == 'NO') : ?>
-                            <input type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>" name="avaliable" />
-                            <label for="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>"></label>
-                        <?php else : ?>
-                            <input checked type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>" name="avaliable" />
-                            <label for="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>"></label>
-                        <?php endif; ?>
-                    </div>  
-                </div>
-                <div class="del">
-                    <a rel="<?php echo $item['z_flats_params_id']; ?>" class="btn btn-danger delete-param">
-                        <i class="icon-minus icon-white"></i>
+                    <a rel="<?php echo $item['z_flats_params_id']; ?>" class="change-icon-param">
+                        <i class="icon-pencil"></i>
                     </a>
-                </div>
-            </li>
-        <?php endforeach; ?>
 
-    <?php endif; ?>
-</ul>
+                    <a rel="<?php echo $item['z_flats_params_id']; ?>" class="delete-icon-param">
+                        <i class="icon-remove"></i>
+                    </a>
+                <?php endif; ?>
+            </td>
+            <td><input class="span12" type="text" name="title" placeholder="название" value="<?php echo $item['title']; ?>"></td>
+            <td><textarea name="description"><?php echo $item['description']; ?></textarea></td>
+            <td>
+                <div class="slideThreeType">
+                    <?php if($item['type'] == 'BOOLEAN') : ?>
+                        <input type="checkbox" value="None" id="slideThree_<?php echo $item['z_flats_params_id']; ?>" name="type" />
+                        <label for="slideThree_<?php echo $item['z_flats_params_id']; ?>"></label>
+                    <?php else : ?>
+                        <input checked type="checkbox" value="None" id="slideThree_<?php echo $item['z_flats_params_id']; ?>" name="type" />
+                        <label for="slideThree_<?php echo $item['z_flats_params_id']; ?>"></label>
+                    <?php endif; ?>
+                </div>
+                <?php if($item['type'] !== 'BOOLEAN') : ?>
+                    <a rel="<?php echo $item['z_flats_params_id']; ?>" class="edit-parameters-values">Список значений</a>
+                <?php endif; ?>
+            </td>
+            <td>
+                <div class="slideThreeOnOff">
+                    <?php if($item['avaliable'] == 'NO') : ?>
+                        <input type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>" name="avaliable" />
+                        <label for="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>"></label>
+                    <?php else : ?>
+                        <input checked type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>" name="avaliable" />
+                        <label for="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>"></label>
+                    <?php endif; ?>
+                </div>
+            </td>
+            <td>
+                <a rel="<?php echo $item['z_flats_params_id']; ?>" class="btn btn-danger delete-param">
+                    <i class="icon-minus icon-white"></i>
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </table>
+<?php endif; ?>
+
+
+
 <a class="btn btn-success" id="save-greed">
     <i class="icon-star icon-white"></i>
     <span>Сохранить изменения</span>

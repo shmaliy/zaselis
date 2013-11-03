@@ -2,7 +2,6 @@
 $current = parse_url($_SERVER['REQUEST_URI']);
 $current = 'https://' . $_SERVER['HTTP_HOST'] . $current['path'];
 ?>
-
 <ul class="left-inner-submenu">
     <?php foreach ($this->container as $item) : ?>
         <li>

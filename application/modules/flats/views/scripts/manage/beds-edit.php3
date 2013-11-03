@@ -10,12 +10,12 @@
         color: green;
     }
 </style>
-<div class="params-forms-container cf">
-    <div class="create-form">
-        <h4>Новая кровать</h4>
+<div class="params-forms-container row-fluid">
+    <div class="create-form span6">
+        <h3>Новая кровать</h3>
         <?php echo $this->form; ?>
     </div>
-    <div class="edit-icon">
+    <div class="edit-icon span6">
         <h4>Редактирование иконки</h4>
         <div id="param-title-legend"></div>
         <div class="container" rel="none" id="images-container">
@@ -51,68 +51,61 @@
 
 </script>
 
-
-<ul class="params-edit-table">
-    <li class="param-header cf">
-        <div class="icon">Иконка</div>
-        <div class="title">Название</div>
-        <div class="description">Вместимость</div>
-        <div class="avaliable">Видна на сайте</div>
-        <div class="del">Удалить</div>
-    </li>
-</ul>
-
-<ul id="params-container" class="params-edit-table">
-
-    <?php if (!empty($this->list)) : ?>
-
-        <?php foreach ($this->list as $item) : ?>
-            <li class="param cf" rel="<?php echo $item['z_flats_beds_id']; ?>">
-                <div class="icon">
-                    <?php if(empty($item['icon'])) : ?>
+<h3>Кровати</h3>
+<?php if (!empty($this->list)) : ?>
+    <table class="table table-striped" id="params-container">
+        <thead>
+            <th>Иконка</th>
+            <th>Название</th>
+            <th>Вместимость</th>
+            <th>Видна на сайте</th>
+            <th>Удалить</th>
+        </thead>
+    <?php foreach ($this->list as $item) : ?>
+        <tr rel="<?php echo $item['z_flats_beds_id']; ?>">
+            <td>
+                <?php if(empty($item['icon'])) : ?>
                     <a rel="<?php echo $item['z_flats_beds_id']; ?>" class="btn btn-warning change-icon-param">
                         <i class="icon-plus icon-white"></i>
                     </a>
-                    <?php else : ?>
-                        <?php $icon = str_replace('/beds-icons/', '/beds-icons/thumbnail-24-24/', $item['icon']); ?>
-                        <img src="<?php echo $icon; ?>" />
-                        <br /><br />
-                        <a rel="<?php echo $item['z_flats_beds_id']; ?>" class="btn btn-warning change-icon-param">
-                            <i class="icon-share icon-white"></i>
-                        </a>
+                <?php else : ?>
+                    <?php $icon = str_replace('/beds-icons/', '/beds-icons/thumbnail-24-24/', $item['icon']); ?>
+                    <img src="<?php echo $icon; ?>" />
+                    <br /><br />
+                    <a rel="<?php echo $item['z_flats_beds_id']; ?>" class="change-icon-param">
+                        <i class="icon-pencil"></i>
+                    </a>
 
-                        <a rel="<?php echo $item['z_flats_beds_id']; ?>" class="btn btn-danger delete-icon-param">
-                            <i class="icon-minus icon-white"></i>
-                        </a>
+                    <a rel="<?php echo $item['z_flats_beds_id']; ?>" class="delete-icon-param">
+                        <i class="icon-remove"></i>
+                    </a>
+                <?php endif; ?>
+            </td>
+            <td><input type="text" name="title" placeholder="название" value="<?php echo $item['title']; ?>"></td>
+            <td><input type="text" name="guests" placeholder="вместимость" value="<?php echo $item['guests']; ?>"></td>
+            <td>
+                <div class="slideThreeOnOff">
+                    <?php if($item['avaliable'] == 'NO') : ?>
+                        <input type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_beds_id']; ?>" name="avaliable" />
+                        <label for="slideThreeOnOff_<?php echo $item['z_flats_beds_id']; ?>"></label>
+                    <?php else : ?>
+                        <input checked type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_beds_id']; ?>" name="avaliable" />
+                        <label for="slideThreeOnOff_<?php echo $item['z_flats_beds_id']; ?>"></label>
                     <?php endif; ?>
                 </div>
-                <div class="title">
-                    <input type="text" name="title" placeholder="название" value="<?php echo $item['title']; ?>">
-                </div>
-                <div class="guests">
-                    <input type="text" name="guests" placeholder="вместимость" value="<?php echo $item['guests']; ?>">
-                </div>
-                <div class="avaliable">
-                    <div class="slideThreeOnOff">
-                        <?php if($item['avaliable'] == 'NO') : ?>
-                            <input type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_beds_id']; ?>" name="avaliable" />
-                            <label for="slideThreeOnOff_<?php echo $item['z_flats_beds_id']; ?>"></label>
-                        <?php else : ?>
-                            <input checked type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_beds_id']; ?>" name="avaliable" />
-                            <label for="slideThreeOnOff_<?php echo $item['z_flats_beds_id']; ?>"></label>
-                        <?php endif; ?>
-                    </div>  
-                </div>
-                <div class="del">
-                    <a rel="<?php echo $item['z_flats_beds_id']; ?>" class="btn btn-danger delete-bed">
-                        <i class="icon-minus icon-white"></i>
-                    </a>
-                </div>
-            </li>
-        <?php endforeach; ?>
+            </td>
+            <td>
+                <a rel="<?php echo $item['z_flats_beds_id']; ?>" class="btn btn-danger delete-bed">
+                    <i class="icon-minus icon-white"></i>
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </table>
 
-    <?php endif; ?>
-</ul>
+<?php endif; ?>
+
+
 <a class="btn btn-success" id="save-greed">
     <i class="icon-star icon-white"></i>
     <span>Сохранить изменения</span>

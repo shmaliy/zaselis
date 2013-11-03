@@ -13,7 +13,7 @@
              ->appendStylesheet('/js/jquery/jQuery-File-Upload-master/css/style.css')
              ->appendStylesheet('/js/jquery/jQuery-File-Upload-master/css/jquery.fileupload-ui.css')
              ->appendStylesheet('/theme/css/userpanel.css')
-             ->appendStylesheet('/js/jquery/jquery-ui-1.9.0.custom/css/smoothness/jquery-ui-1.10.3.custom.css')
+             ->appendStylesheet('/js/jquery/jquery-ui-1.10.3.custom/css/flick/jquery-ui-1.10.3.custom.min.css')
              ->appendStylesheet('/theme/css/bootstrap.css')
              ->appendStylesheet('/theme/css/responsive-admin.css')
              ->appendStylesheet('/theme/css/checkboxes.css')
@@ -45,7 +45,7 @@
         $this->headScript()->appendFile('/js/jquery-1.10.2.min.js');
         $this->headScript()->appendFile('/js/bootstrap.min.js');
         $this->headScript()->appendFile('/js/forms-ajax.js');
-        $this->headScript()->appendFile('/js/jquery/jquery-ui-1.9.0.custom/js/jquery-ui-1.9.0.custom.min.js');
+        $this->headScript()->appendFile('/js/jquery/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js');
         $this->headScript()->appendFile('/js/jquery/jQuery-File-Upload-master/js/vendor/jquery.ui.widget.js');
         $this->headScript()->appendFile('/js/jquery/jQuery-File-Upload-master/proprietar/load-image.js');
         $this->headScript()->appendFile('/js/jquery/jQuery-File-Upload-master/proprietar/canvas-to-blob.js');

@@ -12,18 +12,20 @@
 </style>
 
 <div class="params-container">
-    <h4>Удобства квартиры</h4>
-    <ul id="ParamsGreed">
-        <?php foreach ($this->params as $param) : ?>
-        <li class="cf" rel ="<?php echo $param['param_id']; ?>" alt ="<?php echo $param['rel_id']; ?>">
-            <div class="param-icon">
+    <h3>Удобства квартиры</h3>
+    <table class="table table-striped" id="ParamsGreed">
+    <?php foreach ($this->params as $param) : ?>
+        <tr rel ="<?php echo $param['param_id']; ?>" alt ="<?php echo $param['rel_id']; ?>">
+            <td>
                 <?php if(!empty($param['param_icon'])) : ?>
                     <?php $icon = str_replace('/parameters-icons/', '/parameters-icons/thumbnail-16-16/', $param['param_icon']); ?>
                     <img src="<?php echo $icon; ?>" />
                 <?php endif; ?>
-            </div>
-            <div class="param-title"><?php echo $param['param_title']; ?></div>
-            <div class="param-value">
+            </td>
+            <td>
+                <?php echo $param['param_title']; ?>
+            </td>
+            <td>
                 <?php if ($param['param_type'] == 'BOOLEAN') : ?>
                     <div class="slideThreeOnOff">
                         <?php if($param['rel_boolean'] == 'NO' || is_null($param['rel_boolean'])) : ?>
@@ -33,28 +35,29 @@
                             <input checked type="checkbox" value="YES" id="slideThreeOnOff_<?php echo $param['rel_id']; ?>" name="avaliable" />
                             <label for="slideThreeOnOff_<?php echo $param['rel_id']; ?>"></label>
                         <?php endif; ?>
-                    </div>  
+                    </div>
                 <?php else : ?>
-                <select name="value">
-                    <option value="NULL">Выберите значение</option>
-                    <?php foreach ($this->params_values as $value): ?>
-                    <?php if ($value['z_flats_params_id'] == $param['param_id']) : ?>
-                        <?php 
-                            $ch = '';
-                            if ($param['rel_value_id'] == $value['z_flats_params_values_id']) {
-                                $ch = 'selected';
-                            }
-                        ?>
-                    
-                        <option <?php echo $ch; ?> value="<?php echo $value['z_flats_params_values_id']; ?>"><?php echo $value['text_value']; ?></option>
-                    <?php endif; ?>
-                    <?php endforeach; ?>
-                </select>
+                    <select name="value">
+                        <option value="NULL">Выберите значение</option>
+                        <?php foreach ($this->params_values as $value): ?>
+                            <?php if ($value['z_flats_params_id'] == $param['param_id']) : ?>
+                                <?php
+                                $ch = '';
+                                if ($param['rel_value_id'] == $value['z_flats_params_values_id']) {
+                                    $ch = 'selected';
+                                }
+                                ?>
+
+                                <option <?php echo $ch; ?> value="<?php echo $value['z_flats_params_values_id']; ?>"><?php echo $value['text_value']; ?></option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </select>
                 <?php endif; ?>
-            </div>
-        </li>
-        <?php endforeach; ?>
-    </ul>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </table>
+
     <a class="btn btn-success" id="save-flats-params-greed">
         <i class="icon-star icon-white"></i>
         <span>Сохранить удобства</span>
@@ -62,26 +65,27 @@
 </div>
 
 <div class="beds-container">
-    <h4>Управление спальными местами</h4>
-    <ul id="BedsGreed">
+    <h3>Управление спальными местами</h3>
+    <table class="table table-striped" id="BedsGreed">
         <?php foreach ($this->beds as $bTitle) : ?>
-        <?php 
-            $bRelId = 0;
-            $bCount = 0;
-       
-            foreach ($this->bCounts as $count) {
-                if ($count['z_flats_id'] == $this->id && $bTitle['z_flats_beds_id'] == $count['z_flats_beds_id']) {
-                    $bRelId = $count['z_flats_beds_relations_id'];
-                    $bCount = $count['length'];
-                }
+        <?php
+        $bRelId = 0;
+        $bCount = 0;
+
+        foreach ($this->bCounts as $count) {
+            if ($count['z_flats_id'] == $this->id && $bTitle['z_flats_beds_id'] == $count['z_flats_beds_id']) {
+                $bRelId = $count['z_flats_beds_relations_id'];
+                $bCount = $count['length'];
             }
+        }
         ?>
-        <li class="bed-record cf" rel="<?php echo $bRelId; ?>" alt="<?php echo $bTitle['z_flats_beds_id'] ;?>">
-            <div class="b-title"><?php echo $bTitle['title'];?> (<?php echo $bTitle['guests']; ?> гостей)</div>
-            <div class="b-count"><input type="text" name="gCount" value="<?php echo $bCount; ?>" /></div>
-        </li>
+        <tr rel="<?php echo $bRelId; ?>" alt="<?php echo $bTitle['z_flats_beds_id'] ;?>">
+            <td><?php echo $bTitle['title'];?> (<?php echo $bTitle['guests']; ?> гостей)</td>
+            <td><input type="text" name="gCount" value="<?php echo $bCount; ?>" /></td>
+        </tr>
         <?php endforeach; ?>
-    </ul>
+    </table>
+
     <a class="btn btn-success" id="save-flats-beds-greed">
         <i class="icon-star icon-white"></i>
         <span>Сохранить настройки кроватей</span>

@@ -8,7 +8,8 @@
 <link href='https://fonts.googleapis.com/css?family=Open+Sans&subset=latin,cyrillic-ext,cyrillic' rel='stylesheet' type='text/css'>
 <?php $this->headLink()
             ->appendStylesheet('/theme/css/responsive-base.css')
-            ->appendStylesheet('/js/jquery/jquery-ui-1.9.0.custom/css/smoothness/jquery-ui-1.10.3.custom.css')
+            ->appendStylesheet('/theme/css/header.css')
+            ->appendStylesheet('/js/jquery/jquery-ui-1.10.3.custom/css/flick/jquery-ui-1.10.3.custom.min.css')
             ->appendStylesheet('/theme/css/bootstrap.css')
             ->headLink(array('rel' => 'favicon', 'href' => '/favicon.png'), 'PREPEND'); 
 
@@ -36,7 +37,7 @@
     $this->headScript()->appendFile('/js/jquery-1.10.2.min.js');
     $this->headScript()->appendFile('/js/bootstrap.min.js');
     $this->headScript()->appendFile('/js/forms-ajax.js');
-    $this->headScript()->appendFile('/js/jquery/jquery-ui-1.9.0.custom/js/jquery-ui-1.9.0.custom.min.js');
+    $this->headScript()->appendFile('/js/jquery/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js');
     $this->headScript()->appendFile('/js/resp-scripts.js');
     $this->headScript()->appendFile('/js/resp-slider.js');
     echo $this->headScript();
@@ -48,73 +49,7 @@
 <?php //echo $this->Common()->header(); ?>
 <?php //echo $this->Common()->indexSlider(); ?>
     
-    <div class="header">
-        <div class="header-resize">
-            <div class="row-fluid">
-                <div class="span2 logo"></div>
-                <div class="span2 offset3 center visible-desktop">
-                    <div class="world-link">
-                        <a href="#" class="white-shad">Мир «Название»</a>
-                    </div>
-                    <div class="fold-control">
-                        <div id="foldControl"></div>
-                    </div>
-                </div>
-                <div class="span4 offset1 buttons">
-                    <a onclick ="$('#register-dialog').dialog({'modal':true});" class="btn">Регистрация</a>
-                    <a onclick ="$('#login-dialog').dialog({'modal':true});" href="#" class="btn">Войти</a>
-                    <a href="#" class="btn btn-info"><i class="icon-white icon-comment"></i></a>
-                    <a href="#" class="btn btn-warning add-flat"><i class="icon-thumbs-up icon-white"></i><span>Сдавайте жилье</span></a>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="fold-menu-holder">
-        <div class="row-fluid fold-menu" id="foldMenu">
-            <div class="span5">
-                <div class="sub-container first">
-                    <ul class="links-group">
-                        <li class="info-title white-shad">Информация</li>
-                        <li class="link"><a href="#" class="white-shad">О компании</a></li>
-                        <li class="link"><a href="#" class="white-shad">Доверие и Безопасность</a></li>
-                        <li class="link"><a href="#" class="white-shad">Зачем сдавать жилье?</a></li>
-                        <li class="link"><a href="#" class="white-shad">Почему стоит принимать гостей?</a></li>
-                    </ul>                
-                </div>
-            </div>
-            <div class="span2">
-                <div class="sub-container">
-                    <ul class="links-group">
-                        <li class="geo-title white-shad">Региональные настройки</li>
-                        <li class="link">
-                             <div class="btn dropdown-toggle" data-toggle="dropdown">
-                                English
-                                <span class="caret"></span>
-                             </div>                        
-                        </li>
-                        <li class="link">
-                            <div class="btn dropdown-toggle" data-toggle="dropdown">
-                                EURO
-                                <span class="caret"></span>
-                             </div>   
-                        </li>
-                    </ul>      
-                </div>
-            </div>
-            <div class="span5">
-                <div class="sub-container">
-                    <ul class="links-group">
-                        <li class="help-title white-shad">Помощь</li>
-                        <li class="link"><a href="#" class="white-shad">С чего начать?</a></li>
-                        <li class="link"><a href="#" class="white-shad">Как создать аккаунт?</a></li>
-                        <li class="link"><a href="#" class="white-shad">Как сдавать жилье?</a></li>
-                        <li class="link"><a href="#" class="white-shad">Как путешествовать?</a></li>
-                    </ul>  
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php echo $this->action('header', 'index', 'default'); ?>
     <div class="index-wrap" id="IndexWrap">
         <?php echo $this->action('search-form', 'index', 'default'); ?>
         <?php echo $this->action('slider', 'index', 'default'); ?>

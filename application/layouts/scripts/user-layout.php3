@@ -15,6 +15,7 @@
              ->appendStylesheet('/theme/css/userpanel.css')
              ->appendStylesheet('/js/jquery/jquery-ui-1.10.3.custom/css/flick/jquery-ui-1.10.3.custom.min.css')
              ->appendStylesheet('/theme/css/bootstrap.css')
+             ->appendStylesheet('/theme/css/header.css')
              ->appendStylesheet('/theme/css/responsive-admin.css')
              ->appendStylesheet('/theme/css/checkboxes.css')
              ->headLink(array('rel' => 'favicon', 'href' => '/favicon.png'), 'PREPEND'); 
@@ -54,15 +55,17 @@
         $this->headScript()->appendFile('/js/jquery/jQuery-File-Upload-master/js/jquery.fileupload-process.js');
         $this->headScript()->appendFile('/js/jquery/jQuery-File-Upload-master/js/jquery.fileupload-resize.js');
         $this->headScript()->appendFile('/js/jquery/jQuery-File-Upload-master/js/jquery.fileupload-validate.js');
+        $this->headScript()->appendFile('/js/resp-scripts.js');
         echo $this->headScript();
     ?>
 
 </head>
 <body>
 
-<?php echo $this->Common()->header(); ?>
+<?php //echo $this->Common()->header(); ?>
+<?php echo $this->action('header', 'index', 'default'); ?>
+<div class="bottom-shadow"></div>
 <div class="body">
-    <div class="push1"></div>
     <div class="userpanel-header">
         <h1>Панель управления аккаунтом</h1>
     </div>

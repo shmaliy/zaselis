@@ -2,7 +2,7 @@
 
 <div class="calendar-container">
     <h4>Календарь</h4>
-    <div class="calendar">
+    <div class="calendar" id="flatCalendar">
         <?php $i = 1; ?>
         <?php 
             $firstday = reset($this->calendar);
@@ -20,7 +20,7 @@
                     <?php if ($i == $day['position']) : ?>
                         <span class="day of-month">
                             <div class="date"><?php echo $day['date']; ?></div>
-                            <div class="stat">
+                            <div class="stat cf">
                                 <div class="out-empty"></div>
                                 <div class="in-guest"></div>
                             </div>
@@ -37,6 +37,10 @@
         <?php endfor; ?>
     </div>
 </div>
+
+<script>
+    $('#flatCalendar').selectable();
+</script>
 
 <div class="prices-container">
     <h4>Цены</h4>

@@ -48,6 +48,25 @@ class IndexController extends Zend_Controller_Action
     {
         
     }
+
+    public function headerAction()
+    {
+
+
+        try {
+            $userAuth = Zend_Auth::getInstance()->getIdentity();
+            $user = $this->_model_user->getActiveUser();
+        } catch (Exception $e) {
+            $user = null;
+        }
+
+        $this->view->user = $user;
+
+
+//        echo '<pre>';
+//        var_export($user);
+//        echo '</pre>';
+    }
     
     
     

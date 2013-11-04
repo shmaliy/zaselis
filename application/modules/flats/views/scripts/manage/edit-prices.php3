@@ -2,40 +2,8 @@
 
 <div class="calendar-container">
     <h4>Календарь</h4>
-    <div class="calendar" id="flatCalendar">
-        <?php $i = 1; ?>
-        <?php 
-            $firstday = reset($this->calendar);
-            $fdPosition = $firstday['position'];
-            
-            $lastday = end($this->calendar);
-            $ldposition = $lastday['position'];
-        ?>
-        <div class="week cf">
-        <?php for ($i = 1; $i<= (36 + $fdPosition); $i++) : ?>
-            <?php if ($i < $fdPosition || ($i > $ldposition && $i%7 !==0)) : ?>
-                <span class="day"></span>
-            <?php else : ?>
-                <?php foreach ($this->calendar as $day) : ?>
-                    <?php if ($i == $day['position']) : ?>
-                        <span class="day of-month">
-                            <div class="date"><?php echo $day['date']; ?></div>
-                            <div class="stat cf">
-                                <div class="out-empty"></div>
-                                <div class="in-guest"></div>
-                            </div>
-                        </span>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            <?php endif; ?>        
-            
-        <?php if ($i%7==0 && $i < ($ldposition)) : ?>
-        </div><div class="week cf"> 
-        <?php elseif ($i == $ldposition) :  break;?>
-        </div>
-        <?php endif; ?>
-        <?php endfor; ?>
-    </div>
+
+    <div id="calendarJQ" class=""></div>
 </div>
 
 <script>
@@ -106,6 +74,39 @@
 
 
 $(document).ready(function(){
+
+    var date = new Date();
+    var d = date.getDate();
+    var m = date.getMonth();
+    var y = date.getFullYear();
+    console.log(d);
+    console.log(m);
+    console.log(y);
+    console.log(date);
+
+
+    $('#calendarJQ').fullCalendar({
+        selectable: true,
+        selectHelper: true,
+        editable: true,
+        header: {
+            left: 'prev, today',
+            center: 'title',
+            right: 'next'
+        },
+        events: [
+            {
+                title: 'All Day Event',
+                start: new Date(y, m, 1)
+            },
+            {
+                title: 'Long Event',
+                start: new Date(y, m, d-5),
+                end: new Date(y, m, d-2)
+            }
+        ]
+    });
+
     $('#save-flats-params-greed').click(function(){
         var greed = $('#ParamsGreed li');
         var post_data = [];

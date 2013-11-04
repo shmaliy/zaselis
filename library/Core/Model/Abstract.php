@@ -193,6 +193,22 @@ class Core_Model_Abstract
             'social_networks'   => 'array'
         )
     );
+
+    protected $_tZFlatsMainPrices = array(
+        'title' => 'z_flats_main_prices',
+        'treeFields' => array()
+    );
+
+    protected $_tZFlatsCustomPrices = array(
+        'title' => 'z_flats_custom_prices',
+        'treeFields' => array()
+    );
+
+    protected $_tZGeoCache = array(
+        'title' => 'z_geo_cache',
+        'treeFields' => array()
+    );
+
     
     private $_cryptKey = 'dssdf123567676fdgf';
     
@@ -316,6 +332,29 @@ class Core_Model_Abstract
         
         
     }
+
+    public function checkInGeoCache($request)
+    {
+        $select = $this->_db->select();
+        $select->from($this->_tZGeoCache['title']);
+        $select->where('request = ?', $request);
+
+        $ret = $this->_db->fetchRow($select);
+        if($ret) {
+            return json_decode($ret['response']);
+        }
+        return false;
+    }
+
+    public function writeGeoCache($request, $response)
+    {
+        $insert = array(
+            'request' => $request,
+            'response' => $response
+        );
+
+        $this->_insert($this->_tZGeoCache['title'], $insert);
+    }
     
     public function googleGetAddress($str = null, $lang = 'en')
     {
@@ -324,6 +363,10 @@ class Core_Model_Abstract
         }
         
         $str = str_replace(' ', '%20', $str);
+
+        if ($this->checkInGeoCache($str)) {
+            return $this->checkInGeoCache($str);
+        }
         
         $url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' . $str . '&sensor=false&language=' . $lang;
         
@@ -349,6 +392,8 @@ class Core_Model_Abstract
        $errmsg  = curl_error($ch) ;
        $header  = curl_getinfo($ch);
        curl_close($ch);
+
+       $this->writeGeoCache($str, $content);
 
        $content = json_decode($content);
        

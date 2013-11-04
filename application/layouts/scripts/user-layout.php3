@@ -18,6 +18,7 @@
              ->appendStylesheet('/theme/css/header.css')
              ->appendStylesheet('/theme/css/responsive-admin.css')
              ->appendStylesheet('/theme/css/checkboxes.css')
+             ->appendStylesheet('/js/jquery/fullcalendar-1.6.4/fullcalendar/fullcalendar.css')
              ->headLink(array('rel' => 'favicon', 'href' => '/favicon.png'), 'PREPEND'); 
 
         $this->headMeta()->appendName('keywords', '')
@@ -55,6 +56,7 @@
         $this->headScript()->appendFile('/js/jquery/jQuery-File-Upload-master/js/jquery.fileupload-process.js');
         $this->headScript()->appendFile('/js/jquery/jQuery-File-Upload-master/js/jquery.fileupload-resize.js');
         $this->headScript()->appendFile('/js/jquery/jQuery-File-Upload-master/js/jquery.fileupload-validate.js');
+        $this->headScript()->appendFile('/js/jquery/fullcalendar-1.6.4/fullcalendar/fullcalendar.js');
         $this->headScript()->appendFile('/js/resp-scripts.js');
         echo $this->headScript();
     ?>

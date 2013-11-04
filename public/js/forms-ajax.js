@@ -117,9 +117,9 @@ function showFormSuccess(form_id, callbacks)
     }
 }
 
-function testCallback(data)
+function testCallback()
 {
-    alert(data[0]);
+    return false;
 }
 
 function loginSuccess()

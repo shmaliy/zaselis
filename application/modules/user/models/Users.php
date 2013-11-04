@@ -92,8 +92,13 @@ class User_Model_Users extends Core_Model_Abstract
         
         $birth = explode('-', $array['birth']);
         $birth = mktime(0, 0, 0, $birth[1], $birth[2], $birth[0]);
-        
-        $office_addres = $this->googleGetAddress($array['office_addr']);
+
+        $office_addres = '';
+
+        if (!empty($array['office_addr'])) {
+            $office_addres = $this->googleGetAddress($array['office_addr']);
+            $office_addres = $office_addres->results[0]->formatted_address;
+        }
         
         $update = array(
             'name' => $array['name'],
@@ -102,7 +107,7 @@ class User_Model_Users extends Core_Model_Abstract
             'gender' => ucfirst($array['gender']),
             'about' => $array['about'],
             'documentation' => ($array['documentation'] == 1) ? 'YES' : 'NO',
-            'office_addr' => $office_addres->results[0]->formatted_address,
+            'office_addr' => $office_addres,
             'type_of_settle' => $array['type_of_settle'],
             'edited_ts' => time(),
             'z_countries_id' => $living['z_countries_id'],

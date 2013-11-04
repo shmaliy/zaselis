@@ -412,16 +412,16 @@ class Flats_ManageController extends Zend_Controller_Action
         
         $this->view->calendar = $monthInfo;
         
-        echo '<pre>';
-        var_export($monthInfo);
-        var_export($month);
-        var_export($year);
-        var_export(getdate($firstDay));
-        var_export($days);
-        echo '</pre>';
-        echo '<pre>';
-        var_export($params);
-        echo '</pre>';
+//        echo '<pre>';
+//        var_export($monthInfo);
+//        var_export($month);
+//        var_export($year);
+//        var_export(getdate($firstDay));
+//        var_export($days);
+//        echo '</pre>';
+//        echo '<pre>';
+//        var_export($params);
+//        echo '</pre>';
         
         $this->view->id = $params['id'];
             

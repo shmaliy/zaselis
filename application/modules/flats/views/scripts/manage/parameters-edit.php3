@@ -94,7 +94,7 @@
             <th>Удалить</th>
         </thead>
     <?php foreach ($this->list as $item) : ?>
-        <tr rel="<?php echo $item['z_flats_params_id']; ?>">
+        <tr rel="<?php echo $item['z_flats_params_id']; ?>" class="greed-row">
             <td>
                 <?php if(empty($item['icon'])) : ?>
                     <a rel="<?php echo $item['z_flats_params_id']; ?>" class="btn btn-warning change-icon-param">
@@ -114,8 +114,8 @@
                 <?php endif; ?>
             </td>
             <td><input class="span12" type="text" name="title" placeholder="название" value="<?php echo $item['title']; ?>"></td>
-            <td><textarea name="description"><?php echo $item['description']; ?></textarea></td>
-            <td>
+            <td><textarea class="descr" name="description"><?php echo $item['description']; ?></textarea></td>
+            <td class="type">
                 <div class="slideThreeType">
                     <?php if($item['type'] == 'BOOLEAN') : ?>
                         <input type="checkbox" value="None" id="slideThree_<?php echo $item['z_flats_params_id']; ?>" name="type" />
@@ -129,7 +129,7 @@
                     <a rel="<?php echo $item['z_flats_params_id']; ?>" class="edit-parameters-values">Список значений</a>
                 <?php endif; ?>
             </td>
-            <td>
+            <td class="avaliable">
                 <div class="slideThreeOnOff">
                     <?php if($item['avaliable'] == 'NO') : ?>
                         <input type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_params_id']; ?>" name="avaliable" />
@@ -232,16 +232,18 @@ $(document).ready(function(){
              });
         });
     });
+
+    $('#params-container').sortable();
         
     $('#save-greed').click(function(){
         var post_data = [];
-        var greed = $('#params-container li');
+        var greed = $('.greed-row');
         
         $(greed).each(function(){
             
             var id = $(this).attr('rel');
-            var title = $(this).find('.title input').val();
-            var descr = $(this).find('.description textarea').val();
+            var title = $(this).find('input.span12').val();
+            var descr = $(this).find('textarea.descr').val();
             var type = $(this).find('.type input');
             
             var c_type = 'BOOLEAN';
@@ -411,7 +413,7 @@ $(function () {
                 type: 'POST',
                 error: function(jqXHR, textStatus, errorThrown) {},
                 success: function(data, textStatus, jqXHR) {
-                    updateWindow(); 
+                    updateWindow();
                 },
                 complete: function(jqXHR, textStatus) {}
              });

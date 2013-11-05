@@ -62,7 +62,7 @@
             <th>Удалить</th>
         </thead>
     <?php foreach ($this->list as $item) : ?>
-        <tr rel="<?php echo $item['z_flats_beds_id']; ?>">
+        <tr rel="<?php echo $item['z_flats_beds_id']; ?>" class="greed-row">
             <td>
                 <?php if(empty($item['icon'])) : ?>
                     <a rel="<?php echo $item['z_flats_beds_id']; ?>" class="btn btn-warning change-icon-param">
@@ -81,9 +81,9 @@
                     </a>
                 <?php endif; ?>
             </td>
-            <td><input type="text" name="title" placeholder="название" value="<?php echo $item['title']; ?>"></td>
-            <td><input type="text" name="guests" placeholder="вместимость" value="<?php echo $item['guests']; ?>"></td>
-            <td>
+            <td class="title"><input type="text" name="title" placeholder="название" value="<?php echo $item['title']; ?>"></td>
+            <td class="guests"><input type="text" name="guests" placeholder="вместимость" value="<?php echo $item['guests']; ?>"></td>
+            <td class="avaliable">
                 <div class="slideThreeOnOff">
                     <?php if($item['avaliable'] == 'NO') : ?>
                         <input type="checkbox" value="ON" id="slideThreeOnOff_<?php echo $item['z_flats_beds_id']; ?>" name="avaliable" />
@@ -163,7 +163,7 @@ $(document).ready(function(){
         
     $('#save-greed').click(function(){
         var post_data = [];
-        var greed = $('#params-container li');
+        var greed = $('.greed-row');
         
         $(greed).each(function(){
             

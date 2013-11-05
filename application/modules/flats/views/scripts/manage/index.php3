@@ -19,10 +19,10 @@
                 </a>
             </div>
             <div class="status">
-                <label class="checkbox">
-                    <input type="checkbox" value="">
-                    На сайте
-                </label>
+                <div class="slideTwo">
+                    <input type="checkbox" value="None" id="slideTwo_<?php echo $item['z_flats_id']; ?>" name="check" />
+                    <label for="slideTwo_<?php echo $item['z_flats_id']; ?>"></label>
+                </div>
             </div>
         </div>
 

@@ -47,6 +47,9 @@ a, img { outline: 0; }
   }
 }
 
+.container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+  width: auto;
+}
 
 #left-menu {
     margin: 0 0 25px 0;
@@ -466,7 +469,7 @@ a, img { outline: 0; }
       margin: 0 0 10px 0;
 
       .controls {
-        width: 48%;
+        width: 74%;
         float: left;
 
         a {
@@ -479,17 +482,13 @@ a, img { outline: 0; }
       }
 
       .status {
-        width: 48%;
+        width: 50px;
         float: right;
 
         label {
           text-indent: 0%;
           font-family: 'Open Sans', sans-serif;
           font-size: 12px;
-        }
-
-        input[type="checkbox"] {
-          visibility: visible;
         }
       }
     }

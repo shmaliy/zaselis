@@ -4,6 +4,7 @@ class Flats_ManageController extends Zend_Controller_Action
 {
     private $_model;
     private $_model_flats;
+    private $_model_geo;
     private $_subdirs = array(
         'thumbnail', 'thumbnail-50-50', 'thumbnail-100-100', 'thumbnail-310-207', 'thumbnail-464-306'
     );
@@ -12,10 +13,13 @@ class Flats_ManageController extends Zend_Controller_Action
     {
         $this->_model = new User_Model_Users();
         $this->_model_flats = new Flats_Model_Flats();
+        $this->_model_geo = new Application_Model_Geographic();
         
         if (!Zend_Auth::getInstance()->hasIdentity() || !$this->_model->isActiveSession()) {
-	    header ('Location: ' . $this->view->url(array(), 'logout'));
+	        header ('Location: ' . $this->view->url(array(), 'logout'));
         }
+
+
         
         $this->_helper->_layout->setLayout('user-layout');
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
@@ -39,11 +43,14 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('save-flats-params-greed', 'json');
         $ajaxContext->addActionContext('save-flats-beds-greed', 'json');
         $ajaxContext->addActionContext('edit-prices', 'html');
+        $ajaxContext->addActionContext('countries-manage', 'html');
+        $ajaxContext->addActionContext('towns-manage', 'html');
         $ajaxContext->initContext('json');
     }
 
     public function adsInnerHtmlAction()
     {
+        $this->view->user = $this->_model->getActiveUser();
 
     }
     
@@ -62,12 +69,42 @@ class Flats_ManageController extends Zend_Controller_Action
 //        echo '<pre>';
 //        var_export($list);
 //        echo '</pre>';
-        
-        
-        
+
         $this->view->list = $list;
     }   
     
+    public function countriesManageAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        $user = $this->_model->getActiveUser();
+        if ($user['z_users_roles_id'] != 1) {
+            header ('Location: ' . $this->view->url(array(), 'user-index'));
+        }
+
+        if ($request->isXmlHttpRequest() || $request->isPost()) {
+
+        } else {
+            $this->view->list = $this->_model_geo->getCountriesForManage();
+        }
+    }
+
+    public function townsManageAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        $user = $this->_model->getActiveUser();
+        if ($user['z_users_roles_id'] != 1) {
+            header ('Location: ' . $this->view->url(array(), 'user-index'));
+        }
+
+        if ($request->isXmlHttpRequest() || $request->isPost()) {
+
+        } else {
+
+        }
+    }
+
     public function bedsEditAction()
     {
         $request = $this->getRequest();

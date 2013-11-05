@@ -53,11 +53,7 @@ class User_ManageController extends Zend_Controller_Action
 //        
 //        //$street = $this->_model->saveStreet($obj);
 //        echo $this->_model->saveStreet($obj);
-        $data = $this->_model->getActiveUser();
-//        
-        echo '<pre>';
-        var_export($data);
-        echo '</pre>';
+
         
     }
     

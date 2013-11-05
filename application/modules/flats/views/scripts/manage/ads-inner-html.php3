@@ -15,6 +15,8 @@ $inner = array(
     )
 );
 
+
+
 if ($this->user['z_users_roles_id'] == 1) {
     $inner[] = array(
         'title' => '&#9733; Настройка удобств',
@@ -24,6 +26,11 @@ if ($this->user['z_users_roles_id'] == 1) {
     $inner[] = array(
         'title' => '&#9733; Настройка кроватей',
         'url'   => $this->url(array(), 'beds')
+    );
+
+    $inner[] = array(
+        'title' => '&#9733; География',
+        'url'   => $this->url(array(), 'countries-manage')
     );
 }
 

@@ -615,6 +615,32 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             )
         );
         $router->addRoute('save-beds-greed', $route);
+
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/countries-manage/:country/towns-manage',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'towns-manage',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('towns-manage', $route);
+
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/countries-manage',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'countries-manage',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('countries-manage', $route);
+
+
         
         
         

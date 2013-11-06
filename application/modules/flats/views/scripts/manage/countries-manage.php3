@@ -1,7 +1,7 @@
 <h2>Настройка цен и тел. кодов для стран</h2>
 
 <button class="save-greed btn btn-success"><i class="icon icon-white icon-ok"></i> Сохранить изменения</button>
-<table class="table table-striped top-30">
+<table class="table top-30">
     <thead>
         <th>Название</th>
         <th>Тел. код</th>

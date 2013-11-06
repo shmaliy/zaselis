@@ -9,7 +9,11 @@
         <th>Активна</th>
     </thead>
     <?php foreach ($this->list as $row) : ?>
-    <tr rel="<?php echo $row['z_countries_id']; ?>" class="greed-row">
+    <tr rel="<?php echo $row['z_countries_id']; ?>"
+        class="greed-row
+        <?php echo ($row['avaliable'] != 'YES') ? 'unavaliable' : ''; ?>
+        <?php echo ($row['day_price'] > 0) ? 'priced' : ''; ?> "
+        >
         <td>
             <a title="Редактировать список городов" href="<?php echo $this->url(array('country' => $row['z_countries_id']), 'towns-manage'); ?>">
                 <i class="icon icon-th-list"></i>
@@ -23,7 +27,7 @@
             </div>
         </td>
         <td>
-            <div class="input-append">
+            <div class="input-append ">
                 <input class="span4 day-price" type="text" value="<?php echo $row['day_price']; ?>">
                 <span class="add-on"> $/день </span>
             </div>
@@ -46,6 +50,7 @@
 
 <script>
 $(document).ready(function(){
+
     $('.save-greed').each(function(){
         $(this).click(function(){
             var greed = $('.greed-row');
@@ -53,7 +58,7 @@ $(document).ready(function(){
 
             $(greed).each(function(){
                 var countryId = $(this).attr('rel');
-                var dayPrice = $(this).find('.day-price').val();
+                var dayPrice = $(this).find('.day-price').val() || 0;
                 var aval = 'NO';
                 var aval_field = $(this).find('.aval input');
                 var codeId = $(this).find('.code input').attr('rel');
@@ -73,7 +78,21 @@ $(document).ready(function(){
                 data_greed.push(data_row);
             });
 
-            console.log(data_greed);
+            if (data_greed.length > 0) {
+                megaOverlayShow();
+                $.ajax({
+                    url: '<?php echo $this->url(array(), 'countries-manage'); ?>',
+                    data: {greed: data_greed},
+                    type: 'POST',
+                    error: function(jqXHR, textStatus, errorThrown) {},
+                    success: function(data, textStatus, jqXHR) {
+                        updateWindow();
+
+                    },
+                    complete: function(jqXHR, textStatus) {}
+                });
+            }
+            //console.log(data_greed);
         });
     });
 });

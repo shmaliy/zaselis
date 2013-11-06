@@ -183,7 +183,7 @@ $(document).ready(function(){
             
             post_data.push(tcell);
         });
-        console.log(post_data);
+        //console.log(post_data);
         
         if (post_data.length > 0) {
             megaOverlayShow();

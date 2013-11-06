@@ -50,6 +50,34 @@ class Flats_Model_Flats extends Core_Model_Abstract
         return $return;
         
     }
+
+    public function checkPublished($flatId)
+    {
+        $select = $this->_db->select();
+        $select->from(array('flat' => $this->_tZFlats['title']));
+        $select->joinLeft(
+                array("country" => $this->_tZCountries['title']),
+                "country.z_countries_id = flat.z_countries_id",
+                array(
+                    "country_day_price" => "country.day_price"
+                )
+            );
+        $select->joinLeft(
+                array("town" => $this->_tZTowns['title']),
+                "town.z_towns_id = flat.z_towns_id",
+                array(
+                    "town_day_price" => "town.day_price"
+                )
+            );
+        $select->where("flat.z_flats_id = ?", $flatId);
+        $flat = $this->_db->fetchRow($select);
+
+        if(($flat['country_day_price'] == 0 && $flat['town_day_price'] == 0) || $flat['finance_avaliable_till_ts'] > time()) {
+            return true;
+        }
+        return false;
+
+    }
     
     public function createParam($data) 
     {
@@ -294,6 +322,13 @@ class Flats_Model_Flats extends Core_Model_Abstract
         );
         
         $ret = $this->_db->fetchAll($select);
+
+        foreach ($ret as &$flat) {
+            $flat['published'] = 0;
+            if ($this->checkPublished($flat['z_flats_id'])) {
+                $flat['published'] = 1;
+            }
+        }
         
         return $this->_multiTreeFieldsTransform($this->_tZFlats['title'], $ret);
         

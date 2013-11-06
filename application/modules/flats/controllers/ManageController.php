@@ -43,8 +43,8 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('save-flats-params-greed', 'json');
         $ajaxContext->addActionContext('save-flats-beds-greed', 'json');
         $ajaxContext->addActionContext('edit-prices', 'html');
-        $ajaxContext->addActionContext('countries-manage', 'html');
-        $ajaxContext->addActionContext('towns-manage', 'html');
+        $ajaxContext->addActionContext('countries-manage', 'json');
+        $ajaxContext->addActionContext('towns-manage', 'json');
         $ajaxContext->initContext('json');
     }
 
@@ -83,7 +83,7 @@ class Flats_ManageController extends Zend_Controller_Action
         }
 
         if ($request->isXmlHttpRequest() || $request->isPost()) {
-
+            $this->_model_geo->saveCountriesGreed($params['greed']);
         } else {
             $this->view->list = $this->_model_geo->getCountriesForManage();
         }
@@ -93,15 +93,17 @@ class Flats_ManageController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
         $params = $request->getParams();
+
         $user = $this->_model->getActiveUser();
         if ($user['z_users_roles_id'] != 1) {
             header ('Location: ' . $this->view->url(array(), 'user-index'));
         }
 
         if ($request->isXmlHttpRequest() || $request->isPost()) {
-
+            $this->_model_geo->saveTownsGreed($params['greed']);
         } else {
-
+            $this->view->country = $this->_model_geo->getCountryById($params['country']);
+            $this->view->towns = $this->_model_geo->getTownsForManage($params['country']);
         }
     }
 

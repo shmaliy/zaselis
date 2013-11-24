@@ -2,12 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3cd7d454-b012-41b3-b883-d45d078c77f0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/money/Bootstrap.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/money/controllers/IndexController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/money/controllers/ManageController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/money/models/Money.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/money/views/index/index.php3" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/money/views/manage/index.php3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/Core/Model/Abstract.php" afterPath="$PROJECT_DIR$/library/Core/Model/Abstract.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/user/controllers/IndexController.php" afterPath="$PROJECT_DIR$/application/modules/user/controllers/IndexController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/user/controllers/ManageController.php" afterPath="$PROJECT_DIR$/application/modules/user/controllers/ManageController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/forms/SimpleAuth.php" afterPath="$PROJECT_DIR$/application/forms/SimpleAuth.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/forms/SimpleRegister.php" afterPath="$PROJECT_DIR$/application/forms/SimpleRegister.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/user/models/Users.php" afterPath="$PROJECT_DIR$/application/modules/user/models/Users.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/user/views/scripts/manage/avatar.php3" afterPath="$PROJECT_DIR$/application/modules/user/views/scripts/manage/avatar.php3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/layouts/scripts/login-form.php3" afterPath="$PROJECT_DIR$/application/layouts/scripts/login-form.php3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/user/views/scripts/manage/manage-avatar.php3" afterPath="$PROJECT_DIR$/application/modules/user/views/scripts/manage/manage-avatar.php3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/layouts/scripts/reg-form.php3" afterPath="$PROJECT_DIR$/application/layouts/scripts/reg-form.php3" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/theme/css/responsive-base.css" afterPath="$PROJECT_DIR$/public/theme/css/responsive-base.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/theme/css/responsive-base.less" afterPath="$PROJECT_DIR$/public/theme/css/responsive-base.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/theme/css/userpanel.css" afterPath="$PROJECT_DIR$/public/theme/css/userpanel.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/theme/css/userpanel.less" afterPath="$PROJECT_DIR$/public/theme/css/userpanel.less" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="zaselis.iws" />
@@ -31,29 +39,58 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="countries-manage.php3" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/modules/flats/views/scripts/manage/countries-manage.php3">
+      <file leaf-file-name="user-layout.php3" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/layouts/scripts/user-layout.php3">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="20" selection-start="179" selection-end="179" vertical-scroll-proportion="-2.0" vertical-offset="0" max-vertical-offset="1890">
-              <folding>
-                <marker date="1383775024245" expanded="true" signature="874:898" placeholder="..." />
-                <marker date="1383775024245" expanded="true" signature="874:1031" placeholder="..." />
-                <marker date="1383775024245" expanded="true" signature="919:1031" placeholder="..." />
-                <marker date="1383775024245" expanded="true" signature="1148:1271" placeholder="..." />
-                <marker date="1383775024245" expanded="true" signature="1188:1271" placeholder="..." />
-                <marker date="1383775024245" expanded="true" signature="1388:1556" placeholder="..." />
-                <marker date="1383775024245" expanded="true" signature="1428:1556" placeholder="..." />
-                <marker date="1383775024245" expanded="true" signature="1468:1556" placeholder="..." />
-              </folding>
+            <state line="67" column="27" selection-start="3909" selection-end="3909" vertical-scroll-proportion="-14.592592" vertical-offset="812" max-vertical-offset="1800">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="responsive-admin.less" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/theme/css/responsive-admin.less">
+      <file leaf-file-name="avatar.php3" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/modules/user/views/scripts/manage/avatar.php3">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="767" column="15" selection-start="26659" selection-end="26659" vertical-scroll-proportion="-30.666666" vertical-offset="12978" max-vertical-offset="13932">
+            <state line="7" column="23" selection-start="72" selection-end="393" vertical-scroll-proportion="-4.6666665" vertical-offset="0" max-vertical-offset="378">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Users.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/modules/user/models/Users.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="47" column="30" selection-start="1541" selection-end="1551" vertical-scroll-proportion="-6.703704" vertical-offset="665" max-vertical-offset="7614">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Abstract.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/library/Core/Model/Abstract.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="212" column="35" selection-start="5479" selection-end="5479" vertical-scroll-proportion="1.7854251" vertical-offset="2052" max-vertical-offset="20052">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ManageController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/modules/user/controllers/ManageController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="53" selection-start="970" selection-end="983" vertical-scroll-proportion="-14.0" vertical-offset="54" max-vertical-offset="5616">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="manage-avatar.php3" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/modules/user/views/scripts/manage/manage-avatar.php3">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="30" selection-start="1004" selection-end="1004" vertical-scroll-proportion="-19.333334" vertical-offset="0" max-vertical-offset="4266">
+              <folding>
+                <element signature="n#style#0;n#span#0;n#p#0;n#div#2;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -61,45 +98,7 @@
       <file leaf-file-name="userpanel.less" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/theme/css/userpanel.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="0" selection-start="1664" selection-end="1664" vertical-scroll-proportion="-10.666667" vertical-offset="0" max-vertical-offset="16002">
-              <folding>
-                <element signature="e#207#878#2" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ManageController.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/modules/money/controllers/ManageController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="54" selection-start="307" selection-end="307" vertical-scroll-proportion="0.21862349" vertical-offset="0" max-vertical-offset="988">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ManageController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/modules/flats/controllers/ManageController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="9" selection-start="504" selection-end="668" vertical-scroll-proportion="-12.666667" vertical-offset="0" max-vertical-offset="8946">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IndexController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/modules/flats/controllers/IndexController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="185" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="378">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.php3" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/modules/flats/views/scripts/manage/index.php3">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="89" selection-start="1384" selection-end="1384" vertical-scroll-proportion="-11.814815" vertical-offset="59" max-vertical-offset="1566">
+            <state line="718" column="39" selection-start="38855" selection-end="38855" vertical-scroll-proportion="-6.076923" vertical-offset="12608" max-vertical-offset="16002">
               <folding />
             </state>
           </provider>
@@ -123,22 +122,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/application/modules/flats/views/scripts/manage/ads-inner-html.php3" />
-        <option value="$PROJECT_DIR$/application/modules/default/models/Geographic.php" />
-        <option value="$PROJECT_DIR$/application/Bootstrap.php" />
-        <option value="$PROJECT_DIR$/application/modules/flats/views/scripts/manage/beds-edit.php3" />
-        <option value="$PROJECT_DIR$/application/modules/flats/controllers/ManageController.php" />
-        <option value="$PROJECT_DIR$/application/modules/flats/views/scripts/manage/towns-manage.php3" />
-        <option value="$PROJECT_DIR$/application/modules/flats/models/Flats.php" />
-        <option value="$PROJECT_DIR$/application/models/Geographic.php" />
-        <option value="$PROJECT_DIR$/application/modules/flats/views/scripts/manage/index.php3" />
-        <option value="$PROJECT_DIR$/public/theme/css/responsive-admin.less" />
-        <option value="$PROJECT_DIR$/application/modules/flats/views/scripts/manage/countries-manage.php3" />
+        <option value="$PROJECT_DIR$/application/layouts/scripts/responsive.php3" />
+        <option value="$PROJECT_DIR$/application/modules/default/controllers/IndexController.php" />
+        <option value="$PROJECT_DIR$/application/layouts/scripts/header.php3" />
+        <option value="$PROJECT_DIR$/application/modules/default/views/scripts/index/header.php3" />
+        <option value="$PROJECT_DIR$/application/layouts/scripts/reg-form.php3" />
+        <option value="$PROJECT_DIR$/application/forms/SimpleRegister.php" />
+        <option value="$PROJECT_DIR$/application/forms/SimpleAuth.php" />
+        <option value="$PROJECT_DIR$/public/theme/css/responsive-base.less" />
+        <option value="$PROJECT_DIR$/application/layouts/scripts/login-form.php3" />
+        <option value="$PROJECT_DIR$/application/modules/user/views/scripts/manage/avatar.php3" />
+        <option value="$PROJECT_DIR$/application/modules/user/controllers/IndexController.php" />
+        <option value="$PROJECT_DIR$/application/modules/user/models/Users.php" />
+        <option value="$PROJECT_DIR$/application/modules/user/controllers/ManageController.php" />
+        <option value="$PROJECT_DIR$/application/modules/user/views/scripts/manage/manage-avatar.php3" />
         <option value="$PROJECT_DIR$/public/theme/css/userpanel.less" />
-        <option value="$PROJECT_DIR$/application/modules/money/Bootstrap.php" />
-        <option value="$PROJECT_DIR$/application/modules/money/controllers/IndexController.php" />
-        <option value="$PROJECT_DIR$/application/modules/money/models/Money.php" />
-        <option value="$PROJECT_DIR$/application/modules/money/controllers/ManageController.php" />
+        <option value="$PROJECT_DIR$/library/Core/Model/Abstract.php" />
       </list>
     </option>
   </component>
@@ -198,7 +197,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -214,6 +212,74 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="theme" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="theme" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="library" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -288,26 +354,8 @@
               <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="zaselis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zaselis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="money" />
+              <option name="myItemId" value="user" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -329,11 +377,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="money" />
+              <option name="myItemId" value="user" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -359,7 +411,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="money" />
+              <option name="myItemId" value="user" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -367,7 +419,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="index" />
+              <option name="myItemId" value="scripts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -389,7 +441,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="money" />
+              <option name="myItemId" value="user" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -415,7 +467,33 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="money" />
+              <option name="myItemId" value="user" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="forms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -440,62 +518,6 @@
               <option name="myItemId" value="modules" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="flats" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zaselis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zaselis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="flats" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="models" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zaselis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="zaselis" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="flats" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -512,10 +534,53 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="models" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layouts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zaselis" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="forms" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Problems" />
       </pane>
     </panes>
   </component>
@@ -523,7 +588,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="options.lastSelected" value="settings" />
-    <property name="last_opened_file_path" value="D:/inst/SimpLESS/SimpLESS.exe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
@@ -536,6 +601,12 @@
             <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
+      </server>
+      <server id="921c09bb-bc8e-4fb0-9981-8044d8377019">
+        <serverdata />
+      </server>
+      <server id="ae977810-f098-49cb-843b-3e251164c1c3">
+        <serverdata />
       </server>
     </servers>
   </component>
@@ -640,129 +711,118 @@
     </PATH>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/modules/flats/views/scripts/manage/ads-inner-html.php3">
+    <entry file="file://$PROJECT_DIR$/library/Core/View/Helper/Common.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="58" selection-start="721" selection-end="760" vertical-scroll-proportion="0.5956567" vertical-offset="0" max-vertical-offset="967">
+        <state line="37" column="47" selection-start="1009" selection-end="1048" vertical-scroll-proportion="-18.0" vertical-offset="180" max-vertical-offset="2142">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/flats/views/scripts/manage/towns-manage.php3">
+    <entry file="file://$PROJECT_DIR$/application/forms/SimpleAuth.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="66" selection-start="902" selection-end="902" vertical-scroll-proportion="-8.481482" vertical-offset="113" max-vertical-offset="1620">
+        <state line="35" column="11" selection-start="1202" selection-end="1202" vertical-scroll-proportion="-16.481482" vertical-offset="185" max-vertical-offset="1620">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/default/controllers/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="47" selection-start="1626" selection-end="1626" vertical-scroll-proportion="1.2099276" vertical-offset="0" max-vertical-offset="1530">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/theme/css/responsive-base.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="221" column="17" selection-start="6366" selection-end="6366" vertical-scroll-proportion="0.59076923" vertical-offset="3402" max-vertical-offset="4464">
           <folding>
-            <marker date="1383771274395" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1383771274395" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1383771274395" expanded="true" signature="-1:-1" placeholder="..." />
+            <element signature="e#3167#3838#2" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/Geographic.php">
+    <entry file="file://$PROJECT_DIR$/application/layouts/scripts/login-form.php3">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="37" selection-start="770" selection-end="770" vertical-scroll-proportion="-11.814815" vertical-offset="113" max-vertical-offset="1314">
+        <state line="40" column="143" selection-start="1699" selection-end="1699" vertical-scroll-proportion="-22.777779" vertical-offset="105" max-vertical-offset="1080">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/flats/views/scripts/manage/index.php3">
+    <entry file="file://$PROJECT_DIR$/application/modules/user/forms/SocialNetworks.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="89" selection-start="1384" selection-end="1384" vertical-scroll-proportion="-11.814815" vertical-offset="59" max-vertical-offset="1566">
+        <state line="44" column="5" selection-start="1159" selection-end="1159" vertical-scroll-proportion="0.8016194" vertical-offset="0" max-vertical-offset="1764">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/user/views/scripts/index/index.php3">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1015">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/layouts/scripts/user-layout.php3">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="67" column="27" selection-start="3909" selection-end="3909" vertical-scroll-proportion="-14.592592" vertical-offset="812" max-vertical-offset="1800">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/user/models/Users.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="30" selection-start="1541" selection-end="1551" vertical-scroll-proportion="-6.703704" vertical-offset="665" max-vertical-offset="7614">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/user/controllers/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="56" selection-start="779" selection-end="876" vertical-scroll-proportion="0.21862349" vertical-offset="324" max-vertical-offset="4536">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/user/views/scripts/manage/avatar.php3">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="23" selection-start="72" selection-end="393" vertical-scroll-proportion="-4.6666665" vertical-offset="0" max-vertical-offset="378">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/user/controllers/ManageController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="53" selection-start="970" selection-end="983" vertical-scroll-proportion="-14.0" vertical-offset="54" max-vertical-offset="5616">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/theme/css/responsive-admin.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="767" column="15" selection-start="26659" selection-end="26659" vertical-scroll-proportion="-30.666666" vertical-offset="12978" max-vertical-offset="13932">
+        <state line="395" column="8" selection-start="10895" selection-end="10902" vertical-scroll-proportion="0.27578947" vertical-offset="6848" max-vertical-offset="13932">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/flats/views/scripts/manage/countries-manage.php3">
+    <entry file="file://$PROJECT_DIR$/application/modules/user/views/scripts/manage/manage-avatar.php3">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="20" selection-start="179" selection-end="179" vertical-scroll-proportion="-2.0" vertical-offset="0" max-vertical-offset="1890">
+        <state line="29" column="30" selection-start="1004" selection-end="1004" vertical-scroll-proportion="-19.333334" vertical-offset="0" max-vertical-offset="4266">
           <folding>
-            <marker date="1383775024245" expanded="true" signature="874:898" placeholder="..." />
-            <marker date="1383775024245" expanded="true" signature="874:1031" placeholder="..." />
-            <marker date="1383775024245" expanded="true" signature="919:1031" placeholder="..." />
-            <marker date="1383775024245" expanded="true" signature="1148:1271" placeholder="..." />
-            <marker date="1383775024245" expanded="true" signature="1188:1271" placeholder="..." />
-            <marker date="1383775024245" expanded="true" signature="1388:1556" placeholder="..." />
-            <marker date="1383775024245" expanded="true" signature="1428:1556" placeholder="..." />
-            <marker date="1383775024245" expanded="true" signature="1468:1556" placeholder="..." />
+            <element signature="n#style#0;n#span#0;n#p#0;n#div#2;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/money/Bootstrap.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="11" selection-start="18" selection-end="18" vertical-scroll-proportion="0.037228543" vertical-offset="0" max-vertical-offset="967">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/flats/controllers/IndexController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="185" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="378">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/money/views/index/index.php3">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="994">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/money/views/manage/index.php3">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="994">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/flats/models/Flats.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="58" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="9756">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/money/models/Money.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="23" selection-start="27" selection-end="27" vertical-scroll-proportion="0.037228543" vertical-offset="0" max-vertical-offset="198">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/money/controllers/IndexController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="159" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="378">
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/theme/css/userpanel.less">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="1664" selection-end="1664" vertical-scroll-proportion="-10.666667" vertical-offset="0" max-vertical-offset="16002">
-          <folding>
-            <element signature="e#207#878#2" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/flats/controllers/ManageController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="9" selection-start="504" selection-end="668" vertical-scroll-proportion="-12.666667" vertical-offset="0" max-vertical-offset="8946">
+        <state line="718" column="39" selection-start="38855" selection-end="38855" vertical-scroll-proportion="-6.076923" vertical-offset="12608" max-vertical-offset="16002">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/money/controllers/ManageController.php">
+    <entry file="file://$PROJECT_DIR$/library/Core/Model/Abstract.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="54" selection-start="307" selection-end="307" vertical-scroll-proportion="0.21862349" vertical-offset="0" max-vertical-offset="988">
+        <state line="212" column="35" selection-start="5479" selection-end="5479" vertical-scroll-proportion="1.7854251" vertical-offset="2052" max-vertical-offset="20052">
           <folding />
         </state>
       </provider>

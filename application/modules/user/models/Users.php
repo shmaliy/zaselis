@@ -30,7 +30,7 @@ class User_Model_Users extends Core_Model_Abstract
 //        $data['name'] = array($lang['alias'] => $data['name']);
 //        $data['firstname'] = array($lang['alias'] => $data['firstname']);
         $preformated = array(
-            'z_users_roles_id' => 2,
+            'z_users_roles_id' => 3,
             'created_ts'       => time(),
             'activate_code'    => md5($data['email'])
         );
@@ -43,6 +43,44 @@ class User_Model_Users extends Core_Model_Abstract
         } else {
             return false;
         }
+    }
+
+    public function updateUser($array, $id)
+    {
+        foreach ($array as $key=>&$row) {
+            if ($key == 'z_users_id' ||
+                $key == 'z_users_roles_id' ||
+                $key == 'email' ||
+                $key == 'password' ||
+                $key == 'status' ||
+                $key == 'balance' ||
+                $key == 'votes' ||
+                $key == 'activate_code') {
+
+                unset($row);
+            }
+
+            if (is_array($row)) {
+                $row = base64_encode(json_encode($row));
+            }
+        }
+
+        $this->_update($id, $this->_tZUsers['title'], $array);
+    }
+
+    public function registerFb($array)
+    {
+        $ins = $this->_insert($this->_tZUsers['title'], $array);
+
+        if ($ins > 0) {
+            $url = new Zend_View_Helper_Url();
+            $msg = '<a href="http://' . $_SERVER['HTTP_HOST'] . $url->url(array('code' => $array['activate_code']), 'user-activate') . '">Activation code</a>';
+            $this->mailto($array['email'], 'Please activate your email', $msg);
+            return $ins;
+        } else {
+            return false;
+        }
+
     }
     
     public function parseUserLiveCity($str = null) {

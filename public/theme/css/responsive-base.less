@@ -1,4 +1,4 @@
-
+//text
 
 .index-wrap {
     width: 100%;
@@ -7,12 +7,12 @@
     padding: 0 0 25px 0;
     border-bottom: 2px dashed #ccc;
 
-    .after-shadow {
+    & .after-shadow {
         position: absolute;
         width: 100%;
         height: 30px;
         background: url('/theme/img/newdesign/shadow-30.png') top center repeat-x;
-        z-index: 90000;
+        z-index: 100;
     }
 
     .index-flats-slider {
@@ -79,13 +79,13 @@
                 a {
                     color: white;
                     font-size: 16px;
-                    font-family: @openSans;
+                    font-family: 'open sans';
                     display: block;
                 }
 
                 span {
                     color: white;
-                    font-family: @openSans;
+                    font-family: 'open sans';
                     display: block;
                 }
             }
@@ -127,14 +127,14 @@
 
 
             .big {
-                font-family: @openSans;
+                font-family: 'open sans';
                 font-size: 50px;
                 color: #fff;
                 margin: 0 0 25px 0;
             }
 
             .small {
-                font-family: @openSans;
+                font-family: 'open sans';
                 font-size: 24px;
                 color: #fff;
             }
@@ -182,7 +182,45 @@
 }
 
 
+.auth-by-fb {
+  margin: 0 10px 10px 10px;
 
+  h4 {
+    font-family: "open sans";
+    font-size: 14px;
+  }
+
+  .or-intro{
+    font-family: "open sans";
+    font-size: 12px;
+    padding: 10px 0 0 0;
+    margin: 15px 0 0 0;
+    border-top: 1px solid #ccc;
+  }
+}
+
+
+#SimpleRegister, #SimpleAuth {
+  margin: 0 10px;
+  .control-group {
+    margin: 0 0 0 0;
+
+    input {
+      width: 94%;
+    }
+  }
+
+  .form-btn-submit {
+    display: block;
+    color: #fff;
+  }
+}
+
+.forgot-pwd {
+  display: block;
+  margin: 0 10px 15px 10px;
+  cursor: pointer;
+}
 
 
 

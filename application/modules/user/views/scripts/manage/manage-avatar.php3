@@ -6,7 +6,17 @@
         или перетащите файл в окно редактирования.
     </div>
     <?php if (!empty($this->avatar)): ?>
-        <div class="pic"><img src ="<?php echo str_replace('avatars/', 'avatars/thumbnail-180-256/', $this->avatar); ?>" /></div>
+        <div class="pic">
+            <?php if (strstr($this->avatar, 'http://')): ?>
+                <img src="<?php echo $this->avatar; ?>?type=large" width="170" class="img-polaroid">
+            <?php else : ?>
+                <img src="<?php echo str_replace('avatars/', 'avatars/thumbnail-180-256/', $this->avatar); ?>" class="img-polaroid">
+            <?php endif; ?>
+        </div>
+
+
+
+
 
         <span class="avatar-delete btn btn-danger fileinput-button">
             <i class="icon-minus icon-white"></i>
@@ -15,6 +25,12 @@
 
     <?php else : ?>
         Вы еще не загрузили свой аватар. Сделайте это прямо сейчас!
+    <?php endif; ?>
+    <?php if ($this->fb) : ?>
+        <span class="avatar-fb btn btn-info fileinput-button" id="SetFbAvatar">
+            <i class="icon-film icon-white"></i>
+            <span>Взять из facebook</span>
+        </span>
     <?php endif; ?>
 </div>
 
@@ -51,7 +67,20 @@ $('#avatarRemoveDialog').hide();
 /*global window, $ */
 
 
-
+$('#SetFbAvatar').click(function(e){
+    e.preventDefault();
+    megaOverlayShow();
+    $.ajax({
+        url: '/user/manage/set-fb-avatar',
+        data: {},
+        type: 'POST',
+        error: function(jqXHR, textStatus, errorThrown) {},
+        success: function(data, textStatus, jqXHR) {
+            updateWindow();
+        },
+        complete: function(jqXHR, textStatus) {}
+    });
+});
 
 
 

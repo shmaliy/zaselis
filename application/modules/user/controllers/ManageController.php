@@ -22,6 +22,7 @@ class User_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('social-networks', 'json');
         $ajaxContext->addActionContext('avatar', 'json');
         $ajaxContext->addActionContext('manage-avatar', 'json');
+        $ajaxContext->addActionContext('set-fb-avatar', 'json');
         $ajaxContext->addActionContext('phone-activate', 'json');
         $ajaxContext->initContext('json');
         
@@ -91,6 +92,7 @@ class User_ManageController extends Zend_Controller_Action
         $params = $request->getParams();
         
         $data = $this->_model->getActiveUser();
+        $this->view->fb = (!empty($data['social_networks']['fb'])) ? $data['social_networks']['fb'] : false;
         
         if ($request->isXmlHttpRequest() || $request->isPost()) { 
             $file = parse_url($params['file']);
@@ -100,6 +102,26 @@ class User_ManageController extends Zend_Controller_Action
             $this->view->avatar = $data['avatar'];
         }
     }
+
+    public function setFbAvatarAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        if ($request->isXmlHttpRequest() || $request->isPost()) {
+            $data = $this->_model->getActiveUser();
+
+            if(!empty($data['social_networks']['fb'])) {
+                $upd = array(
+                    'avatar' => 'http://graph.facebook.com/' . $data['social_networks']['fb'] . '/picture'
+                );
+
+                $this->_model->updateUser($upd, $data['z_users_id']);
+            }
+        }
+    }
     
     public function avatarAction()
     {
@@ -107,6 +129,7 @@ class User_ManageController extends Zend_Controller_Action
         $params = $request->getParams();
         
         $data = $this->_model->getActiveUser();
+        $this->view->fb = (!empty($data['social_networks']['fb'])) ? $data['social_networks']['fb'] : false;
         $this->view->avatar = $data['avatar'];
     }
     

@@ -209,6 +209,11 @@ class Core_Model_Abstract
         'treeFields' => array()
     );
 
+    protected $_tZUsersPaydata = array(
+        'title' => 'z_users_paydata',
+        'treeFields' => array()
+    );
+
     
     private $_cryptKey = 'dssdf123567676fdgf';
     
@@ -1080,6 +1085,10 @@ class Core_Model_Abstract
                     $cell = $this->_prepareToTree($cell);
                 }
             }
+        }
+
+        if (is_array($tbl)) {
+            $tbl = $tbl['title'];
         }
         
         return $this->_db->update($tbl, $array, $tbl . '_id = ' . $id);

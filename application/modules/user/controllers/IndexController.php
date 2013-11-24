@@ -36,17 +36,7 @@ class User_IndexController extends Zend_Controller_Action
 
         if (!empty($user['profile'])) {
             Zend_Registry::set('fb_profile', $user['profile']);
-
-
-//            echo '<pre>';
-//            var_export(Zend_Registry::get('fb_profile'));
-//            echo '</pre>';
-
             $db_user = $this->_model->getUserByEmail($user['profile']['email']);
-
-//            echo '<pre>';
-//            var_export($db_user);
-//            echo '</pre>';
 
             $ob_user = new stdClass();
             $ob_user->z_users_id = $db_user['z_users_id'];
@@ -59,14 +49,53 @@ class User_IndexController extends Zend_Controller_Action
 
                 $authStorage->write($ob_user);
                 $user = Zend_Auth::getInstance()->getIdentity();
-
-                echo '<pre>';
-                var_export($user);
-                echo '</pre>';
-
                 $this->_model->writeRegisterSession($user->z_users_id);
 
                 header('Location: https://' . $_SERVER['HTTP_HOST']);
+            } else {
+
+                $profile = Zend_Registry::get('fb_profile');
+
+                $birth = explode('/', $profile['birthday']);
+
+                $geo = $this->_model->googleGetAddress($profile['location']['name']);
+
+                $z_users_insert = array(
+                    'z_users_roles_id' => 3,
+                    'email' => $profile['email'],
+                    'name' => $profile['first_name'],
+                    'firstname' => $profile['last_name'],
+                    'birth' => mktime(0, 0, 0, $birth[0], $birth[1], $birth[2]),
+                    'gender' => ($profile['gender'] == 'male') ? 'Male' : 'Female',
+                    'avatar' => 'http://graph.facebook.com/' . $profile['username'] . '/picture',
+                    'z_countries_id' => $this->_model->saveCountry($geo),
+                    'z_states_id' => $this->_model->saveState($geo),
+                    'z_towns_id' => $this->_model->saveTown($geo),
+                    'created_ts' => time(),
+                    'edited_ts' => time(),
+                    'activate_code' => md5($profile['email']),
+                    'social_networks' => array('fb' => $profile['username'])
+                );
+
+                $ins = $this->_model->registerFb($z_users_insert);
+
+                if ($ins > 0) {
+                    $ob_user = new stdClass();
+                    $ob_user->z_users_id = $ins;
+                    $ob_user->email = $z_users_insert['email'];
+                    $ob_user->z_users_roles_id = $z_users_insert['z_users_roles_id'];
+
+                    $auth = Zend_Auth::getInstance();
+                    $authStorage = $auth->getStorage();
+
+                    $authStorage->write($ob_user);
+                    $user = Zend_Auth::getInstance()->getIdentity();
+
+                    $this->_model->writeRegisterSession($user->z_users_id);
+
+                    header('Location: https://' . $_SERVER['HTTP_HOST']);
+                }
+
             }
         }
 

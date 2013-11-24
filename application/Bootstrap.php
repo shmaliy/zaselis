@@ -10,8 +10,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $this->setModules(); // merge config with modules config           
             $this->setView();
             $this->setPlugins();
-            $this->setDbAdapter();	    	
-            $this->setRouter();	    	
+            $this->setDbAdapter();
+            $this->setRouter();
                       
             //$front->registerPlugin(new Ext_Controller_Plugin_ModuleBootstrap, 1);
             Zend_Registry::set('interface', $this->_options['interface']);
@@ -22,6 +22,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         
     	parent::run();
     }
+
+
 	
     public function setPlugins()
     {
@@ -32,7 +34,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	
     public function setConfig()
     {
-        Zend_Registry::set('options', $this->_options);    	
+        Zend_Registry::set('options', $this->_options);
+
     }
     
     /**
@@ -88,13 +91,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $currencie = Zend_Registry::get('currencie');
         $c_alias = strtolower($currencie['alias']);
 
-
-
-//	    include('classes/interface_lang/' . $lang . '.php');
-
-//	    Zend_Registry::set('cache', $cache['cache']);
-//	    
-        
         $route = new Zend_Controller_Router_Route(
             ':lang/:currencie',
             array(
@@ -106,6 +102,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             )
         );
         $router->addRoute('index', $route);
+
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/fbauth',
+            array(
+                'module' => 'user',
+                'controller' => 'index',
+                'action'     => 'fbauth',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('fbauth', $route);
         
         $route = new Zend_Controller_Router_Route(
             ':lang/:currencie/map',

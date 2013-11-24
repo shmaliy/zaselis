@@ -1,3 +1,24 @@
+<script>
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '<?php echo $this->client_id; ?>',
+            status     : true, // check login status
+            cookie     : true, // enable cookies to allow the server to access the session
+            xfbml      : true,  // parse XFBML
+            scope      : '<?php echo $this->scope; ?>'
+        });
+    };
+
+    // Load the SDK asynchronously
+    (function(d){
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document));
+</script>
+
 <div class="header">
     <div class="header-resize">
         <div class="row-fluid">
@@ -21,7 +42,7 @@
                     <i id="UserFoldOpen" class="icon icon-chevron-down"></i>
                 </span>
                 <span>
-                    <a href="<?php echo $this->url(array(), 'logout'); ?>" class="btn btn-danger">Выход<i class="icon icon-off icon-white"></i></a>
+                    <a onclick="FB.logout(function(response) {window.location = '<?php echo $this->url(array(), 'logout'); ?>';});" href="#" class="btn btn-danger">Выход<i class="icon icon-off icon-white"></i></a>
                 </span>
                 <?php endif; ?>
                 <a href="#" class="btn btn-info"><i class="icon-white icon-comment"></i>FAQ</a>

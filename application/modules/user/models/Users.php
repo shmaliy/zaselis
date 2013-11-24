@@ -5,6 +5,23 @@ class User_Model_Users extends Core_Model_Abstract
     public $thumbnails = array(
         'drop-thumbnail', 'thumbnail', 'thumbnail-180-256'
     );
+
+    public function getUserByEmail($email)
+    {
+        $select = $this->_db->select();
+
+        $select->from(
+            array('users' => $this->_tZUsers['title']),
+            array(
+                'z_users_id',
+                'email',
+                'z_users_roles_id'
+            )
+        );
+        $select->where('email = ?', $email);
+
+        return $this->_db->fetchRow($select);
+    }
     
     public function registerSimple($data)
     {

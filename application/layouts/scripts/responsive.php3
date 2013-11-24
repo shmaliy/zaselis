@@ -45,7 +45,7 @@
 
 </head>
 <body>
-    
+<div id="fb-root"></div>
 <?php //echo $this->Common()->header(); ?>
 <?php //echo $this->Common()->indexSlider(); ?>
     
@@ -67,9 +67,7 @@
             </div>            
         </div>
     </div>
-<?php if (Zend_Auth::getInstance()->hasIdentity() && $this->active == 1) : ?>
-        
-<?php else : ?>
+<?php if (!Zend_Auth::getInstance()->hasIdentity() && $this->active !== 1) : ?>
     <div id="login-dialog" style="display: none;" title="Авторизация"><?php echo $this->Common()->loginForm(); ?></div>
     <div id="register-dialog" style="display: none;" title="Регистрация"><?php echo $this->Common()->regForm(); ?> </div>
     <div id="restore-dialog" style="display: none;" title="Напоминание пароля"><?php echo $this->Common()->restorePasswordForm(); ?> </div>

@@ -13,8 +13,8 @@ class Core_View_Helper_Url extends Zend_View_Helper_Url
         } else {
             $prefix = 'http://' . $_SERVER['HTTP_HOST'];
         }
-        
+
         return $prefix . $router->assemble($urlOptions, $name, $reset, $encode);
-    }
+}
     
 }

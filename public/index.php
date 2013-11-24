@@ -62,10 +62,8 @@ set_include_path(implode(PATH_SEPARATOR, array(
     get_include_path(), 
     APPLICATION_PATH . '/../public/classes'
 )));
-//
-//
-//include('my_helpers.php');
-//include('renamer.php');
+
+require_once('facebook/facebook.php');
 
 
 /** Подключение Zend_Application */

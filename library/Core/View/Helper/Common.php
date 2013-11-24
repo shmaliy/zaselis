@@ -29,7 +29,18 @@ class Core_View_Helper_Common extends Core_View_Helper_Abstract
     {
         $lang = Zend_Registry::get('lang');
         $form = new Application_Form_SimpleAuth();
+
+        $fb = new User_Model_Fb();
+
+
+        $this->view->fblogin = $fb->getUser();
         $this->view->form = $form;
+        $this->view->client_id = $fb->clientId;
+        $this->view->scope = $fb->scope;
+        $this->view->current = Zend_Registry::get('currencie');
+        $this->view->lang = Zend_Registry::get('lang');
+
+
         return $this->view->render('login-form.php3');
     }
     

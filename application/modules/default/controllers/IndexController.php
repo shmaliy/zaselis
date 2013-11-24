@@ -62,6 +62,8 @@ class IndexController extends Zend_Controller_Action
 
         $this->view->user = $user;
 
+        $fb = new User_Model_Fb();
+        $this->view->client_id = $fb->clientId;
 
 //        echo '<pre>';
 //        var_export($user);

@@ -38,9 +38,8 @@
             </div>
         </div>
     </div>
-    <?php if (Zend_Auth::getInstance()->hasIdentity() && $this->active == 1) : ?>
+    <?php if (!Zend_Auth::getInstance()->hasIdentity() && $this->active !== 1) : ?>
         
-    <?php else : ?>
         <div id="login-dialog" style="display: none;" title="Авторизация"><?php echo $this->Common()->loginForm(); ?></div>
         <div id="register-dialog" style="display: none;" title="Регистрация"><?php echo $this->Common()->regForm(); ?> </div>
         <div id="restore-dialog" style="display: none;" title="Напоминание пароля"><?php echo $this->Common()->restorePasswordForm(); ?> </div>

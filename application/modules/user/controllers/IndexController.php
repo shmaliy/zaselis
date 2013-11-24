@@ -3,7 +3,7 @@
 class User_IndexController extends Zend_Controller_Action
 {
 
-    private $_model;
+    private $_model, $_fb_model;
     
     public function init()
     {
@@ -14,12 +14,68 @@ class User_IndexController extends Zend_Controller_Action
         $ajaxContext->addActionContext('ajax-route', 'json');
         $ajaxContext->initContext('json');
         $this->_model = new User_Model_Users();
+        $this->fb = new User_Model_Fb();
     }
     
     public function indexAction()
     {
 
-    } 
+    }
+
+    public function fbauthAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+
+        $user = $this->fb->getUser();
+
+
+
+        if (!empty($user['profile'])) {
+            Zend_Registry::set('fb_profile', $user['profile']);
+
+
+//            echo '<pre>';
+//            var_export(Zend_Registry::get('fb_profile'));
+//            echo '</pre>';
+
+            $db_user = $this->_model->getUserByEmail($user['profile']['email']);
+
+//            echo '<pre>';
+//            var_export($db_user);
+//            echo '</pre>';
+
+            $ob_user = new stdClass();
+            $ob_user->z_users_id = $db_user['z_users_id'];
+            $ob_user->email = $db_user['email'];
+            $ob_user->z_users_roles_id = $db_user['z_users_roles_id'];
+
+            if ($db_user) {
+                $auth = Zend_Auth::getInstance();
+                $authStorage = $auth->getStorage();
+
+                $authStorage->write($ob_user);
+                $user = Zend_Auth::getInstance()->getIdentity();
+
+                echo '<pre>';
+                var_export($user);
+                echo '</pre>';
+
+                $this->_model->writeRegisterSession($user->z_users_id);
+
+                header('Location: https://' . $_SERVER['HTTP_HOST']);
+            }
+        }
+
+
+
+
+
+
+    }
     
     public function simpleRegisterAction()
     {
@@ -76,7 +132,7 @@ class User_IndexController extends Zend_Controller_Action
 				->setCredentialColumn('password');
                 
                 $username = $this->getRequest()->getPost('email');
-		$password = $this->_model->preparePasswordToCompare($this->getRequest()->getPost('password'));
+		        $password = $this->_model->preparePasswordToCompare($this->getRequest()->getPost('password'));
                 
                 
                 
@@ -126,17 +182,21 @@ class User_IndexController extends Zend_Controller_Action
     {
         $this->_model->closeActiveSession();
         Zend_Auth::getInstance()->clearIdentity();
-	header('Location: ' . $this->view->url(array(), 'index'));
+
+        foreach ($_COOKIE as $name=>$value) {
+            setcookie($name, '', -1);
+        }
+
+	    header('Location: ' . $this->view->url(array(), 'index'));
     }
     
     public function ajaxRouteAction()
     {
     	$request = $this->getRequest();
     	$params = $request->getParams();
-        
-        if ($request->isXmlHttpRequest() || $request->isPost()) {
-            $this->view->route = $this->view->url($params['r_params'], $params['r_name']);
-        }
+
+        $this->view->route = $this->view->url($params['r_params'], $params['r_name']);
+
     }
     
     public function restorePasswordAction()

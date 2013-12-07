@@ -8,7 +8,15 @@
     <?php 
     $this->headLink()
 //           ->appendStylesheet('/theme/css/style.css')
-               ->headLink(array('rel' => 'favicon', 'href' => '/favicon.png'), 'PREPEND'); 
+               ->headLink(array('rel' => 'favicon', 'href' => '/favicon.png'), 'PREPEND')
+                ->appendStylesheet('/theme/css/style.css')
+                ->appendStylesheet('https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic-ext,latin-ext,cyrillic')
+                ->appendStylesheet('https://fonts.googleapis.com/css?family=Open+Sans&subset=latin,cyrillic-ext,cyrillic')
+                ->appendStylesheet('https://fonts.googleapis.com/css?family=Roboto:400,300&subset=latin,cyrillic-ext,latin-ext,cyrillic')
+                ->appendStylesheet('/js/jquery/jquery-ui-1.10.3.custom/css/flick/jquery-ui-1.10.3.custom.min.css')
+                ->appendStylesheet('/theme/css/bootstrap.css')
+                ->appendStylesheet('/theme/css/header.css')
+                ->appendStylesheet('/theme/css/map.css');
 
     $this->headMeta()->appendName('keywords', '')
          ->appendName('description', '')
@@ -32,24 +40,22 @@
         var globalCurr = '<?php echo $c_alias; ?>';
     </script>
     <?php
-        $this->headScript()->appendFile('/js/jquery-1.8.1.min.js');
+        $this->headScript()->appendFile('//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places');
+        $this->headScript()->appendFile('/js/jquery-1.10.2.min.js');
+        $this->headScript()->appendFile('/js/jquery/jquery.cookie.js');
         $this->headScript()->appendFile('/js/bootstrap.min.js');
-        $this->headScript()->appendFile('/js/jquery/jquery-ui-1.9.0.custom/js/jquery-ui-1.9.0.custom.min.js');
+        $this->headScript()->appendFile('/js/jquery/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js');
+        $this->headScript()->appendFile('/js/resp-scripts.js');
         echo $this->headScript();
     ?>
 
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <style>
-      html, body, #map-canvas {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-      }
-    </style>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+
 </head>
 <body>
+<?php echo $this->action('header', 'index', 'default'); ?>
+<div class="bottom-shadow"></div>
     <?php  echo $this->layout()->content;?>
 </body>
 </html>

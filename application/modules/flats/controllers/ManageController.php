@@ -42,7 +42,7 @@ class Flats_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('remove-bed', 'json');
         $ajaxContext->addActionContext('save-flats-params-greed', 'json');
         $ajaxContext->addActionContext('save-flats-beds-greed', 'json');
-        $ajaxContext->addActionContext('edit-prices', 'html');
+        $ajaxContext->addActionContext('edit-prices', 'json');
         $ajaxContext->addActionContext('countries-manage', 'json');
         $ajaxContext->addActionContext('towns-manage', 'json');
         $ajaxContext->initContext('json');
@@ -422,49 +422,31 @@ class Flats_ManageController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
         $params = $request->getParams();
-        
-        
-        
-        $month = $request->getParam('month', date('m'));
-        $year = $request->getParam('year', date('Y'));
-        
-        $firstDay = mktime(0, 0, 0, $month, 1, $year);
-        $dayInfo = getdate($firstDay);
-        $firstDayPosition = $dayInfo['wday'];
-        if ($firstDayPosition == 0) {
-            $firstDayPosition = 7;
+
+        $main_price_form = new Flats_Form_MainPrice();
+
+
+
+        if ($request->isXmlHttpRequest() || $request->isPost()) {
+            if ($main_price_form->isValid($params)) {
+                $this->_model_flats->setFlatMainPrice($main_price_form->getValues());
+            } else {
+                $this->view->formErrors        = $main_price_form->getErrors();
+                $this->view->formErrorMessages = $main_price_form->getErrorMessages();
+            }
+        } else {
+
+            $main_exist = $this->_model_flats->getFlatMainPrice($params['id']);
+
+            if ($main_exist) {
+                $main_price_form->getElement('main_1')->setValue($main_exist['price']);
+                $main_price_form->getElement('main_2')->setValue($main_exist['cleaning']);
+            }
+
+            $main_price_form->getElement('z_flats_id')->setValue($params['id']);
+            $this->view->mpf = $main_price_form;
         }
-        
-        $days = date('t', strtotime($year . "-" . $month)); 
-        
-        $dkount = 1;
-        $monthInfo = array();
-        for ($dkount = 1; $dkount <= $days; $dkount++) {
-            $monthInfo[] = array (
-                'position' => $firstDayPosition,
-                'date' => $dkount
-            );
-           
-                $firstDayPosition++;
-           
-        }
-        
-        $this->view->calendar = $monthInfo;
-        
-//        echo '<pre>';
-//        var_export($monthInfo);
-//        var_export($month);
-//        var_export($year);
-//        var_export(getdate($firstDay));
-//        var_export($days);
-//        echo '</pre>';
-//        echo '<pre>';
-//        var_export($params);
-//        echo '</pre>';
-        
-        $this->view->id = $params['id'];
-            
-        
+
     }
     
     public function saveFlatsBedsGreedAction()

@@ -24,6 +24,7 @@ class User_ManageController extends Zend_Controller_Action
         $ajaxContext->addActionContext('manage-avatar', 'json');
         $ajaxContext->addActionContext('set-fb-avatar', 'json');
         $ajaxContext->addActionContext('phone-activate', 'json');
+        $ajaxContext->addActionContext('paydata', 'html');
         $ajaxContext->initContext('json');
         
     }
@@ -261,6 +262,20 @@ class User_ManageController extends Zend_Controller_Action
             $this->view->form = $form;
         }
         
+    }
+
+    public function paydataAction()
+    {
+        $request = $this->getRequest();
+        $params = $request->getParams();
+        $form = new User_Form_CreditCard();
+
+        if ($request->isXmlHttpRequest() || $request->isPost()) {
+            $this->_helper->layout->disableLayout();
+//            $this->_helper->viewRenderer->setNoRender(true);
+        } else {
+            $this->view->form = $form;
+        }
     }
     
     public function flatsAction()

@@ -1,12 +1,21 @@
-
-<div id="map-canvas"></div>
+<div class="world-container clearfix">
+    <div id="world-list"></div>
+    <div id="map-canvas"></div>
+</div>
 
 <script>
     $(document).ready( function(){
+
+        var htmlheight = $('html').height();
+        var hrheight = $('.world-link').height();
+
+        $('#map-canvas').css({height: htmlheight - hrheight + 'px'});
+        $('#world-list').css({height: htmlheight - hrheight + 'px'});
+
         var map;
         function initialize() {
             var mapOptions = {
-                zoom: 3,
+                zoom: 13,
                 center: new google.maps.LatLng(<?php echo Zend_Registry::get('lat'); ?>, <?php echo Zend_Registry::get('lng'); ?>),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
@@ -17,11 +26,12 @@
             <?php foreach ($this->list as $item) : ?>
                 var myLatlng_<?php echo $item['z_flats_id']; ?> = new google.maps.LatLng(<?php echo $item['latitude']; ?>, <?php echo $item['longitude']; ?>);
                 <?php 
-                    $text = nl2br($item['main_description']);
-                    $text = str_replace('\n\r', "", $text);
-                    $text = str_replace('\r', "", $text);
-                    $text = str_replace("\r\n",'',$text);
-                    $text = str_replace("\n",'',$text);
+//                    $text = nl2br($item['main_description']);
+//                    $text = str_replace('\n\r', "", $text);
+//                    $text = str_replace('\r', "", $text);
+//                    $text = str_replace("\r\n",'',$text);
+//                    $text = str_replace("\n",'',$text);
+                    $text = str_replace(PHP_EOL,'',$text);
                
                     $fulltext = '<strong>' . $item['district_description'] . '</strong><br /><br />' . $text;
                 ?>

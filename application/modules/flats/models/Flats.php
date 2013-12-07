@@ -534,4 +534,38 @@ class Flats_Model_Flats extends Core_Model_Abstract
         
         $this->_update($flatId, $this->_tZFlats['title'], $upd);
     }
+
+    public function getFlatMainPrice($id)
+    {
+        $select = $this->_db->select();
+        $select->from($this->_tZFlatsMainPrices['title']);
+        $select->where('z_flats_id = ?', $id);
+        $select->where('end = ?', '');
+        $select->order('z_flats_id desc');
+
+        return $this->_db->fetchRow($select);
+    }
+
+
+    public function setFlatMainPrice($data)
+    {
+        if ($this->getFlatMainPrice($data['z_flats_id'])) {
+            $price = $this->getFlatMainPrice($data['z_flats_id']);
+
+            $upd['end'] = time() - 1;
+            $this->_update($price['z_flats_main_prices_id'], $this->_tZFlatsMainPrices['title'], $upd);
+
+        }
+
+        $ins = array(
+            'z_flats_id' => $data['z_flats_id'],
+            'price' => $data['main_1'],
+            'cleaning' => $data['main_2'],
+            'start' => time()
+        );
+
+        $this->_insert($this->_tZFlatsMainPrices['title'], $ins);
+
+    }
+
 }

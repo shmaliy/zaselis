@@ -63,8 +63,8 @@ $menu = array(
         ),
         array(
             'title' => 'Методы выплаты',
-            'url'   => '#',
-            'active' => checkActive('#')
+            'url'   => $this->url(array(), 'paydata'),
+            'active' => checkActive($this->url(array(), 'paydata'))
         ),
         array(
             'title' => 'История платежей',

@@ -12,64 +12,22 @@
 
 <div class="prices-container">
     <h4>Цены</h4>
-    <div class="main-price form-inline">
-        <label class="main-price-label" for="main-price">Основная цена</label>
-        
-        <span class="value input-append">
-            <input type="text" name="main-price" value="" class="span-2" />
-            <span class="add-on">$</span>
-        </span>
-        
-        <a class="btn btn-success" id="save-main-price">
-            <i class="icon-star icon-white"></i>
-            <span>Сохранить цену</span>
-        </a>
-        
-    </div>
-    <div class="clean-price form-inline">
-        <label class="clean-price-label" for="clean-price">Стоимость уборки</label>
-        <span class="value input-append">
-            <input type="text" name="clean-price" value="" class="span-2" />
-            <span class="add-on">$</span>
-        </span>
-            
-        <a class="btn btn-success" id="save-clean-price">
-            <i class="icon-star icon-white"></i>
-            <span>Сохранить цену</span>
-        </a>
-        
-    </div>
-    <div class="morning-price form-inline">
-        <label class="morning-price-label" for="morning-price">Утреннее заселение</label>
-        <span class="value input-append">
-            <input type="text" name="morning-price" value="" class="span-2" />
-            <span class="add-on">$</span>
-        </span>
-            
-        <a class="btn btn-success" id="save-morning-price">
-            <i class="icon-star icon-white"></i>
-            <span>Сохранить цену</span>
-        </a>
-        
-    </div>
-    
-    <div class="evening-price form-inline">
-        <label class="evening-price-label" for="evening-price">Вечернее заселение</label>
-        <span class="value input-append">
-            <input type="text" name="evening-price" value="" class="span-2" />
-            <span class="add-on">$</span>
-        </span>
-            
-        <a class="btn btn-success" id="save-evening-price">
-            <i class="icon-star icon-white"></i>
-            <span>Сохранить цену</span>
-        </a>
-        
-    </div>
+    <?php echo $this->mpf; ?>
 </div>
 
 
 <script>
+
+
+$('#MainPrice').submit(function(){
+    processUserForm(
+        'save-main-price',
+        {'lang': globalLang, 'currencie': globalCurr},
+        '#MainPrice',
+        [['updateWindow']]
+    );
+    return false;
+});
 
 
 

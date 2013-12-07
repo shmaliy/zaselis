@@ -14,7 +14,7 @@ $inner = array(
     ),
     array(
         'title' => 'Методы выплаты',
-        'url'   => '#',
+        'url'   => $this->url(array(), 'paydata'),
     ),
     array(
         'title' => 'История платежей',

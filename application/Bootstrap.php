@@ -246,6 +246,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             )
         );
         $router->addRoute('user-contacts', $route);
+
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/profile/paydata',
+            array(
+                'module' => 'user',
+                'controller' => 'manage',
+                'action'     => 'paydata',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('paydata', $route);
         
         $route = new Zend_Controller_Router_Route(
             ':lang/:currencie/user/profile/social-networks',
@@ -647,6 +659,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             )
         );
         $router->addRoute('countries-manage', $route);
+
+        $route = new Zend_Controller_Router_Route(
+            ':lang/:currencie/user/flats/save-main-price',
+            array(
+                'module' => 'flats',
+                'controller' => 'manage',
+                'action'     => 'edit-prices',
+                'lang' => $l_alias,
+                'currencie' => $c_alias
+            )
+        );
+        $router->addRoute('save-main-price', $route);
 
 
         

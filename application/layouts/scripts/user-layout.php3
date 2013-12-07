@@ -45,6 +45,7 @@
     <?php
         $this->headScript()->appendFile('https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places');
         $this->headScript()->appendFile('/js/jquery-1.10.2.min.js');
+        $this->headScript()->appendFile('/js/jquery/jquery.cookie.js');
         $this->headScript()->appendFile('/js/bootstrap.min.js');
         $this->headScript()->appendFile('/js/forms-ajax.js');
         $this->headScript()->appendFile('/js/jquery/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js');
